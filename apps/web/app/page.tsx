@@ -1,12 +1,19 @@
+import { Button } from "@repo/ui/components/ui/button.tsx";
 import Link from "next/link";
+import Image from "next/image";
+import icon from "./assets/icon/choose.png";
 
 export default function Page(): JSX.Element {
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen p-24">
-      <div className="flex flex-col gap-4">
-        <Link href="/story">storybuilder</Link>
-        <Link href="/game">game</Link>
-        <Link href="/google">google</Link>
+    <main className="flex-1 flex flex-col items-center justify-center">
+      <div className="flex flex-col gap-4 justify-center items-center">
+        <Image src={icon} alt="임시 아이콘" width={100} />
+        <Link href="/story/create">
+          <Button>Game Builder</Button>
+        </Link>
+        <Link href="/game">
+          <Button>Game Route</Button>
+        </Link>
       </div>
     </main>
   );

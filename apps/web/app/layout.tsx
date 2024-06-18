@@ -1,8 +1,8 @@
-import "@repo/tailwind-config/globals.css";
-import MobileWrapper from "@repo/ui/components/mobile-wrapper.tsx";
+import "./styles.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import MobileWrapper from "@repo/ui/components/mobile-wrapper.tsx";
 
 const inter = Inter({ subsets: ["latin"] });
 

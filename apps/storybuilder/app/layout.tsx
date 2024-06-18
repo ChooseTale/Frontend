@@ -1,7 +1,8 @@
-import "@repo/tailwind-config/globals.css";
+import "./styles.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import MobileWrapper from "@repo/ui/components/mobile-wrapper.tsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <MobileWrapper>{children}</MobileWrapper>
+      </body>
     </html>
   );
 }
