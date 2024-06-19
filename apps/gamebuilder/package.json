@@ -1,6 +1,6 @@
 {
-  "name": "storybuilder",
-  "version": "0.0.2",
+  "name": "gamebuilder",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
