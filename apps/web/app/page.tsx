@@ -8,11 +8,11 @@ export default function Page(): JSX.Element {
     <main className="flex-1 flex flex-col items-center justify-center">
       <div className="flex flex-col gap-4 justify-center items-center">
         <Image src={icon} alt="임시 아이콘" width={100} />
-        <Link href="/story/create">
+        <Link href="/gamebuilder/create">
           <Button>Game Builder</Button>
         </Link>
-        <Link href="/game">
-          <Button>Game Route</Button>
+        <Link href="/tale">
+          <Button>Tale</Button>
         </Link>
       </div>
     </main>
