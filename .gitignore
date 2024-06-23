@@ -4,6 +4,7 @@
 node_modules
 .pnp
 .pnp.js
+.npmrc
 
 # testing
 coverage
@@ -34,3 +35,6 @@ yarn-error.log*
 
 # ui
 dist/
+
+#npm
+.npmrc

@@ -194,6 +194,8 @@ importers:
 
   packages/config-typescript: {}
 
+  packages/types: {}
+
   packages/ui:
     dependencies:
       '@radix-ui/react-icons':
