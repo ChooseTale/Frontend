@@ -1,14 +1,17 @@
 {
   "name": "@repo/types",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.2",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   },
-  "author": "",
-  "license": "ISC",
+  "exports": {
+    "./*": "./src/*"
+  },
   "dependencies": {
-    "@choosetale/nestia-type": "npm:@ChooseTale/nestia-type@^1.0.1"
+    "@choosetale/nestia-type": "1.0.1",
+    "nestia": "^5.3.0"
   }
 }

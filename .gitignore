@@ -36,5 +36,5 @@ yarn-error.log*
 # ui
 dist/
 
-#npm
-.npmrc
+# ignored files
+repo-template/

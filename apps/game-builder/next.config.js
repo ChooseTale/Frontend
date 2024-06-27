@@ -4,27 +4,17 @@ const nextConfig = {
   transpilePackages: ["@repo/ui"],
   assetPrefix:
     process.env.NODE_ENV === "production"
-      ? "https://choosetale-tale.vercel.app"
+      ? "https://choosetale-gamebuilder.vercel.app"
       : "",
   async rewrites() {
     const devRewrites = [
       {
-        source: "/tale",
+        source: "/game",
         destination: "/",
       },
       {
-        source: "/tale/:path*",
+        source: "/game/:path*",
         destination: "/:path*",
-      },
-    ];
-    const prodRewrites = [
-      {
-        source: "/gamebuilder",
-        destination: "https://choosetale-gamebuilder.vercel.app",
-      },
-      {
-        source: "/gamebuilder/:path*",
-        destination: "https://choosetale-gamebuilder.vercel.app/:path*",
       },
     ];
 
