@@ -1,13 +1,13 @@
 "use client";
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@repo/ui/components/ui/input.tsx";
 import { Label } from "@repo/ui/components/ui/label.tsx";
 import { Textarea } from "@repo/ui/components/ui/textarea.tsx";
-import { FormEvent, useState } from "react";
-import { createGame } from "@/app/action";
-import NextButton from "./next-button";
-import { useRouter } from "next/navigation";
+import { createGame } from "@app/action";
+import NextButton from "../button/SubmitButton";
 
-export default function NewGame() {
+export default function NewGameForm() {
   const [formData, setFormData] = useState({ titles: "", pageOneContent: "" });
   const router = useRouter();
 
@@ -31,7 +31,8 @@ export default function NewGame() {
       <div className="flex flex-col gap-2 flex-1">
         <Label htmlFor="pageOneContent">이야기의 시작</Label>
         <Textarea
-          placeholder="pageOneContent"
+          name="pageOneContent"
+          placeholder="첫 페이지의 내용"
           rows={10}
           onChange={(e) =>
             setFormData({ ...formData, pageOneContent: e.target.value })
@@ -40,7 +41,7 @@ export default function NewGame() {
       </div>
 
       <div className="w-full flex">
-        <NextButton />
+        <NextButton text="다음으로" />
       </div>
     </form>
   );

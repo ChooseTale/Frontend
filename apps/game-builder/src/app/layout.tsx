@@ -3,7 +3,8 @@ import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import MobileWrapper from "@repo/ui/components/mobile-wrapper.tsx";
-import TopNav from "@/components/top-nav";
+import TopNav from "@components/common/partial/TopNav";
+import CSSThemeProvider from "@components/theme/CSSThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={inter.className}>
         <MobileWrapper>
-          <TopNav />
-          <div className="flex-1 flex flex-col">{children}</div>
+          <CSSThemeProvider>
+            <TopNav />
+            <div className="flex-1 flex flex-col">{children}</div>
+          </CSSThemeProvider>
         </MobileWrapper>
       </body>
     </html>

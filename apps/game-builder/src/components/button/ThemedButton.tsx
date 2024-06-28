@@ -1,0 +1,27 @@
+import { useThemeStore } from "@/store/useTheme";
+import { Button, ButtonProps } from "@repo/ui/components/ui/button.tsx";
+import { ReactNode } from "react";
+
+interface ThemedButtonProps extends ButtonProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export default function ThemedButton({
+  children,
+  className,
+  ...props
+}: ThemedButtonProps) {
+  const { theme } = useThemeStore((state) => state);
+  const themeClass = theme === "old-game" ? "nes-btn" : "";
+
+  if (theme === "windows-98") {
+    return <button className={`py-2 ${className}`}>{children}</button>;
+  }
+
+  return (
+    <Button className={`${className} ${themeClass} !leading-4`} {...props}>
+      {children}
+    </Button>
+  );
+}
