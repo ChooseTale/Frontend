@@ -1,7 +1,7 @@
 "use client";
 import { HomeIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { Link } from "@radix-ui/react-navigation-menu";
-import { NavigationMenu, NavigationMenuItem } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuItem } from "./ui/NavigationMenu";
 
 export default function NavBar() {
   return (

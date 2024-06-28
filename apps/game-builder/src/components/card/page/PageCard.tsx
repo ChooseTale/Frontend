@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CardStackPlusIcon, Pencil2Icon } from "@radix-ui/react-icons";
+import { CardStackPlusIcon } from "@radix-ui/react-icons";
 import {
   CardContent,
   CardDescription,

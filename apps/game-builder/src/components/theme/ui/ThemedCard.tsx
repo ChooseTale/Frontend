@@ -1,9 +1,8 @@
 "use client";
-import { useThemeStore } from "@/store/useTheme";
-import { Card } from "@repo/ui/components/ui/Card.tsx";
 import { ReactNode } from "react";
-import ThemedIconButton from "./ThemedIconButton";
-import { Pencil2Icon } from "@radix-ui/react-icons";
+import { Card } from "@repo/ui/components/ui/Card.tsx";
+import { useThemeStore } from "@/store/useTheme";
+import GameEditDraw from "@/components/game/builder/GameEditDraw";
 
 interface ThemedCardProps {
   children: ReactNode;
@@ -32,9 +31,7 @@ export default function ThemedCard({
   return (
     <Card className={`flex ${themeClass} ${className}`}>
       {children}
-      <ThemedIconButton className="!absolute top-1 right-1">
-        <Pencil2Icon className="h-4 w-4" />
-      </ThemedIconButton>
+      <GameEditDraw />
     </Card>
   );
 }

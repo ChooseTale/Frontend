@@ -1,5 +1,5 @@
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
-import PageCard from "../../card/page/PageCard";
+import PageCard from "@components/card/page/PageCard";
 import StoryLine from "./StoryLine";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
 
