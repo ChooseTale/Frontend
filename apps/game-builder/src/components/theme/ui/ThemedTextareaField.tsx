@@ -1,5 +1,5 @@
 import { useThemeStore } from "@/store/useTheme";
-import { Textarea, TextareaProps } from "@repo/ui/components/ui/textarea.tsx";
+import { Textarea, TextareaProps } from "@repo/ui/components/ui/Textarea.tsx";
 import ThemedLabel from "./ThemedLabel";
 
 interface ThemedTextareaFieldProps extends TextareaProps {

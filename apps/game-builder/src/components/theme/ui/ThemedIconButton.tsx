@@ -11,9 +11,9 @@ export default function ThemedIconButton({
   ...props
 }: ComponentProps) {
   return (
-    <div className={`relative w-10 h-10 ${className}`}>
-      <button className="w-full h-full min-w-0" {...props} />
-      {children}
+    <div className={`relative ${className}`}>
+      <button className="absolute w-full h-full min-w-0" {...props} />
+      <div className="relative p-1 pointer-events-none">{children}</div>
     </div>
   );
 }

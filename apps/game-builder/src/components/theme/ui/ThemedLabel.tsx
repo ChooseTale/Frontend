@@ -1,5 +1,5 @@
 import { useThemeStore } from "@/store/useTheme";
-import { Label } from "@repo/ui/components/ui/label.tsx";
+import { Label } from "@repo/ui/components/ui/Label.tsx";
 
 interface ThemedInputFieldProps {
   labelText: string;

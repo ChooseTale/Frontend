@@ -1,5 +1,5 @@
 import { useThemeStore } from "@/store/useTheme";
-import { Button, ButtonProps } from "@repo/ui/components/ui/button.tsx";
+import { Button, ButtonProps } from "@repo/ui/components/ui/Button.tsx";
 import { ReactNode } from "react";
 
 interface ThemedButtonProps extends ButtonProps {

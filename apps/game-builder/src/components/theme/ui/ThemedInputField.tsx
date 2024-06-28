@@ -1,5 +1,5 @@
 import { useThemeStore } from "@/store/useTheme";
-import { Input, InputProps } from "@repo/ui/components/ui/input.tsx";
+import { Input, InputProps } from "@repo/ui/components/ui/Input.tsx";
 import ThemedLabel from "./ThemedLabel";
 
 interface ThemedInputFieldProps extends InputProps {

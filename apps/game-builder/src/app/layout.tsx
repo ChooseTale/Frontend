@@ -2,7 +2,7 @@ import "./styles.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import MobileWrapper from "@repo/ui/components/mobile-wrapper.tsx";
+import MobileWrapper from "@repo/ui/components/MobileWrapper.tsx";
 import TopNav from "@components/common/partial/TopNav";
 import CSSThemeProvider from "@components/theme/CSSThemeProvider";
 

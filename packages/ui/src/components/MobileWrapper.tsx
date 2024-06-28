@@ -1,6 +1,6 @@
 "use client";
 import { PropsWithChildren } from "react";
-import NavBar from "./nav-bar";
+import NavBar from "./NavBar";
 
 export default function MobileWrapper({ children }: PropsWithChildren) {
   return (
