@@ -16,7 +16,9 @@ export default function ThemedButton({
   const themeClass = theme === "old-game" ? "nes-btn" : "";
 
   if (theme === "windows-98") {
-    return <button className={`py-2 ${className}`}>{children}</button>;
+    return (
+      <button className={`py-2 px-4 text-lg ${className}`}>{children}</button>
+    );
   }
 
   return (

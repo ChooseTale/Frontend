@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import ThemedButton from "@/components/button/ThemedButton";
+import ThemedButton from "@/components/theme/ui/ThemedButton";
 
 export default function Page(): JSX.Element {
   return (

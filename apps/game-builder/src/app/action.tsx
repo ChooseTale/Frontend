@@ -5,6 +5,7 @@ type formFields = Record<string, string>;
 
 export const createGame = async (formData: formFields) => {
   const create = type.functional.game.create;
+  const gameaa = type.default.functional.game;
   const game = {
     title: formData.title,
     pageOneContent: formData.pageOneContent,
