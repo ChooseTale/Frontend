@@ -17,12 +17,18 @@ export default function ThemedButton({
 
   if (theme === "windows-98") {
     return (
-      <button className={`py-2 px-4 text-lg ${className}`}>{children}</button>
+      <button type="button" className={`py-2 px-4 text-lg ${className}`}>
+        {children}
+      </button>
     );
   }
 
   return (
-    <Button className={`${className} ${themeClass} !leading-4`} {...props}>
+    <Button
+      type="button"
+      className={`${className} ${themeClass} !leading-4`}
+      {...props}
+    >
       {children}
     </Button>
   );

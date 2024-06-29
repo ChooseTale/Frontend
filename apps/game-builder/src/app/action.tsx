@@ -13,7 +13,6 @@ export const createGame = async (formData: formFields) => {
   console.log(game);
 
   try {
-    await new Promise((resolve) => setTimeout(() => resolve("game"), 2000));
     return await create({ host: "http://localhost:5001/" }, game);
   } catch (err) {
     if (err instanceof Error) {

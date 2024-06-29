@@ -10,6 +10,7 @@ import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import DotIndicator from "./DotIndicator";
 import robotIcon from "@asset/icon/robot-solid.svg";
+import GameEditDraw from "@/components/game/builder/GameEditDraw";
 
 interface PageCardProps {
   title: string;
@@ -42,6 +43,8 @@ export default function PageCard({ title, description }: PageCardProps) {
           />
         </ThemedIconButton>
       </CardFooter>
+
+      <GameEditDraw />
     </ThemedCard>
   );
 }

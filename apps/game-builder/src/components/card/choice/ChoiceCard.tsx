@@ -10,6 +10,7 @@ import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import DotIndicator from "./DotIndicator";
 import { useState } from "react";
+import GameEditDraw from "@/components/game/builder/GameEditDraw";
 
 interface PageCardProps {
   title: string;
@@ -39,6 +40,8 @@ export default function ChoiceCard({ title, description }: PageCardProps) {
           <Cross2Icon className="h-8 w-8" />
         </ThemedIconButton>
       </CardFooter>
+
+      <GameEditDraw />
     </ThemedCard>
   );
 }

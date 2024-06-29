@@ -4,11 +4,13 @@ import { Label } from "@repo/ui/components/ui/Label.tsx";
 interface ThemedInputFieldProps {
   labelText: string;
   htmlFor?: string;
+  className?: string;
 }
 
 export default function ThemedLabel({
   labelText,
   htmlFor,
+  className,
 }: ThemedInputFieldProps) {
   const { theme } = useThemeStore((state) => state);
   let themeClass;
@@ -24,7 +26,10 @@ export default function ThemedLabel({
   }
 
   return (
-    <Label htmlFor={htmlFor} className={`${themeClass} mb-0`}>
+    <Label
+      htmlFor={htmlFor}
+      className={`mb-0 ml-[1px] ${className} ${themeClass}`}
+    >
       {labelText}
     </Label>
   );

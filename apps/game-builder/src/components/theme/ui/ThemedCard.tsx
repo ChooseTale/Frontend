@@ -28,10 +28,5 @@ export default function ThemedCard({
     default:
   }
 
-  return (
-    <Card className={`flex ${themeClass} ${className}`}>
-      {children}
-      <GameEditDraw />
-    </Card>
-  );
+  return <Card className={`flex ${themeClass} ${className}`}>{children}</Card>;
 }

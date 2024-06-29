@@ -5,13 +5,8 @@ import { createGame } from "@app/action";
 import NextButton from "@components/button/SubmitButton";
 import GameCreateForm from "@/components/form/GameCreateForm";
 
-export interface PageType {
-  title: string;
-  description: string;
-}
-
 export default function CreateGame() {
-  const [formData, setFormData] = useState({ titles: "", pageOneContent: "" });
+  const [formData, setFormData] = useState({ title: "", pageOneContent: "" });
   const router = useRouter();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -23,7 +18,7 @@ export default function CreateGame() {
   return (
     <form
       onSubmit={onSubmit}
-      className="w-full h-full flex flex-col justify-center py-10 gap-6"
+      className="w-full h-full flex flex-col justify-center gap-6"
     >
       <GameCreateForm formData={formData} setFormData={setFormData} />
 

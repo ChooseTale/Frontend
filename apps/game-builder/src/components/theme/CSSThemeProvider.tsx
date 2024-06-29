@@ -10,7 +10,7 @@ export default function CSSThemeProvider({
   const { theme } = useThemeStore((state) => state);
   return (
     <div
-      className={`theme-${theme} h-full w-full flex flex-col  ${theme === "windows-98" ? "bg-[#c0c0c0] shadow-lg" : "bg-white"}`}
+      className={`theme-${theme} h-full w-full ${theme === "windows-98" ? "bg-[#c0c0c0] shadow-lg" : "bg-white"}`}
     >
       {children}
     </div>

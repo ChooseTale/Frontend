@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { isString } from "@/utils/typeGuard";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 
@@ -7,14 +8,19 @@ interface GameFormProps<T> {
   setFormData: Dispatch<SetStateAction<T>>;
 }
 
-export default function GameEditForm<T extends Record<string, string>>({
+export default function GameEditForm<T extends Record<string, unknown>>({
   formData,
   setFormData,
 }: GameFormProps<T>) {
+  if (!isString(formData.title) || !isString(formData.description)) {
+    console.assert("GameEditForm requires a title and description");
+    return;
+  }
+
   return (
     <>
       <ThemedInputField
-        labelText="이야기"
+        labelText="페이지"
         name="title"
         placeholder="제목"
         value={formData.title}
@@ -24,7 +30,7 @@ export default function GameEditForm<T extends Record<string, string>>({
       <ThemedTextareaField
         labelText="내용"
         name="description"
-        placeholder="이야기 내용"
+        placeholder="페이지의 내용"
         rows={12}
         value={formData.description}
         onChange={(e) =>

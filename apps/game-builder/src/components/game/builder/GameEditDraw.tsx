@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useThemeStore } from "@/store/useTheme";
 
 export default function GameEditDraw() {
-  const [formData, setFormData] = useState({ titles: "", pageOneContent: "" });
+  const [formData, setFormData] = useState({ title: "", description: "" });
   const { theme } = useThemeStore((state) => state);
 
   return (
@@ -36,7 +36,7 @@ export default function GameEditDraw() {
           <GameEditForm formData={formData} setFormData={setFormData} />
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
-            <ThemedButton className="w-full" type="submit">
+            <ThemedButton className="w-full is-success" type="submit">
               저장하기
             </ThemedButton>
             <DrawerClose className="w-full px-0">
