@@ -20,6 +20,14 @@ const nextConfig = {
 
     return process.env.NODE_ENV === "production" ? prodRewrites : devRewrites;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
