@@ -12,15 +12,15 @@ import robotIcon from "@asset/icon/robot-solid.svg";
 import ThemedLabel from "../theme/ui/ThemedLabel";
 import ThemedCard from "../theme/ui/ThemedCard";
 
-interface GameFormProps<T> {
+interface GameFieldsProps<T> {
   formData: T;
   setFormData: Dispatch<SetStateAction<T>>;
 }
 
-export default function GameConfirmForm<T extends Record<string, unknown>>({
+export default function GameConfirmFields<T extends Record<string, unknown>>({
   formData,
   setFormData,
-}: GameFormProps<T>) {
+}: GameFieldsProps<T>) {
   if (
     !isString(formData.title) ||
     !isString(formData.description) ||
@@ -37,7 +37,7 @@ export default function GameConfirmForm<T extends Record<string, unknown>>({
         name="title"
         placeholder="게임 제목"
         value={formData.title}
-        onChange={(e) => setFormData({ ...formData, titles: e.target.value })}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
       />
 
       <div className="flex flex-col gap-2">

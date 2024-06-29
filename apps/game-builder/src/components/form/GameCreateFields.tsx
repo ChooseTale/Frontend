@@ -1,22 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
-import { isString } from "@/utils/typeGuard";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
+import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 
-interface GameFormProps<T> {
+interface GameFieldsProps<T> {
   formData: T;
   setFormData: Dispatch<SetStateAction<T>>;
 }
 
-export default function GameCreateForm<T extends Record<string, unknown>>({
+export default function GameCreateFields({
   formData,
   setFormData,
-}: GameFormProps<T>) {
-  if (!isString(formData.title) || !isString(formData.pageOneContent)) {
-    console.assert("GameCreateForm requires a title and pageOneContent");
-    return;
-  }
-
+}: GameFieldsProps<CreateGameReqDto>) {
   return (
     <>
       <ThemedInputField
@@ -24,7 +19,7 @@ export default function GameCreateForm<T extends Record<string, unknown>>({
         name="title"
         placeholder="게임의 이름"
         value={formData.title}
-        onChange={(e) => setFormData({ ...formData, titles: e.target.value })}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
       />
 
       <ThemedTextareaField

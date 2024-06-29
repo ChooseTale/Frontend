@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/components/ui/button.tsx";
+import { Button } from "@repo/ui/components/ui/Button.tsx";
 import Link from "next/link";
 import Image from "next/image";
 import icon from "./assets/icon/choose.png";

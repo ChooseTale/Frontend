@@ -3,15 +3,15 @@ import { isString } from "@/utils/typeGuard";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 
-interface GameFormProps<T> {
+interface GameFieldsProps<T> {
   formData: T;
   setFormData: Dispatch<SetStateAction<T>>;
 }
 
-export default function GameEditForm<T extends Record<string, unknown>>({
+export default function GameEditFields<T extends Record<string, unknown>>({
   formData,
   setFormData,
-}: GameFormProps<T>) {
+}: GameFieldsProps<T>) {
   if (!isString(formData.title) || !isString(formData.description)) {
     console.assert("GameEditForm requires a title and description");
     return;

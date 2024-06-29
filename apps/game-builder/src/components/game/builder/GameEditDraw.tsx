@@ -10,7 +10,7 @@ import {
 } from "@repo/ui/components/ui/Drawer.tsx";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
-import GameEditForm from "@/components/form/GameEditForm";
+import GameEditFields from "@/components/form/GameEditFields";
 import { useState } from "react";
 import { useThemeStore } from "@/store/useTheme";
 
@@ -33,7 +33,7 @@ export default function GameEditDraw() {
             </DrawerDescription>
           </DrawerHeader>
 
-          <GameEditForm formData={formData} setFormData={setFormData} />
+          <GameEditFields formData={formData} setFormData={setFormData} />
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
             <ThemedButton className="w-full is-success" type="submit">
