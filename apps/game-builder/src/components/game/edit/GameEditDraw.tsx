@@ -10,7 +10,7 @@ import {
 } from "@repo/ui/components/ui/Drawer.tsx";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
-import GameEditFields from "@/components/form/GameEditFields";
+import GameEditFields from "@/components/game/edit/form/GameEditFields";
 import { useState } from "react";
 import { useThemeStore } from "@/store/useTheme";
 

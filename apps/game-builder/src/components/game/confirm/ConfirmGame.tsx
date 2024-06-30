@@ -2,7 +2,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import NextButton from "@components/button/SubmitButton";
-import GameConfirmFields from "@/components/form/GameConfirmFields";
+import GameConfirmFields from "@/components/game/confirm/form/GameConfirmFields";
 
 export default function ConirmGame() {
   const [formData, setFormData] = useState({

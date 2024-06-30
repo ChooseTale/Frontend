@@ -10,7 +10,7 @@ import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import DotIndicator from "./DotIndicator";
 import { useState } from "react";
-import GameEditDraw from "@/components/game/builder/GameEditDraw";
+import GameEditDraw from "@/components/game/edit/GameEditDraw";
 
 interface PageCardProps {
   title: string;

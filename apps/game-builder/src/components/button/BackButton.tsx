@@ -7,8 +7,8 @@ const BackButton = () => {
   const router = useRouter();
 
   return (
-    <ThemedIconButton onClick={() => router.back()}>
-      <ArrowLeftIcon className="h-5 w-5 m-2" />
+    <ThemedIconButton className="my-1" onClick={() => router.back()}>
+      <ArrowLeftIcon className="h-5 w-5 m-1" />
     </ThemedIconButton>
   );
 };

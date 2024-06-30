@@ -1,9 +1,9 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createGame } from "@/actions/action";
+import { createGame } from "@/actions/createGame";
 import NextButton from "@components/button/SubmitButton";
-import GameCreateFields from "@/components/form/GameCreateFields";
+import GameCreateFields from "@/components/game/create/form/GameCreateFields";
 import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 
 export default function CreateGame() {
@@ -12,6 +12,7 @@ export default function CreateGame() {
     pageOneContent: "",
   });
   const router = useRouter();
+  // const [errorMessage, dispatch] = useFormState(createGame, {});
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

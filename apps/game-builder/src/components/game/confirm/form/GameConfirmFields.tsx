@@ -3,14 +3,14 @@ import { isBoolean, isString } from "@/utils/typeGuard";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
-import ThemedCarousel from "../theme/ui/ThemedCarousel";
-import ThemedSelectField from "../theme/ui/ThemedSelectField";
-import ThemedIconButton from "../theme/ui/ThemedIconButton";
+import ThemedCarousel from "../../../theme/ui/ThemedCarousel";
+import ThemedSelectField from "../../../theme/ui/ThemedSelectField";
+import ThemedIconButton from "../../../theme/ui/ThemedIconButton";
 import { ImageIcon, TrashIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import robotIcon from "@asset/icon/robot-solid.svg";
-import ThemedLabel from "../theme/ui/ThemedLabel";
-import ThemedCard from "../theme/ui/ThemedCard";
+import ThemedLabel from "../../../theme/ui/ThemedLabel";
+import ThemedCard from "../../../theme/ui/ThemedCard";
 
 interface GameFieldsProps<T> {
   formData: T;
