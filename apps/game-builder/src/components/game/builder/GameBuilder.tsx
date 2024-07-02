@@ -1,10 +1,10 @@
 "use client";
-import ChoiceCard from "@/components/card/choice/ChoiceCard";
-import PageCard from "@components/card/page/PageCard";
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import StoryLine from "./StoryLine";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
-import { FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import GameBuilderContent from "./GameBuilderContent";
 
 export default function GameBuilder() {
   const router = useRouter();
@@ -14,14 +14,48 @@ export default function GameBuilder() {
     router.push("/game/confirm");
   };
 
+  const [gameBuilderData, setGameBuilderData] = useState<Page[]>([
+    {
+      id: 0,
+      abridgement: "페이지 요약",
+      description: "페이지 내용",
+      createdAt: "datetime",
+      depth: 0,
+      choices: [
+        {
+          id: 0,
+          fromPageId: 0,
+          toPageId: 1,
+          createdAt: "datetime",
+        },
+        {
+          id: 1,
+          fromPageId: 0,
+          toPageId: 1,
+          createdAt: "datetime",
+        },
+      ],
+    },
+    {
+      id: 1,
+      abridgement: "페이지 요약",
+      description: "페이지 내용",
+      createdAt: "datetime",
+      depth: 0,
+      choices: [],
+    },
+  ]);
+
   return (
     <form onSubmit={onSubmit} className="relative flex h-full px-6 pt-4">
       <StoryLine />
       <GameSubmitButton />
 
       <div className="flex-1 flex flex-col gap-4">
-        <PageCard title="제목" description="글 내용" />
-        <ChoiceCard title="선택지" description="선택지 내용" />
+        <GameBuilderContent
+          gameBuilderData={gameBuilderData}
+          setGameBuilderData={setGameBuilderData}
+        />
       </div>
     </form>
   );

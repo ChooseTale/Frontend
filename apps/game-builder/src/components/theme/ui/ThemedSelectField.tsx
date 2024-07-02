@@ -61,7 +61,9 @@ export default function ThemedSelectField({
         </SelectTrigger>
         <SelectContent>
           {GENRES.map((genre) => (
-            <SelectItem value={genre}>{genre}</SelectItem>
+            <SelectItem key={genre} value={genre}>
+              {genre}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>

@@ -12,14 +12,17 @@ export default function CreateGame() {
     pageOneContent: "",
   });
   const router = useRouter();
-  // const [errorMessage, dispatch] = useFormState(createGame, {});
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    router.push("/game/builder?id=1");
+
+    return;
     const res = await createGame(formData);
-    if (res.success) {
-      router.push("/game/builder?id=" + res.game.page.id ?? "");
-    }
+    // if (res.success) {
+    //   router.push("/game/builder?id=" + res.game.page.id ?? "");
+    // }
   };
 
   return (

@@ -19,6 +19,14 @@ interface PageCardProps {
 
 export default function ChoiceCard({ title, description }: PageCardProps) {
   const [isChoosen, setIsChoosen] = useState(false);
+  const fixChoice = () => {
+    setIsChoosen(!isChoosen);
+    console.log("선택 결정");
+  };
+  const removeChoice = () => {
+    console.log("선택 삭제");
+  };
+
   return (
     <ThemedCard className="relative min-h-24 !ml-12" isChoice={true}>
       <DotIndicator isChoosen={isChoosen} />
@@ -33,10 +41,10 @@ export default function ChoiceCard({ title, description }: PageCardProps) {
       </div>
 
       <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
-        <ThemedIconButton onClick={() => setIsChoosen(!isChoosen)}>
+        <ThemedIconButton onClick={fixChoice}>
           <CheckIcon className="h-8 w-8" />
         </ThemedIconButton>
-        <ThemedIconButton>
+        <ThemedIconButton onClick={removeChoice}>
           <Cross2Icon className="h-8 w-8" />
         </ThemedIconButton>
       </CardFooter>

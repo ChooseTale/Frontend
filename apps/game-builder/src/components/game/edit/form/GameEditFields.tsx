@@ -12,7 +12,7 @@ export default function GameEditFields<T extends Record<string, unknown>>({
   formData,
   setFormData,
 }: GameFieldsProps<T>) {
-  if (!isString(formData.title) || !isString(formData.description)) {
+  if (!isString(formData.abridgement) || !isString(formData.description)) {
     console.assert("GameEditForm requires a title and description");
     return;
   }
@@ -20,18 +20,20 @@ export default function GameEditFields<T extends Record<string, unknown>>({
   return (
     <>
       <ThemedInputField
-        labelText="페이지"
-        name="title"
-        placeholder="제목"
-        value={formData.title}
-        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        labelText="요약"
+        name="abridgement"
+        placeholder="플레이어에게는 보이지 않습니다"
+        value={formData.abridgement}
+        onChange={(e) =>
+          setFormData({ ...formData, abridgement: e.target.value })
+        }
       />
 
       <ThemedTextareaField
         labelText="내용"
         name="description"
         placeholder="페이지의 내용"
-        rows={12}
+        rows={10}
         value={formData.description}
         onChange={(e) =>
           setFormData({ ...formData, description: e.target.value })

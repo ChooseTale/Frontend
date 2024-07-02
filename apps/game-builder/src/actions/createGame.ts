@@ -1,40 +1,29 @@
 "use server";
 import * as type from "@choosetale/nestia-type";
+import { API_URL } from "@/constant/config";
+
 import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
+import { ErrorResponse, SuccessResponse } from "./action";
 
-interface SuccessResponse {
-  success: true;
+interface CreateSuccessResponse extends SuccessResponse {
   game: CreateGameResDto;
 }
-
-interface ErrorResponse {
-  success: false;
-  error: type.HttpError | Error;
-}
-
-type CreateGameResponse = SuccessResponse | ErrorResponse;
+type CreateGameResponse = CreateSuccessResponse | ErrorResponse;
 
 export const createGame = async (
   formData: CreateGameReqDto
 ): Promise<CreateGameResponse> => {
   try {
-    console.log(formData);
-    // await new Promise((resolve) => setTimeout(() => resolve(""), 1000));
-    // const create = type.functional.game.create;
-    // const res = await create({ host: "http://localhost:5001/" }, formData);
-
-    return {
-      success: true,
-      game: {
-        id: 0,
-        page: {
-          id: 1,
-          title: "title",
-          content: "content",
-        },
+    const response = await fetch(`${API_URL}/game`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    };
+      body: JSON.stringify(formData),
+      mode: "no-cors",
+    });
+    return response.json();
   } catch (error) {
     return { success: false, error: error as type.HttpError };
   }

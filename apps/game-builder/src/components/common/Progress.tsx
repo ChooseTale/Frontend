@@ -17,7 +17,9 @@ export default function Progress() {
   }, [pathname]);
 
   return (
-    <div className="w-full h-1 bg-gray-300">
+    <div
+      className={`w-full h-1 bg-gray-300 ${percentage === 0 ? "invisible" : ""}`}
+    >
       <div
         className="h-1 bg-green-500 transition-all"
         style={{
