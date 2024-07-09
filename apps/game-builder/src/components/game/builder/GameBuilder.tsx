@@ -49,7 +49,7 @@ export default function GameBuilder() {
   return (
     <form onSubmit={onSubmit} className="relative flex h-full px-6 pt-4">
       <StoryLine />
-      <GameSubmitButton theme="" />
+      <GameSubmitButton />
 
       <div className="flex-1 flex flex-col gap-4">
         <GameBuilderContent
