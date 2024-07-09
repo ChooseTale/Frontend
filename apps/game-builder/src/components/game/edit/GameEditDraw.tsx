@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useThemeStore } from "@/store/useTheme";
 import {
   Drawer,
   DrawerClose,
@@ -14,12 +13,11 @@ import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import GameEditFields from "@/components/game/edit/form/GameEditFields";
 
-export default function GameEditDraw() {
+export default function GameEditDraw({ theme }: { theme?: string }) {
   const [formData, setFormData] = useState({
     abridgement: "",
     description: "",
   });
-  const { theme } = useThemeStore((state) => state);
 
   const updateGameEdit = () => {
     console.log(formData);

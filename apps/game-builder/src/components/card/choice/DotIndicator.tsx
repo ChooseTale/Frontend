@@ -1,8 +1,10 @@
-"use client";
-import { useThemeStore } from "@/store/useTheme";
-
-export default function DotIndicator({ isChoosen }: { isChoosen: boolean }) {
-  const { theme } = useThemeStore((state) => state);
+export default function DotIndicator({
+  isChoosen,
+  theme,
+}: {
+  isChoosen: boolean;
+  theme?: string;
+}) {
   const unChoosenClass =
     theme === "old-game" ? "!w-5 !h-5 -left-[16px]" : "!w-4 !h-4 -left-[8px]";
   const choosenClass =

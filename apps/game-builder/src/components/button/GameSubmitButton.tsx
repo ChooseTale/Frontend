@@ -1,9 +1,7 @@
-import { useThemeStore } from "@/store/useTheme";
 import { RocketIcon } from "@radix-ui/react-icons";
 import ThemedIconButton from "@themed/ThemedIconButton";
 
-export default function GameSubmitButton() {
-  const { theme } = useThemeStore((state) => state);
+export default function GameSubmitButton({ theme }: { theme?: string }) {
   let themeClass;
 
   switch (theme) {
