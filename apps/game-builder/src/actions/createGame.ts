@@ -23,6 +23,7 @@ export const createGame = async (
       body: JSON.stringify(formData),
       mode: "no-cors",
     });
+
     return response.json();
   } catch (error) {
     return { success: false, error: error as type.HttpError };

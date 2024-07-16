@@ -1,36 +1,38 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
+
+import { useGameStore } from "@/store/gameStore";
 import { createGame } from "@/actions/createGame";
 import NextButton from "@components/button/SubmitButton";
 import GameCreateFields from "@/components/game/create/form/GameCreateFields";
-import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 
 export default function CreateGame() {
-  const [formData, setFormData] = useState<CreateGameReqDto>({
-    title: "",
-    pageOneContent: "",
-  });
   const router = useRouter();
+  const { setGameInitData } = useGameStore();
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const useFormProps = useForm<CreateGameReqDto>();
+  const { handleSubmit } = useFormProps;
 
-    router.push("/game/builder?id=1");
+  const onSubmit: SubmitHandler<CreateGameReqDto> = async (data) => {
+    const res = await createGame(data);
+    if (res.success) {
+      router.push("/game/builder?id=" + (res.game.page.id ?? ""));
+      setGameInitData(res.game);
+    }
 
-    return;
-    const res = await createGame(formData);
-    // if (res.success) {
-    //   router.push("/game/builder?id=" + res.game.page.id ?? "");
-    // }
+    if (!res.success) {
+      alert("게임 생성 실패");
+    }
   };
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       className="w-full h-full flex flex-col justify-center gap-6"
     >
-      <GameCreateFields formData={formData} setFormData={setFormData} />
+      <GameCreateFields {...useFormProps} />
 
       <div className="w-full flex">
         <NextButton text="다음으로" />
