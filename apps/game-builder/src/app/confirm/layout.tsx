@@ -4,7 +4,7 @@ import TopNav from "@/components/common/partial/TopNav";
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <TopNav title="새 게임" />
+      <TopNav title="새 게임" hasBackButton={true} />
       {children}
     </>
   );
