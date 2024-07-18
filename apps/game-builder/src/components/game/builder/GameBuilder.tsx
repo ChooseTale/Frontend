@@ -1,12 +1,22 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
-import StoryLine from "./StoryLine";
+import { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
+
+import useGameData from "@/hooks/useGameData";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
 import GameBuilderContent from "./GameBuilderContent";
+import StoryLine from "./StoryLine";
+import { TempGetGameResDto } from "@/actions/getGame";
 
-export default function GameBuilder() {
+export default function GameBuilder({
+  gameAllData,
+  gameData,
+}: {
+  gameAllData: GetAllGameResDto;
+  gameData: TempGetGameResDto;
+}) {
+  const useGameDataProps = useGameData({ gameAllData, gameData });
   const router = useRouter();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -14,48 +24,13 @@ export default function GameBuilder() {
     router.push("/game/confirm");
   };
 
-  const [gameBuilderData, setGameBuilderData] = useState<Page[]>([
-    {
-      id: 0,
-      abridgement: "페이지 요약",
-      description: "페이지 내용",
-      createdAt: "datetime",
-      depth: 0,
-      choices: [
-        {
-          id: 0,
-          fromPageId: 0,
-          toPageId: 1,
-          createdAt: "datetime",
-        },
-        {
-          id: 1,
-          fromPageId: 0,
-          toPageId: 1,
-          createdAt: "datetime",
-        },
-      ],
-    },
-    {
-      id: 1,
-      abridgement: "페이지 요약",
-      description: "페이지 내용",
-      createdAt: "datetime",
-      depth: 0,
-      choices: [],
-    },
-  ]);
-
   return (
-    <form onSubmit={onSubmit} className="relative flex h-full px-6 pt-4">
+    <form onSubmit={onSubmit} className="flex-1 relative flex px-6 pt-4">
       <StoryLine />
       <GameSubmitButton />
 
-      <div className="flex-1 flex flex-col gap-4">
-        <GameBuilderContent
-          gameBuilderData={gameBuilderData}
-          setGameBuilderData={setGameBuilderData}
-        />
+      <div className="flex-1 flex flex-col gap-4 pb-20">
+        <GameBuilderContent {...useGameDataProps} />
       </div>
     </form>
   );

@@ -18,7 +18,7 @@ export default function CreateGame() {
   const onSubmit: SubmitHandler<CreateGameReqDto> = async (data) => {
     const res = await createGame(data);
     if (res.success) {
-      router.push("/game/builder?id=" + (res.game.page.id ?? ""));
+      router.push("/game/builder/" + (res.game.page.id ?? ""));
       setGameInitData(res.game);
     }
 
