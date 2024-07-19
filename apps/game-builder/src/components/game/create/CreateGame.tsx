@@ -7,6 +7,7 @@ import { useGameStore } from "@/store/gameStore";
 import { createGame } from "@/actions/createGame";
 import NextButton from "@components/button/SubmitButton";
 import GameCreateFields from "@/components/game/create/form/GameCreateFields";
+import { ExtendsPageType } from "@/interface/page";
 
 export default function CreateGame() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function CreateGame() {
       if (!gameId) throw new Error("게임 생성 실패");
 
       router.push(`/game/builder/${gameId}`);
-      setGameInitData(res.gameInitData);
+      setGameInitData(res.gameInitData as ExtendsPageType);
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);

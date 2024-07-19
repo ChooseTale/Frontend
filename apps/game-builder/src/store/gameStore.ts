@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
+import { ExtendsPageType } from "@/interface/page";
 
 interface GameState {
-  gameInitData: CreateGameResDto | null;
-  setGameInitData: (data: CreateGameResDto) => void;
+  gameInitData: ExtendsPageType | null;
+  setGameInitData: (data: ExtendsPageType) => void;
   clearGameInitData: () => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
   gameInitData: null,
-  setGameInitData: (data: CreateGameResDto) => set({ gameInitData: data }),
+  setGameInitData: (data: ExtendsPageType) => set({ gameInitData: data }),
   clearGameInitData: () => set({ gameInitData: null }),
 }));
