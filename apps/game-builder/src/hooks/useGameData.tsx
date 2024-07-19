@@ -1,21 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
 import { TempChoiceType } from "@/components/game/builder/GameBuilderContent";
 import { TempGetGameResDto } from "@/actions/getGame";
+import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
+import { ExtendsPageType, IInitPage } from "@/interface/page";
 
 export default function useGameData({
+  gameInitData,
   gameAllData,
   gameData,
 }: {
   gameAllData: GetAllGameResDto;
   gameData: TempGetGameResDto;
+  gameInitData: ExtendsPageType | null;
 }) {
-  const [allGame, setAllGame] = useState(gameAllData);
-  const [game, setGame] = useState(gameData);
-  const [gamePageData, setGamePageData] = useState<Page[]>(allGame.pages);
+  const initGame =
+    gameInitData && (new IInitPage(gameInitData) as GetAllGameResDto);
+
+  const [gameDescription, setGameDescription] = useState(gameData);
+  const [allGame, setAllGame] = useState(initGame ?? gameAllData);
+  const [gamePageData, setGamePageData] = useState<Page[]>(allGame?.pages);
 
   const updateChoices = (pageId: number, choices: TempChoiceType[]) => {};
 

@@ -6,7 +6,7 @@ import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateG
 import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
 
 interface CreateSuccessResponse extends SuccessResponse {
-  game: CreateGameResDto;
+  gameInitData: CreateGameResDto;
 }
 type CreateGameResponse = CreateSuccessResponse | ErrorResponse;
 
@@ -22,8 +22,9 @@ export const createGame = async (
       body: JSON.stringify(formData),
       mode: "no-cors",
     });
+    const gameInitData = (await response.json()) as CreateGameResDto;
 
-    return response.json();
+    return { success: true, gameInitData };
   } catch (error) {
     return { success: false, error: error as HttpError };
   }

@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 
@@ -8,6 +8,7 @@ import GameSubmitButton from "@/components/button/GameSubmitButton";
 import GameBuilderContent from "./GameBuilderContent";
 import StoryLine from "./StoryLine";
 import { TempGetGameResDto } from "@/actions/getGame";
+import { useGameStore } from "@/store/gameStore";
 
 export default function GameBuilder({
   gameAllData,
@@ -16,7 +17,8 @@ export default function GameBuilder({
   gameAllData: GetAllGameResDto;
   gameData: TempGetGameResDto;
 }) {
-  const useGameDataProps = useGameData({ gameAllData, gameData });
+  const { gameInitData } = useGameStore((state) => state);
+  const useGameDataProps = useGameData({ gameInitData, gameAllData, gameData });
   const router = useRouter();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {

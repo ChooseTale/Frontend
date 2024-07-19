@@ -17,13 +17,18 @@ export default function CreateGame() {
 
   const onSubmit: SubmitHandler<CreateGameReqDto> = async (data) => {
     const res = await createGame(data);
-    if (res.success) {
-      router.push("/game/builder/" + (res.game.page.id ?? ""));
-      setGameInitData(res.game);
-    }
 
-    if (!res.success) {
-      alert("게임 생성 실패");
+    try {
+      if (!res.success) throw new Error("게임 생성 실패");
+      const gameId = res.gameInitData.id;
+      if (!gameId) throw new Error("게임 생성 실패");
+
+      router.push(`/game/builder/${gameId}`);
+      setGameInitData(res.gameInitData);
+    } catch (err) {
+      if (err instanceof Error) {
+        alert(err.message);
+      }
     }
   };
 
