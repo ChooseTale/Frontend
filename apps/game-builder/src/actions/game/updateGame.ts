@@ -3,7 +3,7 @@ import * as type from "@choosetale/nestia-type";
 import { API_URL } from "@/constant/config";
 
 import { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
-import { ErrorResponse, SuccessResponse } from "./action";
+import { ErrorResponse, SuccessResponse } from "../action";
 
 interface UpdateSuccessResponse extends SuccessResponse {
   game: UpdateGameReqDto;

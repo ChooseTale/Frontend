@@ -1,7 +1,7 @@
 "use server";
 import { API_URL } from "@/constant/config";
 import { HttpError } from "@choosetale/nestia-type";
-import { ErrorResponse, SuccessResponse } from "./action";
+import { ErrorResponse, SuccessResponse } from "../action";
 import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
 
