@@ -18,7 +18,8 @@ export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageData, deleteChoice, addPage, deletePage } = useGameDataProps;
+  const { gamePageData, deleteChoice, addPage, deletePage, addAiChoice } =
+    useGameDataProps;
   const { clientChoicesMap, addClientChoice, removeClientChoice } =
     useClientChoices({
       gameData: gamePageData,
@@ -31,11 +32,12 @@ export default function GameBuilderContent({
     const success = addClientChoice(pageId);
     success && addPage({ depth });
   };
-  const handleAddPageAndChoiceByAI = (pageId: number) => {
+  const handleAddPageAndChoiceByAI = async (pageId: number) => {
     console.log(`POST /game/${gameId}/page 카드 추가`);
     console.log("(hidden) 페이지 데이터 추가");
     console.log(`GET /game/${gameId}/page/${pageId}/recommend-choices`);
     console.log("선택지 카드 추가 🤖");
+    addAiChoice({ gameId, pageId });
   };
   const handleCommitChoice = (pageId: number, choice: TempChoiceType) => {
     console.log("선택 결정");

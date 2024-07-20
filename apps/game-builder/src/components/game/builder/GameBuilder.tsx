@@ -13,14 +13,15 @@ import { useGameStore } from "@/store/gameStore";
 export default function GameBuilder({
   gameAllData,
   gameData,
+  gameId,
 }: {
   gameAllData: GetAllGameResDto;
   gameData: TempGetGameResDto;
+  gameId: number;
 }) {
   const router = useRouter();
   const { gameInitData } = useGameStore((state) => state);
   const useGameDataProps = useGameData({ gameInitData, gameAllData, gameData });
-  const gameId = gameData.gameId;
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
