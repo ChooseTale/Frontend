@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CardStackPlusIcon } from "@radix-ui/react-icons";
+import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import {
   CardContent,
   CardDescription,
@@ -13,22 +14,19 @@ import robotIcon from "@asset/icon/robot-solid.svg";
 import GameEditDraw from "@/components/game/edit/GameEditDraw";
 
 interface PageCardProps {
-  abridgement: string;
-  description: string;
+  page: Page;
+  choicesLength: number;
+  addChoice: () => void;
+  addAIChoice: () => void;
 }
 
-export default function PageCard({ abridgement, description }: PageCardProps) {
-  const addPageAndChoice = () => {
-    console.log("POST /game/{gameId}/page 카드 추가");
-    console.log("(hidden) 페이지 데이터 추가");
-    console.log("선택지 카드 UI 추가");
-  };
-  const addPageAndChoiceByAI = () => {
-    console.log("POST /game/{gameId}/page 카드 추가");
-    console.log("(hidden) 페이지 데이터 추가");
-    console.log("GET /game/{gameId}/page/{pageId}/recommend-choices");
-    console.log("선택지 카드 추가 🤖");
-  };
+export default function PageCard({
+  page,
+  choicesLength,
+  addChoice,
+  addAIChoice,
+}: PageCardProps) {
+  const { abridgement, description } = page;
 
   return (
     <ThemedCard className="relative">
@@ -43,18 +41,20 @@ export default function PageCard({ abridgement, description }: PageCardProps) {
         </CardContent>
       </div>
 
-      <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
-        <ThemedIconButton onClick={addPageAndChoice}>
-          <CardStackPlusIcon className="h-8 w-8" />
-        </ThemedIconButton>
-        <ThemedIconButton onClick={addPageAndChoiceByAI}>
-          <Image
-            className="h-8 w-8 -translate-y-[2px]"
-            src={robotIcon}
-            alt="generate choice"
-          />
-        </ThemedIconButton>
-      </CardFooter>
+      {choicesLength < 4 && (
+        <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
+          <ThemedIconButton onClick={addChoice}>
+            <CardStackPlusIcon className="h-8 w-8" />
+          </ThemedIconButton>
+          <ThemedIconButton onClick={addAIChoice}>
+            <Image
+              className="h-8 w-8 -translate-y-[2px]"
+              src={robotIcon}
+              alt="generate choice"
+            />
+          </ThemedIconButton>
+        </CardFooter>
+      )}
 
       <GameEditDraw />
     </ThemedCard>

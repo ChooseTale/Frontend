@@ -48,13 +48,13 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
           },
         })}
         errMsg={errors["title"]?.message ?? ""}
-        className={lessThan3LeftForTitle ? "text-red-500" : ""}
+        className={lessThan3LeftForTitle ? "text-red-500 border-red-500" : ""}
       />
 
       <div>
         <p
           className={`relative h-0 top-6 px-1 text-xs text-right ${
-            lessThan100LeftForPageContent ? "text-red-500" : ""
+            lessThan100LeftForPageContent ? "text-red-500 border-red-500" : ""
           }`}
         >
           {pageContentLenString} / {formatNumberWithCommas(MAX_PAGE_LEN)}

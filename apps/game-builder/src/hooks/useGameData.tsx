@@ -60,7 +60,7 @@ export default function useGameData({
   };
 
   const addPage = ({ depth }: { depth: number }) => {
-    const newPageId = gamePageData.length;
+    const newPageId = gamePageData.length + 1;
     const newPage: Page = {
       id: newPageId,
       abridgement: `페이지 ${newPageId} 요약`,
