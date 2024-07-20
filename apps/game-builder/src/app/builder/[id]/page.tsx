@@ -1,4 +1,4 @@
-import { getGameAllById, getGameById } from "@/actions/getGame";
+import { getGameAllById, getGameById } from "@/actions/game/getGame";
 import GameBuilder from "@/components/game/builder/GameBuilder";
 import { notFound } from "next/navigation";
 

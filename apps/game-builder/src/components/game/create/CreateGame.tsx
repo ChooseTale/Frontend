@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 
 import { useGameStore } from "@/store/gameStore";
-import { createGame } from "@/actions/createGame";
+import { createGame } from "@/actions/game/createGame";
 import NextButton from "@components/button/SubmitButton";
 import GameCreateFields from "@/components/game/create/form/GameCreateFields";
 import { ExtendsPageType } from "@/interface/page";

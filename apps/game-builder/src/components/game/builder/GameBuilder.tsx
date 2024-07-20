@@ -7,7 +7,7 @@ import useGameData from "@/hooks/useGameData";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
 import GameBuilderContent from "./GameBuilderContent";
 import StoryLine from "./StoryLine";
-import { TempGetGameResDto } from "@/actions/getGame";
+import { TempGetGameResDto } from "@/actions/game/getGame";
 import { useGameStore } from "@/store/gameStore";
 
 export default function GameBuilder({

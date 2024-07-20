@@ -1,7 +1,7 @@
 "use server";
 import { API_URL } from "@/constant/config";
 import { HttpError } from "@choosetale/nestia-type";
-import { ErrorResponse, SuccessResponse } from "./action";
+import { ErrorResponse, SuccessResponse } from "../action";
 import { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 
 // --게임 정보 불러오기--
