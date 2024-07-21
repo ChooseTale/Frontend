@@ -1,15 +1,16 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { isBoolean, isString } from "@/utils/typeGuard";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
-import ThemedCarousel from "@themed/ThemedCarousel";
-import ThemedSelectField from "@themed/ThemedSelectField";
-import ThemedLabel from "@themed/ThemedLabel";
-import ThemedCard from "@themed/ThemedCard";
-import ImageUpload from "../imageControl/ImageUpload";
-import ImageDelete from "../imageControl/ImageDelete";
-import ImageGenerate from "../imageControl/ImageGenerate";
+import ThemedCarousel from "../../../theme/ui/ThemedCarousel";
+import ThemedSelectField from "../../../theme/ui/ThemedSelectField";
+import ThemedIconButton from "../../../theme/ui/ThemedIconButton";
+import { ImageIcon, TrashIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
+import robotIcon from "@asset/icon/robot-solid.svg";
+import ThemedLabel from "../../../theme/ui/ThemedLabel";
+import ThemedCard from "../../../theme/ui/ThemedCard";
 
 interface GameFieldsProps<T> {
   formData: T;
@@ -29,43 +30,6 @@ export default function GameConfirmFields<T extends Record<string, unknown>>({
     return;
   }
 
-  const thumbnails = (formData.thumbnails ?? []) as {
-    id: number;
-    url: string;
-  }[];
-  const [currentThumbIndex, setCurrentThumbIndex] = useState(
-    thumbnails.length > 1 ? thumbnails.length - 1 : 0
-  );
-  const handleNewThumbnail = (url: string) => {
-    const sortedThumbnails = thumbnails.sort((a, b) => a.id - b.id);
-    let id = 0;
-    sortedThumbnails.forEach((thumbnail, index) => {
-      if (thumbnail.id !== index && id === index) {
-        id = index;
-      } else {
-        id = index + 1;
-      }
-    });
-
-    setFormData({
-      ...formData,
-      thumbnails: [...thumbnails, { id, url }],
-    });
-    setCurrentThumbIndex(thumbnails.length - 1);
-  };
-
-  const handleDeleteThumbnail = () => {
-    const updatedThumbnails = thumbnails.filter(
-      (thumbnail) => thumbnail.id !== currentThumbIndex
-    );
-    // console.log(currentThumbIndex);
-
-    setFormData({
-      ...formData,
-      thumbnails: updatedThumbnails,
-    });
-  };
-
   return (
     <>
       <ThemedInputField
@@ -79,11 +43,21 @@ export default function GameConfirmFields<T extends Record<string, unknown>>({
       <div className="flex flex-col gap-2">
         <ThemedLabel htmlFor="" labelText="썸네일" />
         <ThemedCard className="flex-col !py-4 gap-4">
-          <ThemedCarousel thumbnails={thumbnails} />
+          <ThemedCarousel />
           <div className="flex justify-center gap-1">
-            <ImageUpload onUpload={handleNewThumbnail} />
-            <ImageGenerate onGenerate={handleNewThumbnail} />
-            <ImageDelete onDelete={handleDeleteThumbnail} />
+            <ThemedIconButton>
+              <ImageIcon className="h-5 w-5 m-1" />
+            </ThemedIconButton>
+            <ThemedIconButton>
+              <Image
+                className="h-5 w-5 m-1 -translate-y-[2px]"
+                src={robotIcon}
+                alt="generate choice"
+              />
+            </ThemedIconButton>
+            <ThemedIconButton>
+              <TrashIcon className="h-5 w-5 m-1" />
+            </ThemedIconButton>
           </div>
         </ThemedCard>
       </div>
