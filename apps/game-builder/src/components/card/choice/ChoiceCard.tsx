@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { CheckIcon, Cross2Icon, Link2Icon } from "@radix-ui/react-icons";
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card.tsx";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
-import { TempChoiceType } from "@/components/game/builder/GameBuilderContent";
+import {
+  LinkedPageType,
+  TempChoiceType,
+} from "@/components/game/builder/GameBuilderContent";
 import ThemedInputField from "@/components/theme/ui/ThemedInputField";
 import ThemedTextareaField from "@/components/theme/ui/ThemedTextareaField";
 import DotIndicator from "./DotIndicator";
@@ -16,6 +19,8 @@ interface PageCardProps {
   defaultFixed: boolean;
   fixChoice: (partialChoice: TempChoiceType) => void;
   removeChoice: () => void;
+  availablePages: LinkedPageType[];
+  linkedPage: LinkedPageType | undefined;
 }
 
 export default function ChoiceCard({
@@ -23,6 +28,8 @@ export default function ChoiceCard({
   defaultFixed,
   fixChoice,
   removeChoice,
+  availablePages,
+  linkedPage,
 }: PageCardProps) {
   const [isFixed, setIsFixed] = useState(defaultFixed);
 
@@ -39,7 +46,12 @@ export default function ChoiceCard({
   } = useForm({ defaultValues });
 
   const onSubmit = (formData: typeof defaultValues) => {
-    fixChoice(formData);
+    const choice = {
+      ...formData,
+      toPageId: +formData.toPageId,
+    };
+
+    fixChoice(choice);
     setIsFixed(!isFixed);
   };
 
@@ -48,13 +60,19 @@ export default function ChoiceCard({
   };
 
   if (isFixed) {
-    return <StaticChoice {...getValues()} removeChoice={clickRemove} />;
+    return (
+      <StaticChoice
+        {...getValues()}
+        removeChoice={clickRemove}
+        linkedPage={linkedPage}
+      />
+    );
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ThemedCard className="relative min-h-24 !ml-12" isChoice={true}>
-        <DotIndicator isChoosen={isFixed} />
+        <DotIndicator isChoosen={isFixed} linkedPage={linkedPage} />
 
         <div className="flex-1">
           <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-center">
@@ -71,6 +89,20 @@ export default function ChoiceCard({
               {...register("description", { required: true })}
               className={`${errors["description"] ? "border-red-500" : ""}`}
             />
+
+            <div className="flex items-center gap-2 justify-end mt-2">
+              <Link2Icon className="h-5 w-5" />
+              <select
+                {...register("toPageId", { required: true })}
+                className={`p-2 shadow-sm border rounded-sm text-xs ${errors["toPageId"] ? "border-red-500" : ""}`}
+              >
+                {availablePages.map((page) => (
+                  <option key={page.pageId} value={page.pageId}>
+                    {page.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </CardContent>
         </div>
 

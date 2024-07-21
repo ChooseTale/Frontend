@@ -15,16 +15,26 @@ export interface TempChoiceType extends Choice {
   description: string;
 }
 
+export interface LinkedPageType {
+  pageId: number;
+  title: string;
+}
+
 export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
   const { gamePageData, deleteChoice, addPage, deletePage, updateChoices } =
     useGameDataProps;
-  const { clientChoicesMap, addClientChoice, removeClientChoice, addAiChoice } =
-    useClientChoices({
-      gameData: gamePageData,
-    });
+  const {
+    clientChoicesMap,
+    addClientChoice,
+    removeClientChoice,
+    addAiChoice,
+    updateClientChoice,
+  } = useClientChoices({
+    gameData: gamePageData,
+  });
 
   const handleAddPageAndChoice = (pageId: number, depth: number) => {
     console.log(`POST /game/${gameId}/page 카드 추가`);
@@ -42,7 +52,7 @@ export default function GameBuilderContent({
   };
   const handleFixChoice = (pageId: number, choice: TempChoiceType) => {
     console.log("선택 결정", choice);
-    // updateChoices(pageId, choice);
+    updateClientChoice(pageId, choice);
   };
   const handleRemoveChoiceOnClient = (pageId: number, choiceId: number) => {
     console.log("선택 삭제");
@@ -53,6 +63,13 @@ export default function GameBuilderContent({
     console.log("선택 삭제");
     deleteChoice(pageId, choiceId);
   };
+
+  const availablePages = gamePageData.map((page) => ({
+    pageId: page.id,
+    title: page.abridgement,
+  }));
+  const getToPage = (toPageId: number) =>
+    availablePages.find((p) => p.pageId === toPageId);
 
   return (
     <div className="flex-1 flex flex-col gap-4">
@@ -77,6 +94,7 @@ export default function GameBuilderContent({
                 removeChoice={() =>
                   handleRemoveChoiceOnData(page.id, choice.id)
                 }
+                linkedPage={getToPage(choice.toPageId)}
               />
             ))}
             {clientChoice?.map((choice, idx) => (
@@ -88,6 +106,8 @@ export default function GameBuilderContent({
                 removeChoice={() =>
                   handleRemoveChoiceOnClient(page.id, choice.id)
                 }
+                availablePages={availablePages}
+                linkedPage={getToPage(choice.toPageId)}
               />
             ))}
           </div>

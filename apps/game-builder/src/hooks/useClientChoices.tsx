@@ -68,8 +68,6 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
       createdAt: new Date().toISOString(),
     };
 
-    console.log(newChoice);
-
     setClientChoicesMap((prevMap) => {
       const existingChoices = prevMap.get(pageId) || [];
       const updatedChoices = [...existingChoices, newChoice];
@@ -79,7 +77,22 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
     });
   };
 
-  const submitClientChoice = () => {};
+  const updateClientChoice = (
+    pageId: number,
+    updatedChoice: Partial<TempChoiceType>
+  ) => {
+    setClientChoicesMap((prevMap) => {
+      const existingChoices = prevMap.get(pageId) || [];
+      const updatedChoices = existingChoices.map((choice) =>
+        choice.id === updatedChoice.id
+          ? { ...choice, ...updatedChoice }
+          : choice
+      );
+      const newMap = new Map(prevMap);
+      newMap.set(pageId, updatedChoices);
+      return newMap;
+    });
+  };
 
   const removeClientChoice = (pageId: number, choiceId: number) => {
     setClientChoicesMap((prevMap) => {
@@ -102,6 +115,6 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
     addAiChoice,
     addClientChoice,
     removeClientChoice,
-    submitClientChoice,
+    updateClientChoice,
   };
 }
