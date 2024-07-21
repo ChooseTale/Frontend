@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
+import { TempChoiceType } from "@/components/game/builder/GameBuilderContent";
+import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
 
 interface UseClientChoicesProps {
   gameData: Page[];
@@ -11,7 +13,10 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
     Map<number, Choice[]>
   >(new Map());
 
-  const addClientChoice = (pageId: number): boolean => {
+  const addClientChoice = (
+    pageId: number,
+    choice?: TempChoiceType
+  ): boolean => {
     let success: boolean = false;
     setClientChoicesMap((prevMap) => {
       const actualChoiceLength =
@@ -24,11 +29,13 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
       }
 
       const existingChoices = prevMap.get(pageId) || [];
-      const newChoice: Choice = {
+      const newChoice: TempChoiceType = {
         id: existingChoices.length,
         fromPageId: pageId,
         toPageId: -1,
         createdAt: new Date().toISOString(),
+        title: choice?.title ?? "",
+        description: choice?.description ?? "",
       };
       const updatedChoices = [...existingChoices, newChoice];
       const newMap = new Map(prevMap);
@@ -38,6 +45,38 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
       return newMap;
     });
     return success;
+  };
+  const addAiChoice = async ({
+    gameId,
+    pageId,
+  }: {
+    pageId: number;
+    gameId: number;
+  }) => {
+    const res = await getRecommendChoice({ gameId, pageId });
+    if (!res.success) return;
+
+    const choice = res.choice;
+    const newChoice: TempChoiceType = {
+      ...choice,
+      id:
+        (gameData.find((page) => page.id === pageId)?.choices.length ?? 0) +
+        (clientChoicesMap.get(pageId)?.length ?? 0) +
+        1,
+      fromPageId: pageId,
+      toPageId: -1,
+      createdAt: new Date().toISOString(),
+    };
+
+    console.log(newChoice);
+
+    setClientChoicesMap((prevMap) => {
+      const existingChoices = prevMap.get(pageId) || [];
+      const updatedChoices = [...existingChoices, newChoice];
+      const newMap = new Map(prevMap);
+      newMap.set(pageId, updatedChoices);
+      return newMap;
+    });
   };
 
   const submitClientChoice = () => {};
@@ -60,6 +99,7 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
 
   return {
     clientChoicesMap,
+    addAiChoice,
     addClientChoice,
     removeClientChoice,
     submitClientChoice,
