@@ -4,6 +4,7 @@ import useClientChoices from "@/hooks/useClientChoices";
 import useGameData from "@/hooks/useGameData";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
+import { StaticChoice } from "@/components/card/choice/StaticChoice";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -14,16 +15,26 @@ export interface TempChoiceType extends Choice {
   description: string;
 }
 
+export interface LinkedPageType {
+  pageId: number;
+  title: string;
+}
+
 export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageData, deleteChoice, addPage, deletePage, addAiChoice } =
+  const { gamePageData, deleteChoice, addPage, deletePage, updateChoices } =
     useGameDataProps;
-  const { clientChoicesMap, addClientChoice, removeClientChoice } =
-    useClientChoices({
-      gameData: gamePageData,
-    });
+  const {
+    clientChoicesMap,
+    addClientChoice,
+    removeClientChoice,
+    addAiChoice,
+    updateClientChoice,
+  } = useClientChoices({
+    gameData: gamePageData,
+  });
 
   const handleAddPageAndChoice = (pageId: number, depth: number) => {
     console.log(`POST /game/${gameId}/page 카드 추가`);
@@ -39,9 +50,9 @@ export default function GameBuilderContent({
     console.log("선택지 카드 추가 🤖");
     addAiChoice({ gameId, pageId });
   };
-  const handleCommitChoice = (pageId: number, choice: TempChoiceType) => {
-    console.log("선택 결정");
-    // updateChoices(pageId, choice);
+  const handleFixChoice = (pageId: number, choice: TempChoiceType) => {
+    console.log("선택 결정", choice);
+    updateClientChoice(pageId, choice);
   };
   const handleRemoveChoiceOnClient = (pageId: number, choiceId: number) => {
     console.log("선택 삭제");
@@ -53,10 +64,20 @@ export default function GameBuilderContent({
     deleteChoice(pageId, choiceId);
   };
 
+  const availablePages = gamePageData.map((page) => ({
+    pageId: page.id,
+    title: page.abridgement,
+  }));
+  const getToPage = (toPageId: number) =>
+    availablePages.find((p) => p.pageId === toPageId);
+
   return (
     <div className="flex-1 flex flex-col gap-4">
       {gamePageData.map((page) => {
-        const clientChoice = clientChoicesMap.get(page.id);
+        const choices = page.choices as TempChoiceType[];
+        const clientChoice = clientChoicesMap.get(page.id) as
+          | TempChoiceType[]
+          | undefined;
 
         return (
           <div key={`page${page.id}`} className="flex flex-col gap-4">
@@ -66,29 +87,27 @@ export default function GameBuilderContent({
               addAIChoice={() => handleAddPageAndChoiceByAI(page.id)}
               choicesLength={page.choices.length + (clientChoice?.length ?? 0)}
             />
-            {page.choices.map((choice) => (
-              <ChoiceCard
-                key={`page${page.id}choice${choice.id}`}
-                choice={choice}
-                defaultCommitted={
-                  choice.fromPageId !== undefined &&
-                  choice.toPageId !== undefined
-                }
-                commitChoice={(choice) => handleCommitChoice(page.id, choice)}
+            {choices.map((choice, idx) => (
+              <StaticChoice
+                {...choice}
+                key={`page${page.id}choice${idx}`}
                 removeChoice={() =>
                   handleRemoveChoiceOnData(page.id, choice.id)
                 }
+                linkedPage={getToPage(choice.toPageId)}
               />
             ))}
             {clientChoice?.map((choice, idx) => (
               <ChoiceCard
                 key={`page${page.id}clientChoice${idx}`}
                 choice={choice}
-                defaultCommitted={false}
-                commitChoice={(choice) => handleCommitChoice(page.id, choice)}
+                defaultFixed={false}
+                fixChoice={(choice) => handleFixChoice(page.id, choice)}
                 removeChoice={() =>
                   handleRemoveChoiceOnClient(page.id, choice.id)
                 }
+                availablePages={availablePages}
+                linkedPage={getToPage(choice.toPageId)}
               />
             ))}
           </div>

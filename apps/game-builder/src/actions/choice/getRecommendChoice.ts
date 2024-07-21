@@ -18,6 +18,15 @@ export const getRecommendChoice = async ({
   gameId: number;
   pageId: number;
 }): Promise<GetRecommendChoiceResponse> => {
+  const dummyResponse = {
+    title: "title 예상 응답",
+    description: "description 예상 응답",
+  };
+
+  return {
+    success: true,
+    choice: dummyResponse,
+  };
   try {
     const response = await fetch(
       `/game/${gameId}/page/${pageId}/recommend-choices`,
