@@ -9,9 +9,10 @@ import { AspectRatio } from "@repo/ui/components/ui/AspectRatio.tsx";
 import Image from "next/image";
 import { useThemeStore } from "@/store/useTheme";
 
-export default function ThemedCarousel() {
+export default function ThemedCarousel({ thumbnails }: { thumbnails: any[] }) {
   const { theme } = useThemeStore((state) => state);
   let themeClass;
+  const ratio = 4 / 3;
 
   switch (theme) {
     case "old-game":
@@ -27,36 +28,30 @@ export default function ThemedCarousel() {
     <>
       <Carousel>
         <CarouselContent className="mx-10">
-          <CarouselItem>
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Image"
-                className="rounded-md object-cover border"
-                fill
-              />
-            </AspectRatio>
-          </CarouselItem>
-          <CarouselItem>
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Image"
-                className="rounded-md object-cover border"
-                fill
-              />
-            </AspectRatio>
-          </CarouselItem>
-          <CarouselItem>
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Image"
-                className="rounded-md object-cover border"
-                fill
-              />
-            </AspectRatio>
-          </CarouselItem>
+          {thumbnails.length === 0 && (
+            <CarouselItem>
+              <AspectRatio ratio={ratio}>
+                <Image
+                  src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+                  alt="Photo by Drew Beamer"
+                  fill
+                  className="rounded-md object-cover"
+                />
+              </AspectRatio>
+            </CarouselItem>
+          )}
+          {thumbnails.reverse().map((thumbnail) => (
+            <CarouselItem key={thumbnail.id}>
+              <AspectRatio ratio={ratio}>
+                <Image
+                  src={thumbnail.url}
+                  alt="Image"
+                  className="rounded-md object-cover border"
+                  fill
+                />
+              </AspectRatio>
+            </CarouselItem>
+          ))}
         </CarouselContent>
         <CarouselPrevious
           type="button"

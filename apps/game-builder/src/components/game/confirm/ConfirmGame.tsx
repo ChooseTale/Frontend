@@ -6,17 +6,19 @@ import GameConfirmFields from "@/components/game/confirm/form/GameConfirmFields"
 
 export default function ConirmGame() {
   const [formData, setFormData] = useState({
+    id: 1,
     title: "",
     description: "",
     genre: "FANTASY",
-    thumbnailImageId: 0,
+    thumbnails: [],
     isPrivate: true,
   });
   const router = useRouter();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log(formData);
+
     e.preventDefault();
-    router.push("/");
   };
 
   return (
