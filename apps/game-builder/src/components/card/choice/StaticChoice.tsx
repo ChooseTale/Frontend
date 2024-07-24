@@ -31,8 +31,10 @@ export function StaticChoice({
 
       <div className="flex-1">
         <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-center">
-          <CardTitle className="mb-1 !text-[14px] p-[1px]">{title}</CardTitle>
-          <CardDescription className="text-xs line-clamp-4 mb-0 p-[1px]">
+          <CardTitle className="mb-1 !text-[14px] p-[1px] break-all">
+            {title}
+          </CardTitle>
+          <CardDescription className="text-xs line-clamp-4 mb-0 p-[1px] break-all">
             {description}
           </CardDescription>
         </CardContent>

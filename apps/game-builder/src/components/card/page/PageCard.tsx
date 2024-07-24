@@ -36,8 +36,10 @@ export default function PageCard({
 
       <div className="min-h-24 flex-1">
         <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-center">
-          <CardTitle className="mb-1 !text-[16px]">{abridgement}</CardTitle>
-          <CardDescription className="text-xs line-clamp-4 mb-0">
+          <CardTitle className="mb-1 !text-[16px] break-all">
+            {abridgement}
+          </CardTitle>
+          <CardDescription className="text-xs line-clamp-4 mb-0 break-all">
             {description}
           </CardDescription>
         </CardContent>
