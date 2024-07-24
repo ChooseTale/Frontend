@@ -13,7 +13,7 @@ import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import GameEditFields from "@/components/game/edit/form/GameEditFields";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface GameEditDrawProps {
   theme?: string;
@@ -32,10 +32,15 @@ export default function GameEditDraw({
 }: GameEditDrawProps) {
   const [isOpen, setIsOpen] = useState(false);
   const useFormProps = useForm({ defaultValues: page });
-  const { handleSubmit } = useFormProps;
+  const { handleSubmit, reset } = useFormProps;
 
   const onSubmit: SubmitHandler<Page> = (fieldValues) => {
     updatePage(fieldValues);
+    setIsOpen(false);
+  };
+
+  const onClose = () => {
+    reset();
     setIsOpen(false);
   };
 
@@ -64,7 +69,7 @@ export default function GameEditDraw({
               수정
             </ThemedButton>
             <DrawerClose
-              onClick={() => setIsOpen(false)}
+              onClick={onClose}
               className="w-full px-0 text-sm py-2 underline"
             >
               닫기
