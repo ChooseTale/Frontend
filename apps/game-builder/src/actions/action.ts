@@ -1,4 +1,4 @@
-import * as type from "@choosetale/nestia-type";
+import { HttpError } from "@choosetale/nestia-type";
 
 export interface SuccessResponse {
   success: true;
@@ -6,5 +6,5 @@ export interface SuccessResponse {
 
 export interface ErrorResponse {
   success: false;
-  error: type.HttpError | Error;
+  error: HttpError | Error;
 }

@@ -18,6 +18,7 @@ interface PageCardProps {
   choicesLength: number;
   addChoice: () => void;
   addAIChoice: () => void;
+  updatePage: (updatedPage: Page) => void;
 }
 
 export default function PageCard({
@@ -25,6 +26,7 @@ export default function PageCard({
   choicesLength,
   addChoice,
   addAIChoice,
+  updatePage,
 }: PageCardProps) {
   const { abridgement, description } = page;
 
@@ -56,7 +58,7 @@ export default function PageCard({
         </CardFooter>
       )}
 
-      <GameEditDraw />
+      <GameEditDraw page={page} updatePage={updatePage} />
     </ThemedCard>
   );
 }

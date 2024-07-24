@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Drawer,
   DrawerClose,
@@ -9,29 +9,47 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@repo/ui/components/ui/Drawer.tsx";
+import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import GameEditFields from "@/components/game/edit/form/GameEditFields";
+import { useState } from "react";
 
-export default function GameEditDraw({ theme }: { theme?: string }) {
-  const [formData, setFormData] = useState({
-    abridgement: "",
-    description: "",
-  });
+interface GameEditDrawProps {
+  theme?: string;
+  page: Page;
+  updatePage: (page: Page) => void;
+}
+export interface GameEditFieldsType {
+  abridgement: string;
+  description: string;
+}
 
-  const updateGameEdit = () => {
-    console.log(formData);
-    console.log("업데이트 저장");
+export default function GameEditDraw({
+  theme,
+  page,
+  updatePage,
+}: GameEditDrawProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const useFormProps = useForm({ defaultValues: page });
+  const { handleSubmit } = useFormProps;
+
+  const onSubmit: SubmitHandler<Page> = (fieldValues) => {
+    updatePage(fieldValues);
+    setIsOpen(false);
   };
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <GameEditDrawTriggerButton />
 
       <DrawerContent
         className={`h-[calc(100vh-3rem)] ${theme === "windows-98" ? "bg-[#c0c0c0]" : ""}`}
       >
-        <div className="w-full max-w-xl h-full mx-auto px-6 flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-xl h-full mx-auto px-6 flex flex-col gap-4"
+        >
           <DrawerHeader className="!px-0 !pt-4 !pb-0">
             <DrawerTitle>이야기 수정하기</DrawerTitle>
             <DrawerDescription className="!mb-0">
@@ -39,21 +57,20 @@ export default function GameEditDraw({ theme }: { theme?: string }) {
             </DrawerDescription>
           </DrawerHeader>
 
-          <GameEditFields formData={formData} setFormData={setFormData} />
+          <GameEditFields {...useFormProps} />
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
-            <ThemedButton
-              className="w-full is-success"
-              type="submit"
-              onClick={updateGameEdit}
-            >
+            <ThemedButton className="w-full is-success" type="submit">
               저장하기
             </ThemedButton>
-            <DrawerClose className="w-full px-0 text-sm py-2 underline">
+            <DrawerClose
+              onClick={() => setIsOpen(false)}
+              className="w-full px-0 text-sm py-2 underline"
+            >
               닫기
             </DrawerClose>
           </DrawerFooter>
-        </div>
+        </form>
       </DrawerContent>
     </Drawer>
   );

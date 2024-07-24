@@ -85,6 +85,12 @@ export default function useGameData({
     setGamePageData((prevData: Page[]) => [...prevData, newPage]);
   };
 
+  const updatePage = (updatedPage: Page) => {
+    setGamePageData((prevData) =>
+      prevData.map((page) => (page.id === updatedPage.id ? updatedPage : page))
+    );
+  };
+
   const deletePage = (pageId: number) => {
     setGamePageData((prevData) => {
       const filteredPages = prevData.filter((page) => page.id !== pageId);
@@ -99,6 +105,7 @@ export default function useGameData({
   return {
     gamePageData,
     addPage,
+    updatePage,
     deletePage,
     addChoice,
     updateChoices,

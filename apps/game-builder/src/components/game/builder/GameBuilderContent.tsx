@@ -24,7 +24,7 @@ export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageData, deleteChoice, addPage, deletePage, updateChoices } =
+  const { gamePageData, deleteChoice, addPage, updatePage, deletePage } =
     useGameDataProps;
   const {
     clientChoicesMap,
@@ -33,7 +33,7 @@ export default function GameBuilderContent({
     addAiChoice,
     updateClientChoice,
   } = useClientChoices({
-    gameData: gamePageData,
+    gamePageData,
   });
 
   const handleAddPageAndChoice = (pageId: number, depth: number) => {
@@ -83,9 +83,10 @@ export default function GameBuilderContent({
           <div key={`page${page.id}`} className="flex flex-col gap-4">
             <PageCard
               page={page}
+              choicesLength={page.choices.length + (clientChoice?.length ?? 0)}
               addChoice={() => handleAddPageAndChoice(page.id, page.depth + 1)}
               addAIChoice={() => handleAddPageAndChoiceByAI(page.id)}
-              choicesLength={page.choices.length + (clientChoice?.length ?? 0)}
+              updatePage={updatePage}
             />
             {choices.map((choice, idx) => (
               <StaticChoice

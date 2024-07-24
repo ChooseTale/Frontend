@@ -2,8 +2,13 @@ import { UseFormReturn } from "react-hook-form";
 import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
+import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 
 type GameFieldsProps = UseFormReturn<CreateGameReqDto>;
+const MAX_LENGTH = {
+  title: 30,
+  pageOneContent: 2000,
+} as const;
 
 export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
   const {
@@ -12,19 +17,14 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
     watch,
   } = useFormProps;
 
-  const formatNumberWithCommas = (value: number) => {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
   const titleLen = watch("title")?.length || 0;
   const titleLenString = formatNumberWithCommas(titleLen);
-  const MAX_TITLE_LEN = 30;
-  const lessThan3LeftForTitle = MAX_TITLE_LEN - titleLen < 3;
+  const lessThan3LeftForTitle = MAX_LENGTH.title - titleLen < 3;
 
   const pageContentLen = watch("pageOneContent")?.length || 0;
   const pageContentLenString = formatNumberWithCommas(pageContentLen);
-  const MAX_PAGE_LEN = 2000;
-  const lessThan100LeftForPageContent = MAX_PAGE_LEN - pageContentLen < 100;
+  const lessThan100LeftForPageContent =
+    MAX_LENGTH.pageOneContent - pageContentLen < 100;
 
   return (
     <>
@@ -34,16 +34,17 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
             lessThan3LeftForTitle ? "text-red-500" : ""
           }`}
         >
-          {titleLenString} / {MAX_TITLE_LEN}
+          {titleLenString} / {MAX_LENGTH.title}
         </p>
       </div>
       <ThemedInputField
         labelText="게임"
         placeholder="게임 이름 (1~30)"
+        maxLength={MAX_LENGTH.title}
         {...register("title", {
           required: "게임의 이름을 입력해주세요",
           maxLength: {
-            value: 30,
+            value: MAX_LENGTH.title,
             message: "게임 이름을 30자 내로 입력해주세요",
           },
         })}
@@ -57,17 +58,19 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
             lessThan100LeftForPageContent ? "text-red-500 border-red-500" : ""
           }`}
         >
-          {pageContentLenString} / {formatNumberWithCommas(MAX_PAGE_LEN)}
+          {pageContentLenString} /{" "}
+          {formatNumberWithCommas(MAX_LENGTH.pageOneContent)}
         </p>
       </div>
       <ThemedTextareaField
         labelText="이야기의 시작"
         placeholder="첫 페이지의 내용 (2,000자 이내)"
         rows={12}
+        maxLength={MAX_LENGTH.pageOneContent}
         {...register("pageOneContent", {
           required: "첫 페이지의 내용을 작성해주세요",
           maxLength: {
-            value: 2000,
+            value: MAX_LENGTH.pageOneContent,
             message: "2,000자 내로 입력해주세요",
           },
         })}

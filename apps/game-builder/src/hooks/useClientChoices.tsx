@@ -5,10 +5,12 @@ import { TempChoiceType } from "@/components/game/builder/GameBuilderContent";
 import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
 
 interface UseClientChoicesProps {
-  gameData: Page[];
+  gamePageData: Page[];
 }
 
-export default function useClientChoices({ gameData }: UseClientChoicesProps) {
+export default function useClientChoices({
+  gamePageData,
+}: UseClientChoicesProps) {
   const [clientChoicesMap, setClientChoicesMap] = useState<
     Map<number, Choice[]>
   >(new Map());
@@ -20,7 +22,7 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
     let success: boolean = false;
     setClientChoicesMap((prevMap) => {
       const actualChoiceLength =
-        gameData.find((page) => page.id === pageId)?.choices.length ?? 0;
+        gamePageData.find((page) => page.id === pageId)?.choices.length ?? 0;
       const clientChoiceLength = prevMap.get(pageId)?.length ?? 0;
 
       if (actualChoiceLength + clientChoiceLength >= 4) {
@@ -53,14 +55,14 @@ export default function useClientChoices({ gameData }: UseClientChoicesProps) {
     pageId: number;
     gameId: number;
   }) => {
-    const res = await getRecommendChoice({ gameId, pageId });
+    const res = await getRecommendChoice(gameId, pageId);
     if (!res.success) return;
 
     const choice = res.choice;
     const newChoice: TempChoiceType = {
       ...choice,
       id:
-        (gameData.find((page) => page.id === pageId)?.choices.length ?? 0) +
+        (gamePageData.find((page) => page.id === pageId)?.choices.length ?? 0) +
         (clientChoicesMap.get(pageId)?.length ?? 0) +
         1,
       fromPageId: pageId,
