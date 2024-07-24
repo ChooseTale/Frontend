@@ -20,8 +20,8 @@ export default function GameEditFields({
 
   const pageContentLen = watch("description").length || 0;
   const pageContentLenString = formatNumberWithCommas(pageContentLen);
-  const lessThan100LeftForPageContent =
-    MAX_LENGTH.description - pageContentLen < 100;
+  const lessThan20LeftForPageContent =
+    MAX_LENGTH.description - pageContentLen < 20;
 
   return (
     <>
@@ -46,7 +46,7 @@ export default function GameEditFields({
       <div>
         <p
           className={`relative h-0 top-4 px-1 text-xs text-right ${
-            lessThan100LeftForPageContent ? "text-red-500 border-red-500" : ""
+            lessThan20LeftForPageContent ? "text-red-500 border-red-500" : ""
           }`}
         >
           {pageContentLenString} /{" "}
@@ -67,7 +67,7 @@ export default function GameEditFields({
         })}
         autoComplete="off"
         errMsg={errors["description"]?.message}
-        className={lessThan100LeftForPageContent ? "text-red-500" : ""}
+        className={lessThan20LeftForPageContent ? "text-red-500" : ""}
       />
     </>
   );

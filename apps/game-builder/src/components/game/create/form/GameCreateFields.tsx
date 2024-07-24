@@ -23,8 +23,8 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
 
   const pageContentLen = watch("pageOneContent")?.length || 0;
   const pageContentLenString = formatNumberWithCommas(pageContentLen);
-  const lessThan100LeftForPageContent =
-    MAX_LENGTH.pageOneContent - pageContentLen < 100;
+  const lessThan20LeftForPageContent =
+    MAX_LENGTH.pageOneContent - pageContentLen < 20;
 
   return (
     <>
@@ -55,7 +55,7 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
       <div>
         <p
           className={`relative h-0 top-6 px-1 text-xs text-right ${
-            lessThan100LeftForPageContent ? "text-red-500 border-red-500" : ""
+            lessThan20LeftForPageContent ? "text-red-500 border-red-500" : ""
           }`}
         >
           {pageContentLenString} /{" "}
@@ -75,7 +75,7 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
           },
         })}
         errMsg={errors["pageOneContent"]?.message}
-        className={lessThan100LeftForPageContent ? "text-red-500" : ""}
+        className={lessThan20LeftForPageContent ? "text-red-500" : ""}
       />
     </>
   );
