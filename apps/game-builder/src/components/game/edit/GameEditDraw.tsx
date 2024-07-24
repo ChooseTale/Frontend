@@ -61,7 +61,7 @@ export default function GameEditDraw({
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
             <ThemedButton className="w-full is-success" type="submit">
-              저장하기
+              수정
             </ThemedButton>
             <DrawerClose
               onClick={() => setIsOpen(false)}
