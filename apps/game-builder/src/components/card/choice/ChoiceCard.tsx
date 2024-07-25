@@ -94,7 +94,7 @@ export default function ChoiceCard({
               <Link2Icon className="h-5 w-5" />
               <select
                 {...register("toPageId", { required: true })}
-                className={`p-2 shadow-sm border rounded-sm text-xs ${errors["toPageId"] ? "border-red-500" : ""}`}
+                className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors["toPageId"] ? "border-red-500" : ""}`}
               >
                 {availablePages.map((page) => (
                   <option key={page.pageId} value={page.pageId}>
