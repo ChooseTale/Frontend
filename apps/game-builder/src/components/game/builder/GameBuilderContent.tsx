@@ -23,8 +23,14 @@ export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageData, deleteChoice, addPage, updatePage, deletePage } =
-    useGameDataProps;
+  const {
+    gamePageData,
+    deleteChoice,
+    addPage,
+    updatePage,
+    deletePage,
+    updateChoices,
+  } = useGameDataProps;
   const {
     clientChoicesMap,
     addClientChoice,
@@ -50,11 +56,14 @@ export default function GameBuilderContent({
     addAiChoice({ gameId, pageId });
   };
   const handleFixChoice = (pageId: number, choice: TempChoiceType) => {
-    updateClientChoice(pageId, choice);
+    updateChoices(pageId, choice);
   };
   const handleRemoveChoiceOnClient = (pageId: number, choiceId: number) => {
     removeClientChoice(pageId, choiceId);
     deletePage(pageId);
+  };
+  const handleFixChoiceOnClient = (pageId: number, choice: TempChoiceType) => {
+    updateClientChoice(pageId, choice);
   };
   const handleRemoveChoiceOnData = (pageId: number, choiceId: number) => {
     deleteChoice(pageId, choiceId);
@@ -102,7 +111,7 @@ export default function GameBuilderContent({
                 key={`page${page.id}clientChoice${idx}`}
                 choice={choice}
                 defaultFixed={false}
-                fixChoice={(choice) => handleFixChoice(page.id, choice)}
+                fixChoice={(choice) => handleFixChoiceOnClient(page.id, choice)}
                 removeChoice={() =>
                   handleRemoveChoiceOnClient(page.id, choice.id)
                 }

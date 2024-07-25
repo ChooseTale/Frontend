@@ -50,6 +50,7 @@ export default function ChoiceCard({
     handleSubmit,
     getValues,
     formState: { errors },
+    reset,
   } = useForm({ defaultValues });
 
   const onSubmit = (formData: typeof defaultValues) => {
@@ -70,6 +71,7 @@ export default function ChoiceCard({
   };
   const handleCancel = () => {
     setIsFixed(true);
+    reset(choice);
   };
 
   if (isFixed) {

@@ -30,7 +30,7 @@ export default function ThemedIconButton({
     <div className={`relative ${className}`}>
       <button
         type="button"
-        className={`absolute w-full h-full min-w-0 left-0 ${themeClass} ${parentThemeClass}`}
+        className={`absolute w-full h-full min-w-0 left-0 outline-none ${themeClass} ${parentThemeClass}`}
         {...props}
       />
       <div className="relative p-1 pointer-events-none">{children}</div>
