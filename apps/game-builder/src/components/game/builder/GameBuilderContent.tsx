@@ -4,7 +4,6 @@ import useClientChoices from "@/hooks/useClientChoices";
 import useGameData from "@/hooks/useGameData";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
-import { StaticChoice } from "@/components/card/choice/StaticChoice";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -51,16 +50,13 @@ export default function GameBuilderContent({
     addAiChoice({ gameId, pageId });
   };
   const handleFixChoice = (pageId: number, choice: TempChoiceType) => {
-    console.log("선택 결정", choice);
     updateClientChoice(pageId, choice);
   };
   const handleRemoveChoiceOnClient = (pageId: number, choiceId: number) => {
-    console.log("선택 삭제");
     removeClientChoice(pageId, choiceId);
     deletePage(pageId);
   };
   const handleRemoveChoiceOnData = (pageId: number, choiceId: number) => {
-    console.log("선택 삭제");
     deleteChoice(pageId, choiceId);
   };
 
@@ -89,12 +85,15 @@ export default function GameBuilderContent({
               updatePage={updatePage}
             />
             {choices.map((choice, idx) => (
-              <StaticChoice
-                {...choice}
+              <ChoiceCard
                 key={`page${page.id}choice${idx}`}
+                choice={choice}
+                defaultFixed={true}
+                fixChoice={(choice) => handleFixChoice(page.id, choice)}
                 removeChoice={() =>
                   handleRemoveChoiceOnData(page.id, choice.id)
                 }
+                availablePages={availablePages}
                 linkedPage={getToPage(choice.toPageId)}
               />
             ))}

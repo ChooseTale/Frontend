@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CheckIcon, Cross2Icon, Link2Icon } from "@radix-ui/react-icons";
+import { CheckIcon, Link2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card.tsx";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
@@ -55,15 +55,19 @@ export default function ChoiceCard({
     setIsFixed(!isFixed);
   };
 
-  const clickRemove = () => {
-    removeChoice();
+  const handleRemove = () => {
+    if (confirm("삭제 하시겠습니까?")) removeChoice();
+  };
+  const handleEdit = () => {
+    setIsFixed(false);
   };
 
   if (isFixed) {
     return (
       <StaticChoice
         {...getValues()}
-        removeChoice={clickRemove}
+        removeChoice={handleRemove}
+        editChoice={handleEdit}
         linkedPage={linkedPage}
       />
     );
@@ -106,14 +110,14 @@ export default function ChoiceCard({
           </CardContent>
         </div>
 
-        <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
+        <CardFooter className="flex flex-col justify-center items-center p-0 pr-4 pt-2 gap-1">
           {!isFixed && (
             <ThemedIconButton type="submit">
               <CheckIcon className="h-8 w-8" />
             </ThemedIconButton>
           )}
-          <ThemedIconButton onClick={clickRemove}>
-            <Cross2Icon className="h-8 w-8" />
+          <ThemedIconButton onClick={handleRemove}>
+            <TrashIcon className="h-7 w-7 m-[2px]" />
           </ThemedIconButton>
         </CardFooter>
       </ThemedCard>

@@ -7,21 +7,23 @@ import {
 } from "@repo/ui/components/ui/Card.tsx";
 import DotIndicator from "./DotIndicator";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { LinkedPageType } from "@/components/game/builder/GameBuilderContent";
 
 export function StaticChoice({
   title = "title 없음",
   description = "description 없음",
   removeChoice,
+  editChoice,
   linkedPage,
 }: {
   title: string;
   description: string;
   removeChoice: () => void;
+  editChoice: () => void;
   linkedPage: LinkedPageType | undefined;
 }) {
-  const clickRemove = () => {
+  const onClickRemove = () => {
     if (confirm("삭제 하시겠습니까?")) removeChoice();
   };
 
@@ -41,8 +43,14 @@ export function StaticChoice({
       </div>
 
       <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
-        <ThemedIconButton onClick={clickRemove}>
-          <Cross2Icon className="h-8 w-8" />
+        <ThemedIconButton
+          onClick={editChoice}
+          className="!absolute top-1 right-1 min-w-6 p-0 min-h-0 px-2 py-[2px]"
+        >
+          <Pencil2Icon className="h-4 w-4" />
+        </ThemedIconButton>
+        <ThemedIconButton onClick={onClickRemove}>
+          <TrashIcon className="h-7 w-7 m-[2px]" />
         </ThemedIconButton>
       </CardFooter>
     </ThemedCard>
