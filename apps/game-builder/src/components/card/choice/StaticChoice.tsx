@@ -7,7 +7,7 @@ import {
 } from "@repo/ui/components/ui/Card.tsx";
 import DotIndicator from "./DotIndicator";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
-import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import {LockClosedIcon, TrashIcon } from "@radix-ui/react-icons";
 import { LinkedPageType } from "@/components/game/builder/GameBuilderContent";
 
 export function StaticChoice({
@@ -47,7 +47,7 @@ export function StaticChoice({
           onClick={editChoice}
           className="!absolute top-1 right-1 min-w-6 p-0 min-h-0 px-2 py-[2px]"
         >
-          <Pencil2Icon className="h-4 w-4" />
+          <LockClosedIcon className="h-4 w-4" />
         </ThemedIconButton>
         <ThemedIconButton onClick={onClickRemove}>
           <TrashIcon className="h-7 w-7 m-[2px]" />
