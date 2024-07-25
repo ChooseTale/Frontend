@@ -69,7 +69,7 @@ export default function ChoiceCard({
     setIsFixed(false);
   };
   const handleCancel = () => {
-    if (confirm("작성을 취소 하겠습니까?")) setIsFixed(true);
+    setIsFixed(true);
   };
 
   if (isFixed) {
