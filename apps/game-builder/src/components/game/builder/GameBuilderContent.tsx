@@ -14,7 +14,7 @@ export default function GameBuilderContent({
   ...useGameDataProps
 }: GameBuilderContentProps) {
   const {
-    gamePageList: gamePageData,
+    gamePageList,
     deleteChoice,
     addPage,
     updatePage,
@@ -28,7 +28,7 @@ export default function GameBuilderContent({
     addAiChoice,
     updateClientChoice,
   } = useClientChoices({
-    gamePageData,
+    gamePageList,
   });
 
   const handleAddPageAndChoice = (pageId: number, depth: number) => {
@@ -58,7 +58,7 @@ export default function GameBuilderContent({
     if (choice.source === "server") deleteChoice(pageId, choice.id);
   };
 
-  const availablePages = gamePageData.map((page) => ({
+  const availablePages = gamePageList.map((page) => ({
     pageId: page.id,
     title: page.abridgement,
   }));
@@ -67,7 +67,7 @@ export default function GameBuilderContent({
 
   return (
     <div className="flex-1 flex flex-col gap-4">
-      {gamePageData.map((page) => {
+      {gamePageList.map((page) => {
         const choices = page.choices as ChoiceType[];
         const clientChoice = clientChoicesMap.get(page.id) as
           | ChoiceType[]
@@ -83,19 +83,21 @@ export default function GameBuilderContent({
               updatePage={updatePage}
             />
             {[...choices, ...(clientChoice ? clientChoice : [])].map(
-              (choice) => (
-                <ChoiceCard
-                  key={`page${page.id}choice${choice.id}`}
-                  choice={choice}
-                  defaultFixed={choice.source === "server"}
-                  fixChoice={(partialChoice) =>
-                    handleFixChoice(page.id, partialChoice)
-                  }
-                  removeChoice={() => handleDeleteChoice(page.id, choice)}
-                  availablePages={availablePages}
-                  linkedPage={getToPage(choice.toPageId)}
-                />
-              )
+              (choice) => {
+                return (
+                  <ChoiceCard
+                    key={`page${page.id}choice${choice.id}`}
+                    choice={choice}
+                    defaultFixed={choice.source === "server"}
+                    fixChoice={(partialChoice) =>
+                      handleFixChoice(page.id, partialChoice)
+                    }
+                    removeChoice={() => handleDeleteChoice(page.id, choice)}
+                    availablePages={availablePages}
+                    linkedPage={getToPage(choice.toPageId)}
+                  />
+                );
+              }
             )}
           </div>
         );

@@ -13,10 +13,18 @@ const setGameWithSource = (
   gameData: GameBuild,
   source: PageType["source"]
 ): GameType => {
-  const pagesWithTag = gameData.pages.map((page) => ({
-    ...page,
-    source,
-  })) as PageType[];
+  const pagesWithTag = gameData.pages.map((page) => {
+    const choicesWithTag = page.choices.map((choice) => ({
+      ...choice,
+      source,
+    })) as ChoiceType[];
+
+    return {
+      ...page,
+      choices: choicesWithTag,
+      source,
+    } as PageType;
+  });
 
   return {
     ...gameData,
