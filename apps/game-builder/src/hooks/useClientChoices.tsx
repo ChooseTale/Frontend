@@ -5,11 +5,11 @@ import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
 import { ChoiceType } from "@/interface/customType";
 
 interface UseClientChoicesProps {
-  gamePageData: Page[];
+  gamePageList: Page[];
 }
 
 export default function useClientChoices({
-  gamePageData,
+  gamePageList,
 }: UseClientChoicesProps) {
   const [clientChoicesMap, setClientChoicesMap] = useState<
     Map<number, Choice[]>
@@ -19,7 +19,7 @@ export default function useClientChoices({
     let success: boolean = false;
     setClientChoicesMap((prevMap) => {
       const actualChoiceLength =
-        gamePageData.find((page) => page.id === pageId)?.choices.length ?? 0;
+        gamePageList.find((page) => page.id === pageId)?.choices.length ?? 0;
       const clientChoiceLength = prevMap.get(pageId)?.length ?? 0;
 
       if (actualChoiceLength + clientChoiceLength >= 4) {
@@ -60,7 +60,7 @@ export default function useClientChoices({
     const newChoice: ChoiceType = {
       ...choice,
       id:
-        (gamePageData.find((page) => page.id === pageId)?.choices.length ?? 0) +
+        (gamePageList.find((page) => page.id === pageId)?.choices.length ?? 0) +
         (clientChoicesMap.get(pageId)?.length ?? 0) +
         1,
       fromPageId: pageId,
