@@ -1,7 +1,7 @@
-import { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
-import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
-import { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
+import type { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
+import type { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
+import type { Page } from "@choosetale/nestia-type/lib/structures/Page";
+import type { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
 
 interface Thumbnail {
   id: number;
@@ -17,7 +17,7 @@ export interface GameInfo extends UpdateGameReqDto {
   thumbnails: Thumbnail[];
   createdAt: string;
 }
-export interface GameBuild extends GetAllGameResDto {}
+export type GameBuild = GetAllGameResDto;
 
 interface BaseChoice extends Choice {
   title: string;

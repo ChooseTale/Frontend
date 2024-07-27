@@ -1,9 +1,9 @@
 "use client";
 import useClientChoices from "@/hooks/useClientChoices";
-import useGameData from "@/hooks/useGameData";
+import type useGameData from "@/hooks/useGameData";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
-import { ChoiceType } from "@/interface/customType";
+import type { ChoiceType } from "@/interface/customType";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -32,18 +32,19 @@ export default function GameBuilderContent({
   });
 
   const handleAddPageAndChoice = (pageId: number, depth: number) => {
-    console.log(`POST /game/${gameId}/page 카드 추가`);
-    console.log("(hidden) 페이지 데이터 추가");
-    console.log("선택지 카드 UI 추가");
+    // console.log(`POST /game/${gameId}/page 카드 추가`);
+    // console.log("(hidden) 페이지 데이터 추가");
+    // console.log("선택지 카드 UI 추가");
     const success = addClientChoice(pageId);
     success && addPage({ depth });
   };
   const handleAddPageAndChoiceByAI = async (pageId: number) => {
-    console.log(`POST /game/${gameId}/page 카드 추가`);
-    console.log("(hidden) 페이지 데이터 추가");
-    console.log(`GET /game/${gameId}/page/${pageId}/recommend-choices`);
-    console.log("선택지 카드 추가 🤖");
-    addAiChoice({ gameId, pageId });
+    // console.log(`POST /game/${gameId}/page 카드 추가`);
+    // console.log("(hidden) 페이지 데이터 추가");
+    // console.log(`GET /game/${gameId}/page/${pageId}/recommend-choices`);
+    // console.log("선택지 카드 추가 🤖");
+    const response = addAiChoice({ gameId, pageId });
+    return response;
   };
   const handleFixChoice = (pageId: number, choice: ChoiceType) => {
     if (choice.source === "server") updateChoices(pageId, choice);

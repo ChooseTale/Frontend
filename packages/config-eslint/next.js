@@ -10,7 +10,6 @@ const project = resolve(process.cwd(), "tsconfig.json");
  * For more information, see https://github.com/vercel/style-guide
  *
  */
-
 module.exports = {
   extends: [
     ...[
@@ -20,7 +19,6 @@ module.exports = {
       "@vercel/style-guide/eslint/react",
       "@vercel/style-guide/eslint/next",
     ].map(require.resolve),
-    "turbo",
   ],
   parserOptions: {
     project,
@@ -40,11 +38,13 @@ module.exports = {
     },
   },
   ignorePatterns: ["node_modules/", "dist/"],
-  // add rules configurations here
   rules: {
-    "import/no-default-export": off,
-    "prefer-named-capture-group": off,
-    "@typescript-eslint/explicit-function-return-type": off,
+    "react/jsx-no-leaked-render": "off",
+    "react/jsx-sort-props": "off",
+    "import/no-default-export": "off",
+    "prefer-named-capture-group": "off",
+    "no-alert": "off",
+    "no-undef": "off",
     "unicorn/filename-case": [
       "error",
       {
@@ -56,6 +56,11 @@ module.exports = {
         },
       },
     ],
-    "react/jsx-sort-props": off,
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-unnecessary-condition": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
   },
 };

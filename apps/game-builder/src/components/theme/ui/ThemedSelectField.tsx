@@ -1,5 +1,4 @@
-import { useThemeStore } from "@/store/useTheme";
-import { InputProps } from "@repo/ui/components/ui/Input.jsx";
+import type { InputProps } from "@repo/ui/components/ui/Input.jsx";
 import {
   Select,
   SelectContent,
@@ -7,31 +6,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/Select.tsx";
-import ThemedLabel from "./ThemedLabel";
+import { useThemeStore } from "@/store/useTheme";
 import { GENRES } from "@/interface/newGameData";
+import ThemedLabel from "./ThemedLabel";
 
 interface ThemedSelectFieldProps extends InputProps {
   labelText: string;
-  className?: string;
 }
 
 export default function ThemedSelectField({
   labelText,
-  className,
   ...props
 }: ThemedSelectFieldProps) {
   const { theme } = useThemeStore((state) => state);
-  let themeClass;
-
-  switch (theme) {
-    case "old-game":
-      themeClass = "nes-input";
-      break;
-    case "windows-98":
-      themeClass = "rounded-none";
-      break;
-    default:
-  }
 
   if (theme === "old-game" || theme === "windows-98") {
     return (
@@ -43,7 +30,9 @@ export default function ThemedSelectField({
               {props.value}
             </option>
             {GENRES.map((genre) => (
-              <option value={genre}>{genre}</option>
+              <option value={genre} key={genre}>
+                {genre}
+              </option>
             ))}
           </select>
         </div>

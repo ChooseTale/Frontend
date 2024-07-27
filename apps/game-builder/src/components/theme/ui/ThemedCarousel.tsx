@@ -24,61 +24,59 @@ export default function ThemedCarousel() {
   }
 
   return (
-    <>
-      <Carousel>
-        <CarouselContent className="mx-10">
-          <CarouselItem>
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Image"
-                className="rounded-md object-cover border"
-                fill
-              />
-            </AspectRatio>
-          </CarouselItem>
-          <CarouselItem>
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Image"
-                className="rounded-md object-cover border"
-                fill
-              />
-            </AspectRatio>
-          </CarouselItem>
-          <CarouselItem>
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Image"
-                className="rounded-md object-cover border"
-                fill
-              />
-            </AspectRatio>
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious
-          type="button"
-          className={`translate-x-6 ${themeClass} !absolute`}
-          style={{
-            boxShadow:
-              theme === "windows-98"
-                ? "inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf"
-                : "",
-          }}
-        />
-        <CarouselNext
-          type="button"
-          className={`-translate-x-6 ${themeClass} !absolute`}
-          style={{
-            boxShadow:
-              theme === "windows-98"
-                ? "inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf"
-                : "",
-          }}
-        />
-      </Carousel>
-    </>
+    <Carousel>
+      <CarouselContent className="mx-10">
+        <CarouselItem>
+          <AspectRatio ratio={16 / 9}>
+            <Image
+              src="https://picsum.photos/600/400"
+              alt="Image"
+              className="rounded-md object-cover border"
+              fill
+            />
+          </AspectRatio>
+        </CarouselItem>
+        <CarouselItem>
+          <AspectRatio ratio={16 / 9}>
+            <Image
+              src="https://picsum.photos/600/400"
+              alt="Image"
+              className="rounded-md object-cover border"
+              fill
+            />
+          </AspectRatio>
+        </CarouselItem>
+        <CarouselItem>
+          <AspectRatio ratio={16 / 9}>
+            <Image
+              src="https://picsum.photos/600/400"
+              alt="Image"
+              className="rounded-md object-cover border"
+              fill
+            />
+          </AspectRatio>
+        </CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious
+        type="button"
+        className={`translate-x-6 ${themeClass} !absolute`}
+        style={{
+          boxShadow:
+            theme === "windows-98"
+              ? "inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf"
+              : "",
+        }}
+      />
+      <CarouselNext
+        type="button"
+        className={`-translate-x-6 ${themeClass} !absolute`}
+        style={{
+          boxShadow:
+            theme === "windows-98"
+              ? "inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf"
+              : "",
+        }}
+      />
+    </Carousel>
   );
 }

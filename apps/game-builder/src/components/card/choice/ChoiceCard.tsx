@@ -9,7 +9,7 @@ import {
   TrashIcon,
 } from "@radix-ui/react-icons";
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card.tsx";
-import { ChoiceType, LinkedPage } from "@/interface/customType";
+import type { ChoiceType, LinkedPage } from "@/interface/customType";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import ThemedInputField from "@/components/theme/ui/ThemedInputField";
@@ -35,12 +35,12 @@ export default function ChoiceCard({
   linkedPage,
 }: PageCardProps) {
   const [isFixed, setIsFixed] = useState(defaultFixed);
-  const isSavedChoice = defaultFixed === true;
+  const isSavedChoice = defaultFixed;
 
   const defaultValues = {
     ...choice,
-    title: choice.title ?? "",
-    description: choice.description ?? "",
+    title: choice.title,
+    description: choice.description,
   };
   const {
     register,
@@ -51,12 +51,12 @@ export default function ChoiceCard({
   } = useForm({ defaultValues });
 
   const onSubmit = (formData: typeof defaultValues) => {
-    const choice = {
+    const newChoice = {
       ...formData,
-      toPageId: +formData.toPageId,
+      toPageId: Number(formData.toPageId),
     };
 
-    fixChoice(choice);
+    fixChoice(newChoice);
     setIsFixed(!isFixed);
   };
 
@@ -84,7 +84,7 @@ export default function ChoiceCard({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ThemedCard className="relative min-h-24 !ml-12" isChoice={true}>
+      <ThemedCard className="relative min-h-24 !ml-12" isChoice>
         <DotIndicator isChoosen={isFixed} linkedPage={linkedPage} />
 
         <div className="flex-1">
@@ -93,21 +93,21 @@ export default function ChoiceCard({
               placeholder="선택지 제목"
               labelText=""
               {...register("title", { required: true })}
-              className={`${errors["title"] ? "border-red-500" : ""}`}
+              className={`${errors.title ? "border-red-500" : ""}`}
             />
             <ThemedTextareaField
               placeholder="선택지 내용"
               labelText=""
               rows={2}
               {...register("description", { required: true })}
-              className={`${errors["description"] ? "border-red-500" : ""}`}
+              className={`${errors.description ? "border-red-500" : ""}`}
             />
 
             <div className="flex items-center gap-2 justify-end mt-2">
               <Link2Icon className="h-5 w-5" />
               <select
                 {...register("toPageId", { required: true })}
-                className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors["toPageId"] ? "border-red-500" : ""}`}
+                className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors.toPageId ? "border-red-500" : ""}`}
               >
                 {availablePages.map((page) => (
                   <option key={page.pageId} value={page.pageId}>

@@ -1,8 +1,8 @@
-import { useForm } from "react-hook-form";
+import type { useForm } from "react-hook-form";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
-import { PageType } from "@/interface/customType";
+import type { PageType } from "@/interface/customType";
 
 const MAX_LENGTH = {
   abridgement: 50,
@@ -37,7 +37,7 @@ export default function GameEditFields({
           },
         })}
         autoComplete="off"
-        errMsg={errors["abridgement"]?.message ?? ""}
+        errMsg={errors.abridgement?.message ?? ""}
       />
       <p className="text-xs text-right text-gray-400 h-0 -translate-y-2">
         요약은 플레이어에게 보이지 않습니다.
@@ -66,7 +66,7 @@ export default function GameEditFields({
           },
         })}
         autoComplete="off"
-        errMsg={errors["description"]?.message}
+        errMsg={errors.description?.message}
         className={lessThan20LeftForPageContent ? "text-red-500" : ""}
       />
     </>

@@ -1,18 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Progress() {
   const pathname = usePathname();
-  const stepPercentages = new Map<string, number>([
-    ["/game/create", 20],
-    ["/game/builder", 50],
-    ["/game/confirm", 90],
-  ]);
+  const stepPercentages = useRef(
+    new Map<string, number>([
+      ["/game/create", 20],
+      ["/game/builder", 50],
+      ["/game/confirm", 90],
+    ])
+  );
 
   const [percentage, setPercentage] = useState(0);
   useEffect(() => {
-    const stepPercentage = stepPercentages.get(pathname) || 0;
+    const stepPercentage = stepPercentages.current.get(pathname) || 0;
     setPercentage(stepPercentage);
   }, [pathname]);
 

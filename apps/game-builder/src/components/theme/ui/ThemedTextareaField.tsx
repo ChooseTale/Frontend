@@ -1,8 +1,9 @@
 import { forwardRef } from "react";
+import type { TextareaProps } from "@repo/ui/components/ui/Textarea.tsx";
+import { Textarea } from "@repo/ui/components/ui/Textarea.tsx";
 import { useThemeStore } from "@/store/useTheme";
-import { Textarea, TextareaProps } from "@repo/ui/components/ui/Textarea.tsx";
-import ThemedLabel from "./ThemedLabel";
 import FieldErrorMessage from "@/components/common/form/FieldErrorMessage";
+import ThemedLabel from "./ThemedLabel";
 
 interface ThemedTextareaFieldProps extends TextareaProps {
   labelText: string;

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
-import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
+import type { Page } from "@choosetale/nestia-type/lib/structures/Page";
+import type { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
 import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
-import { ChoiceType } from "@/interface/customType";
+import type { ChoiceType } from "@/interface/customType";
 
 interface UseClientChoicesProps {
   gamePageList: Page[];
@@ -16,7 +16,7 @@ export default function useClientChoices({
   >(new Map());
 
   const addClientChoice = (pageId: number, choice?: ChoiceType): boolean => {
-    let success: boolean = false;
+    let success = false;
     setClientChoicesMap((prevMap) => {
       const actualChoiceLength =
         gamePageList.find((page) => page.id === pageId)?.choices.length ?? 0;
@@ -56,8 +56,8 @@ export default function useClientChoices({
     const res = await getRecommendChoice(gameId, pageId);
     if (!res.success) return;
 
-    const choice = res.choice;
-    const newChoice: ChoiceType = {
+    const choices = res.choices as ChoiceType[];
+    const newChoices: ChoiceType[] = choices.map((choice) => ({
       ...choice,
       id:
         (gamePageList.find((page) => page.id === pageId)?.choices.length ?? 0) +
@@ -66,11 +66,11 @@ export default function useClientChoices({
       fromPageId: pageId,
       toPageId: -1,
       createdAt: new Date().toISOString(),
-    };
+    }));
 
     setClientChoicesMap((prevMap) => {
       const existingChoices = prevMap.get(pageId) || [];
-      const updatedChoices = [...existingChoices, newChoice];
+      const updatedChoices = [...existingChoices, ...newChoices];
       const newMap = new Map(prevMap);
       newMap.set(pageId, updatedChoices);
       return newMap;

@@ -1,6 +1,7 @@
+import type { ReactNode } from "react";
+import type { ButtonProps } from "@repo/ui/components/ui/Button.tsx";
+import { Button } from "@repo/ui/components/ui/Button.tsx";
 import { useThemeStore } from "@/store/useTheme";
-import { Button, ButtonProps } from "@repo/ui/components/ui/Button.tsx";
-import { ReactNode } from "react";
 
 interface ThemedButtonProps extends ButtonProps {
   children: ReactNode;

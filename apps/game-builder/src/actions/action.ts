@@ -1,4 +1,4 @@
-import { HttpError } from "@choosetale/nestia-type";
+import type { HttpError } from "@choosetale/nestia-type";
 
 export interface SuccessResponse {
   success: true;

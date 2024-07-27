@@ -1,5 +1,5 @@
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { useThemeStore } from "@/store/useTheme";
-import { ButtonHTMLAttributes, ReactNode } from "react";
 
 interface ComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;

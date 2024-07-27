@@ -3,7 +3,7 @@ import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import MobileWrapper from "@repo/ui/components/MobileWrapper.tsx";
-import CSSThemeProvider from "@components/theme/CSSThemeProvider";
+import CSSThemeProvider from "@/components/theme/ThemeProvider";
 import Progress from "@/components/common/Progress";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import TopNav from "@/components/common/partial/TopNav";
 
 export default function Layout({ children }: { children: ReactNode }) {

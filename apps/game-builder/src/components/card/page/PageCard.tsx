@@ -6,13 +6,13 @@ import {
   CardFooter,
   CardTitle,
 } from "@repo/ui/components/ui/Card.tsx";
+import type { PageType } from "@/interface/customType";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
-import DotIndicator from "./DotIndicator";
 import robotIcon from "@asset/icon/robot-solid.svg";
 import GameEditDraw from "@/components/game/edit/GameEditDraw";
-import { PageType } from "@/interface/customType";
-import useGameData from "@/hooks/useGameData";
+import type useGameData from "@/hooks/useGameData";
+import DotIndicator from "./DotIndicator";
 
 interface PageCardProps {
   page: PageType;

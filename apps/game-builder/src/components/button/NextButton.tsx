@@ -8,7 +8,7 @@ export function NextButton({
   options,
 }: {
   nextTo: string;
-  options?: { seachParams: { [key: string]: boolean } };
+  options?: { seachParams: Record<string, boolean> };
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -19,7 +19,7 @@ export function NextButton({
 
     if (match !== null) {
       if (queryString === "") queryString = "?";
-      queryString += key + "=" + match;
+      queryString += `${key}=${match}`;
     }
   }
 

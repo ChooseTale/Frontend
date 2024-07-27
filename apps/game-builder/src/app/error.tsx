@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { NextPageContext } from "next";
+import type { NextPageContext } from "next";
 import LinkedButton from "@/components/common/button/LinkedButton";
 
 interface ErrorPageProps {
   statusCode: number;
 }
 
-const ErrorPage = ({ statusCode }: ErrorPageProps) => {
+function ErrorPage({ statusCode }: ErrorPageProps) {
   return (
     <div className="flex flex-col items-center justify-center flex-1 bg-gray-50 text-gray-900 p-4">
       <div className="text-center">
@@ -22,16 +22,16 @@ const ErrorPage = ({ statusCode }: ErrorPageProps) => {
           잠시 후 다시 시도해 주세요.
         </p>
         <div className="flex gap-2 justify-center">
-          <LinkedButton to=".." buttonText="뒤로 가기" variant={"outline"} />
+          <LinkedButton to=".." buttonText="뒤로 가기" variant="outline" />
           <LinkedButton to="/" buttonText="메인으로" />
         </div>
       </div>
     </div>
   );
-};
+}
 
 ErrorPage.getInitialProps = ({ res, err }: NextPageContext) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  const statusCode = res?.statusCode ?? err ? err?.statusCode : 404;
   return { statusCode };
 };
 

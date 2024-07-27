@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Drawer,
   DrawerClose,
@@ -10,11 +11,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@repo/ui/components/ui/Drawer.tsx";
-import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import GameEditFields from "@/components/game/edit/form/GameEditFields";
-import { PageType } from "@/interface/customType";
-import useGameData from "@/hooks/useGameData";
+import type { PageType } from "@/interface/customType";
+import type useGameData from "@/hooks/useGameData";
+import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 
 interface GameEditDrawProps {
   theme?: string;

@@ -1,14 +1,14 @@
-import ThemedCard from "@/components/theme/ui/ThemedCard";
+import { LockClosedIcon, TrashIcon } from "@radix-ui/react-icons";
 import {
   CardContent,
   CardDescription,
   CardFooter,
   CardTitle,
 } from "@repo/ui/components/ui/Card.tsx";
-import { LinkedPage } from "@/interface/customType";
-import DotIndicator from "./DotIndicator";
+import type { LinkedPage } from "@/interface/customType";
+import ThemedCard from "@/components/theme/ui/ThemedCard";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
-import { LockClosedIcon, TrashIcon } from "@radix-ui/react-icons";
+import DotIndicator from "./DotIndicator";
 
 export function StaticChoice({
   title = "title 없음",
@@ -28,8 +28,8 @@ export function StaticChoice({
   };
 
   return (
-    <ThemedCard className="relative min-h-24 !ml-12" isChoice={true}>
-      <DotIndicator isChoosen={true} linkedPage={linkedPage} />
+    <ThemedCard className="relative min-h-24 !ml-12" isChoice>
+      <DotIndicator isChoosen linkedPage={linkedPage} />
 
       <div className="flex-1">
         <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-center">
