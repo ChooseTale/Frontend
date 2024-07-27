@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
+import { PageType } from "@/interface/customType";
 
 const MAX_LENGTH = {
   abridgement: 50,
@@ -11,7 +11,7 @@ const MAX_LENGTH = {
 
 export default function GameEditFields({
   ...useFormProps
-}: ReturnType<typeof useForm<Page>>) {
+}: ReturnType<typeof useForm<PageType>>) {
   const {
     register,
     formState: { errors },

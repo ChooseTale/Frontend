@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { CardStackPlusIcon } from "@radix-ui/react-icons";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import {
   CardContent,
   CardDescription,
@@ -12,13 +11,15 @@ import ThemedIconButton from "@themed/ThemedIconButton";
 import DotIndicator from "./DotIndicator";
 import robotIcon from "@asset/icon/robot-solid.svg";
 import GameEditDraw from "@/components/game/edit/GameEditDraw";
+import { PageType } from "@/interface/customType";
+import useGameData from "@/hooks/useGameData";
 
 interface PageCardProps {
-  page: Page;
+  page: PageType;
   choicesLength: number;
   addChoice: () => void;
   addAIChoice: () => void;
-  updatePage: (updatedPage: Page) => void;
+  updatePage: ReturnType<typeof useGameData>["updatePage"];
 }
 
 export default function PageCard({

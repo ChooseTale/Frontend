@@ -3,15 +3,15 @@ import { API_URL } from "@/constant/config";
 import { HttpError } from "@choosetale/nestia-type";
 import { ErrorResponse, SuccessResponse } from "../action";
 import { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
+import { ExtendsCreateGameResDto } from "@/interface/newGameData";
 
 // --게임 정보 불러오기--
-export type TempGetGameResDto = any;
 interface GetGameDataSuccessResponse extends SuccessResponse {
-  gameData: TempGetGameResDto;
+  gameInfo: ExtendsCreateGameResDto;
 }
 export type GetGameDataResponse = GetGameDataSuccessResponse | ErrorResponse;
 
-export const getGameById = async (
+export const getGameInfoById = async (
   gameId: string
 ): Promise<GetGameDataResponse> => {
   try {
@@ -23,8 +23,8 @@ export const getGameById = async (
       mode: "no-cors",
     });
 
-    const gameData = (await response.json()) as TempGetGameResDto;
-    return { success: true, gameData };
+    const gameInfo = (await response.json()) as ExtendsCreateGameResDto;
+    return { success: true, gameInfo };
   } catch (error) {
     return { success: false, error: error as HttpError };
   }

@@ -2,16 +2,15 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
-
 import { useGameStore } from "@/store/gameStore";
+import { ExtendsCreateGameResDto } from "@/interface/newGameData";
 import { createGame } from "@/actions/game/createGame";
 import NextButton from "@components/button/SubmitButton";
 import GameCreateFields from "@/components/game/create/form/GameCreateFields";
-import { ExtendsPageType } from "@/interface/page";
 
 export default function CreateGame() {
   const router = useRouter();
-  const { setGameInitData } = useGameStore();
+  const { setCreatedGame } = useGameStore();
 
   const useFormProps = useForm<CreateGameReqDto>();
   const { handleSubmit } = useFormProps;
@@ -25,7 +24,7 @@ export default function CreateGame() {
       if (!gameId) throw new Error("게임 생성 실패");
 
       router.push(`/game/builder/${gameId}`);
-      setGameInitData(res.gameInitData as ExtendsPageType);
+      setCreatedGame(res.gameInitData as ExtendsCreateGameResDto);
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);

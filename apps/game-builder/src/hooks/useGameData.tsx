@@ -1,30 +1,46 @@
 "use client";
 import { useState } from "react";
-import { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
-import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
-import { ExtendsPageType, IInitPage } from "@/interface/page";
-import { TempGetGameResDto } from "@/actions/game/getGame";
-import { TempChoiceType } from "@/components/game/builder/GameBuilderContent";
+import { ExtendsCreateGameResDto, NewGameBuild } from "@/interface/newGameData";
+import {
+  ChoiceType,
+  GameBuild,
+  GameType,
+  PageType,
+} from "@/interface/customType";
+
+const setGameWithSource = (
+  gameData: GameBuild,
+  source: PageType["source"]
+): GameType => {
+  console.log(gameData);
+
+  const pagesWithTag = gameData?.pages?.map((page) => ({
+    ...page,
+    source,
+  })) as PageType[];
+
+  return {
+    ...gameData,
+    pages: pagesWithTag,
+    source,
+  } as GameType;
+};
 
 export default function useGameData({
-  gameInitData,
-  gameAllData,
-  gameData,
+  createdGame,
+  gameBuildData,
 }: {
-  gameAllData: GetAllGameResDto;
-  gameData: TempGetGameResDto;
-  gameInitData: ExtendsPageType | null;
+  createdGame: ExtendsCreateGameResDto | null;
+  gameBuildData: GameBuild;
 }) {
-  const initGame =
-    gameInitData && (new IInitPage(gameInitData) as GetAllGameResDto);
+  const newGame: GameType | null = createdGame && new NewGameBuild(createdGame);
+  const game = setGameWithSource(gameBuildData, "server");
+  const [gamePageList, setGamePageList] = useState(
+    newGame?.pages ?? game.pages
+  );
 
-  const [gameDescription, setGameDescription] = useState(gameData);
-  const [allGame, setAllGame] = useState(initGame ?? gameAllData);
-  const [gamePageData, setGamePageData] = useState<Page[]>(allGame?.pages);
-
-  const updateChoices = (pageId: number, updatedChoice: TempChoiceType) => {
-    setGamePageData((prevData) =>
+  const updateChoices = (pageId: number, updatedChoice: ChoiceType) => {
+    setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
         page.id === pageId
           ? {
@@ -38,8 +54,8 @@ export default function useGameData({
     );
   };
 
-  const addChoice = (pageId: number, choice: Choice) => {
-    setGamePageData((prevData) =>
+  const addChoice = (pageId: number, choice: ChoiceType) => {
+    setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
         page.id === pageId
           ? { ...page, choices: [...page.choices, choice] }
@@ -51,7 +67,7 @@ export default function useGameData({
   const deleteChoice = (pageId: number, choiceId: number) => {
     let toPageId: number | undefined;
 
-    setGamePageData((prevData) =>
+    setGamePageList((prevData) =>
       prevData.map((page) => {
         if (page.id === pageId) {
           const updatedChoices = page.choices.filter((choice) => {
@@ -72,38 +88,43 @@ export default function useGameData({
   };
 
   const addPage = ({ depth }: { depth: number }) => {
-    const newPageId = gamePageData.length + 1;
-    const newPage: Page = {
+    // FIXME: api 요청하도록 변경 필요
+    const newPageId = gamePageList.length + 1;
+    const newPage: PageType = {
       id: newPageId,
-      abridgement: `페이지 ${newPageId} 요약`,
-      description: `페이지 ${newPageId} 내용`,
+      title: "",
+      abridgement: "",
+      description: "",
       createdAt: new Date().toISOString(),
       depth,
       choices: [],
+      source: "client",
     };
 
-    setGamePageData((prevData: Page[]) => [...prevData, newPage]);
+    setGamePageList((prevData: PageType[]) => [...prevData, newPage]);
   };
 
-  const updatePage = (updatedPage: Page) => {
-    setGamePageData((prevData) =>
+  const updatePage = (updatedPage: PageType) => {
+    setGamePageList((prevData) =>
       prevData.map((page) => (page.id === updatedPage.id ? updatedPage : page))
     );
   };
 
   const deletePage = (pageId: number) => {
-    setGamePageData((prevData) => {
+    setGamePageList((prevData) => {
       const filteredPages = prevData.filter((page) => page.id !== pageId);
 
       return filteredPages.map((page) => ({
         ...page,
-        choices: page.choices.filter((choice) => choice.toPageId !== pageId),
+        choices: page.choices.filter(
+          (choice: any) => choice.toPageId !== pageId
+        ),
       }));
     });
   };
 
   return {
-    gamePageData,
+    gamePageList,
     addPage,
     updatePage,
     deletePage,

@@ -5,10 +5,10 @@ import {
   CardFooter,
   CardTitle,
 } from "@repo/ui/components/ui/Card.tsx";
+import { LinkedPage } from "@/interface/customType";
 import DotIndicator from "./DotIndicator";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
-import {LockClosedIcon, TrashIcon } from "@radix-ui/react-icons";
-import { LinkedPageType } from "@/components/game/builder/GameBuilderContent";
+import { LockClosedIcon, TrashIcon } from "@radix-ui/react-icons";
 
 export function StaticChoice({
   title = "title 없음",
@@ -21,7 +21,7 @@ export function StaticChoice({
   description: string;
   removeChoice: () => void;
   editChoice: () => void;
-  linkedPage: LinkedPageType | undefined;
+  linkedPage: LinkedPage | undefined;
 }) {
   const onClickRemove = () => {
     if (confirm("삭제 하시겠습니까?")) removeChoice();

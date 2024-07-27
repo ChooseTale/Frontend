@@ -42,6 +42,20 @@ module.exports = {
   ignorePatterns: ["node_modules/", "dist/"],
   // add rules configurations here
   rules: {
-    "import/no-default-export": "off",
+    "import/no-default-export": off,
+    "prefer-named-capture-group": off,
+    "@typescript-eslint/explicit-function-return-type": off,
+    "unicorn/filename-case": [
+      "error",
+      {
+        cases: {
+          camelCase: true,
+          pascalCase: true,
+          snakeCase: true,
+          kebabCase: true,
+        },
+      },
+    ],
+    "react/jsx-sort-props": off,
   },
 };

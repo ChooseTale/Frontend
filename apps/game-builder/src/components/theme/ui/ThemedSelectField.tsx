@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/ui/Select.tsx";
 import ThemedLabel from "./ThemedLabel";
-import { GENRES } from "@/interface/page";
+import { GENRES } from "@/interface/newGameData";
 
 interface ThemedSelectFieldProps extends InputProps {
   labelText: string;

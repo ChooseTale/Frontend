@@ -9,24 +9,21 @@ import {
   TrashIcon,
 } from "@radix-ui/react-icons";
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card.tsx";
+import { ChoiceType, LinkedPage } from "@/interface/customType";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
-import {
-  LinkedPageType,
-  TempChoiceType,
-} from "@/components/game/builder/GameBuilderContent";
 import ThemedInputField from "@/components/theme/ui/ThemedInputField";
 import ThemedTextareaField from "@/components/theme/ui/ThemedTextareaField";
 import DotIndicator from "./DotIndicator";
 import { StaticChoice } from "./StaticChoice";
 
 interface PageCardProps {
-  choice: TempChoiceType;
+  choice: ChoiceType;
   defaultFixed: boolean;
-  fixChoice: (partialChoice: TempChoiceType) => void;
+  fixChoice: (partialChoice: ChoiceType) => void;
   removeChoice: () => void;
-  availablePages: LinkedPageType[];
-  linkedPage: LinkedPageType | undefined;
+  availablePages: LinkedPage[];
+  linkedPage: LinkedPage | undefined;
 }
 
 export default function ChoiceCard({

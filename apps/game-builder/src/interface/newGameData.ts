@@ -1,10 +1,5 @@
-import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
-
-export interface PageType {
-  title: string;
-  description: string;
-}
+import type { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
+import type { PageType } from "./customType";
 
 export const GENRES = [
   "FANTASY",
@@ -29,7 +24,7 @@ export const GENRES = [
 ] as const;
 
 export type GenreType = (typeof GENRES)[number];
-export interface ExtendsPageType extends CreateGameResDto {
+export interface ExtendsCreateGameResDto extends CreateGameResDto {
   page: {
     id: number;
     title: string;
@@ -37,12 +32,12 @@ export interface ExtendsPageType extends CreateGameResDto {
     abridgement: string;
   };
 }
-export class IInitPage {
+export class NewGameBuild {
   id: number;
   title: string;
-  pages: Page[];
+  pages: PageType[];
 
-  constructor(props: ExtendsPageType) {
+  constructor(props: ExtendsCreateGameResDto) {
     this.id = props.id;
     this.title = "";
     this.pages = [
@@ -53,6 +48,7 @@ export class IInitPage {
         createdAt: new Date().toISOString(),
         depth: 0,
         choices: [],
+        source: "client",
       },
     ];
   }

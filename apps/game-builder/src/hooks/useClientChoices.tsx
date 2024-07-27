@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
-import { TempChoiceType } from "@/components/game/builder/GameBuilderContent";
 import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
+import { ChoiceType } from "@/interface/customType";
 
 interface UseClientChoicesProps {
   gamePageData: Page[];
@@ -15,10 +15,7 @@ export default function useClientChoices({
     Map<number, Choice[]>
   >(new Map());
 
-  const addClientChoice = (
-    pageId: number,
-    choice?: TempChoiceType
-  ): boolean => {
+  const addClientChoice = (pageId: number, choice?: ChoiceType): boolean => {
     let success: boolean = false;
     setClientChoicesMap((prevMap) => {
       const actualChoiceLength =
@@ -31,13 +28,14 @@ export default function useClientChoices({
       }
 
       const existingChoices = prevMap.get(pageId) || [];
-      const newChoice: TempChoiceType = {
+      const newChoice: ChoiceType = {
         id: existingChoices.length,
         fromPageId: pageId,
         toPageId: -1,
         createdAt: new Date().toISOString(),
         title: choice?.title ?? "",
         description: choice?.description ?? "",
+        source: "client",
       };
       const updatedChoices = [...existingChoices, newChoice];
       const newMap = new Map(prevMap);
@@ -59,7 +57,7 @@ export default function useClientChoices({
     if (!res.success) return;
 
     const choice = res.choice;
-    const newChoice: TempChoiceType = {
+    const newChoice: ChoiceType = {
       ...choice,
       id:
         (gamePageData.find((page) => page.id === pageId)?.choices.length ?? 0) +
@@ -81,7 +79,7 @@ export default function useClientChoices({
 
   const updateClientChoice = (
     pageId: number,
-    updatedChoice: Partial<TempChoiceType>
+    updatedChoice: Partial<ChoiceType>
   ) => {
     setClientChoicesMap((prevMap) => {
       const existingChoices = prevMap.get(pageId) || [];

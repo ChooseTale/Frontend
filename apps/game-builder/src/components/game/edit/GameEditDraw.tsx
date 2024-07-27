@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Drawer,
@@ -9,16 +10,16 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@repo/ui/components/ui/Drawer.tsx";
-import { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import GameEditFields from "@/components/game/edit/form/GameEditFields";
-import { useEffect, useState } from "react";
+import { PageType } from "@/interface/customType";
+import useGameData from "@/hooks/useGameData";
 
 interface GameEditDrawProps {
   theme?: string;
-  page: Page;
-  updatePage: (page: Page) => void;
+  page: PageType;
+  updatePage: ReturnType<typeof useGameData>["updatePage"];
 }
 export interface GameEditFieldsType {
   abridgement: string;
@@ -34,7 +35,7 @@ export default function GameEditDraw({
   const useFormProps = useForm({ defaultValues: page });
   const { handleSubmit, reset } = useFormProps;
 
-  const onSubmit: SubmitHandler<Page> = (fieldValues) => {
+  const onSubmit: SubmitHandler<PageType> = (fieldValues) => {
     updatePage(fieldValues);
     setIsOpen(false);
   };

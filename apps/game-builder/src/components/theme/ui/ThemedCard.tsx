@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Card } from "@repo/ui/components/ui/Card.tsx";
 import { useThemeStore } from "@/store/useTheme";
 

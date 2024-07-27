@@ -1,4 +1,4 @@
-import { LinkedPageType } from "@/components/game/builder/GameBuilderContent";
+import { LinkedPage } from "@/interface/customType";
 import { Link1Icon } from "@radix-ui/react-icons";
 
 export default function DotIndicator({
@@ -8,7 +8,7 @@ export default function DotIndicator({
 }: {
   isChoosen: boolean;
   theme?: string;
-  linkedPage: LinkedPageType | undefined;
+  linkedPage: LinkedPage | undefined;
 }) {
   const unChoosenClass =
     theme === "old-game" ? "!w-5 !h-5 -left-[16px]" : "!w-4 !h-4 -left-[8px]";

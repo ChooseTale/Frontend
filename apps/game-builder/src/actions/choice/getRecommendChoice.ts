@@ -11,13 +11,10 @@ export type GetRecommendChoiceResponse =
   | GetRecommendChoiceSuccessResponse
   | ErrorResponse;
 
-export const getRecommendChoice = async ({
-  gameId,
-  pageId,
-}: {
-  gameId: number;
-  pageId: number;
-}): Promise<GetRecommendChoiceResponse> => {
+export const getRecommendChoice = async (
+  gameId: number,
+  pageId: number
+): Promise<GetRecommendChoiceResponse> => {
   const dummyResponse = {
     title: "title 예상 응답",
     description: "description 예상 응답",

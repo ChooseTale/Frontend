@@ -1,22 +1,12 @@
 "use client";
-import { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
 import useClientChoices from "@/hooks/useClientChoices";
 import useGameData from "@/hooks/useGameData";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
+import { ChoiceType } from "@/interface/customType";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
-}
-
-export interface TempChoiceType extends Choice {
-  title: string;
-  description: string;
-}
-
-export interface LinkedPageType {
-  pageId: number;
-  title: string;
 }
 
 export default function GameBuilderContent({
@@ -24,7 +14,7 @@ export default function GameBuilderContent({
   ...useGameDataProps
 }: GameBuilderContentProps) {
   const {
-    gamePageData,
+    gamePageList: gamePageData,
     deleteChoice,
     addPage,
     updatePage,
@@ -55,21 +45,19 @@ export default function GameBuilderContent({
     console.log("선택지 카드 추가 🤖");
     addAiChoice({ gameId, pageId });
   };
-  const handleFixChoice = (pageId: number, choice: TempChoiceType) => {
-    updateChoices(pageId, choice);
+  const handleFixChoice = (pageId: number, choice: ChoiceType) => {
+    if (choice.source === "server") updateChoices(pageId, choice);
+    if (choice.source === "client") updateClientChoice(pageId, choice);
   };
-  const handleRemoveChoiceOnClient = (pageId: number, choiceId: number) => {
-    removeClientChoice(pageId, choiceId);
-    deletePage(pageId);
-  };
-  const handleFixChoiceOnClient = (pageId: number, choice: TempChoiceType) => {
-    updateClientChoice(pageId, choice);
-  };
-  const handleRemoveChoiceOnData = (pageId: number, choiceId: number) => {
-    deleteChoice(pageId, choiceId);
+  const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
+    if (choice.source === "server") {
+      removeClientChoice(pageId, choice.id);
+      deletePage(pageId);
+    }
+    if (choice.source === "server") deleteChoice(pageId, choice.id);
   };
 
-  const availablePages = gamePageData.map((page) => ({
+  const availablePages = gamePageData?.map((page) => ({
     pageId: page.id,
     title: page.abridgement,
   }));
@@ -78,10 +66,10 @@ export default function GameBuilderContent({
 
   return (
     <div className="flex-1 flex flex-col gap-4">
-      {gamePageData.map((page) => {
-        const choices = page.choices as TempChoiceType[];
+      {gamePageData?.map((page) => {
+        const choices = page.choices as ChoiceType[];
         const clientChoice = clientChoicesMap.get(page.id) as
-          | TempChoiceType[]
+          | ChoiceType[]
           | undefined;
 
         return (
@@ -99,9 +87,7 @@ export default function GameBuilderContent({
                 choice={choice}
                 defaultFixed={true}
                 fixChoice={(choice) => handleFixChoice(page.id, choice)}
-                removeChoice={() =>
-                  handleRemoveChoiceOnData(page.id, choice.id)
-                }
+                removeChoice={() => handleDeleteChoice(page.id, choice)}
                 availablePages={availablePages}
                 linkedPage={getToPage(choice.toPageId)}
               />
@@ -111,10 +97,8 @@ export default function GameBuilderContent({
                 key={`page${page.id}clientChoice${idx}`}
                 choice={choice}
                 defaultFixed={false}
-                fixChoice={(choice) => handleFixChoiceOnClient(page.id, choice)}
-                removeChoice={() =>
-                  handleRemoveChoiceOnClient(page.id, choice.id)
-                }
+                fixChoice={(choice) => handleFixChoice(page.id, choice)}
+                removeChoice={() => handleDeleteChoice(page.id, choice)}
                 availablePages={availablePages}
                 linkedPage={getToPage(choice.toPageId)}
               />

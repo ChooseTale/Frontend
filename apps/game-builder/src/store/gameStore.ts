@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import { ExtendsPageType } from "@/interface/page";
+import type { ExtendsCreateGameResDto } from "@/interface/newGameData";
 
 interface GameState {
-  gameInitData: ExtendsPageType | null;
-  setGameInitData: (data: ExtendsPageType) => void;
-  clearGameInitData: () => void;
+  createdGame: ExtendsCreateGameResDto | null;
+  setCreatedGame: (data: ExtendsCreateGameResDto) => void;
+  clearCreatedGameData: () => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
-  gameInitData: null,
-  setGameInitData: (data: ExtendsPageType) => set({ gameInitData: data }),
-  clearGameInitData: () => set({ gameInitData: null }),
+  createdGame: null,
+  setCreatedGame: (data: ExtendsCreateGameResDto) => set({ createdGame: data }),
+  clearCreatedGameData: () => set({ createdGame: null }),
 }));
