@@ -1,9 +1,10 @@
 "use client";
-import { useForm, SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
+import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
+import type { ExtendsCreateGameResDto } from "@/interface/newGameData";
 import { useGameStore } from "@/store/gameStore";
-import { ExtendsCreateGameResDto } from "@/interface/newGameData";
 import { createGame } from "@/actions/game/createGame";
 import NextButton from "@components/button/SubmitButton";
 import GameCreateFields from "@/components/game/create/form/GameCreateFields";

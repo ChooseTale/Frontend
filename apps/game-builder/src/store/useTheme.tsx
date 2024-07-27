@@ -8,11 +8,11 @@ interface ThemeState {
   setTheme: (theme: ThemeType) => void;
 }
 
-export const isThemeType = (value: any): value is ThemeType => {
+export const isThemeType = (value: string): value is ThemeType => {
   return ["windows-98", "old-game", "default"].includes(value);
 };
 
-export type themePrefix = "" | "nes-";
+export type ThemePrefix = "" | "nes-";
 
 export const useThemeStore = create<ThemeState>()(
   persist(

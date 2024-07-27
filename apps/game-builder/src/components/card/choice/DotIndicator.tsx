@@ -1,5 +1,5 @@
-import { LinkedPage } from "@/interface/customType";
 import { Link1Icon } from "@radix-ui/react-icons";
+import type { LinkedPage } from "@/interface/customType";
 
 export default function DotIndicator({
   isChoosen,

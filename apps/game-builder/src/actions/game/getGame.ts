@@ -1,9 +1,9 @@
 "use server";
+import type { HttpError } from "@choosetale/nestia-type";
+import type { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 import { API_URL } from "@/constant/config";
-import { HttpError } from "@choosetale/nestia-type";
-import { ErrorResponse, SuccessResponse } from "../action";
-import { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
-import { ExtendsCreateGameResDto } from "@/interface/newGameData";
+import type { ExtendsCreateGameResDto } from "@/interface/newGameData";
+import type { ErrorResponse, SuccessResponse } from "../action";
 
 // --게임 정보 불러오기--
 interface GetGameDataSuccessResponse extends SuccessResponse {

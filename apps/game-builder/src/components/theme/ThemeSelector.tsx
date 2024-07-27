@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { isThemeType, useThemeStore } from "@/store/useTheme";
 
-const ThemeSelector = () => {
+export function ThemeSelector() {
   const { theme, setTheme } = useThemeStore();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -13,7 +13,7 @@ const ThemeSelector = () => {
   useEffect(() => {
     let linkElement: HTMLLinkElement | null = null;
 
-    const loadTheme = async () => {
+    const loadTheme = () => {
       if (linkElement && document.head.contains(linkElement)) {
         document.head.removeChild(linkElement);
       }
@@ -62,6 +62,4 @@ const ThemeSelector = () => {
       </select>
     </div>
   );
-};
-
-export default ThemeSelector;
+}

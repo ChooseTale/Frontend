@@ -1,5 +1,6 @@
 "use client";
-import { FormEvent, useState } from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NextButton from "@components/button/SubmitButton";
 import GameConfirmFields from "@/components/game/confirm/form/GameConfirmFields";
@@ -14,7 +15,7 @@ export default function ConirmGame() {
   });
   const router = useRouter();
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push("/");
   };

@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { ImageIcon, TrashIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
 import { isBoolean, isString } from "@/utils/typeGuard";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
+import robotIcon from "@asset/icon/robot-solid.svg";
 import ThemedCarousel from "../../../theme/ui/ThemedCarousel";
 import ThemedSelectField from "../../../theme/ui/ThemedSelectField";
 import ThemedIconButton from "../../../theme/ui/ThemedIconButton";
-import { ImageIcon, TrashIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
-import robotIcon from "@asset/icon/robot-solid.svg";
 import ThemedLabel from "../../../theme/ui/ThemedLabel";
 import ThemedCard from "../../../theme/ui/ThemedCard";
 
@@ -84,7 +84,7 @@ export default function GameConfirmFields<T extends Record<string, unknown>>({
       <div className="flex gap-4 justify-end items-center">
         <p className="mb-0 text-xs">게임을 비공개로 올릴까요?</p>
         <ThemedSwitch
-          name={"isPrivate"}
+          name="isPrivate"
           checked={formData.isPrivate}
           onCheckedChange={() =>
             setFormData({ ...formData, isPrivate: !formData.isPrivate })

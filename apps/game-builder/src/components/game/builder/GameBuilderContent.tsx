@@ -1,9 +1,9 @@
 "use client";
 import useClientChoices from "@/hooks/useClientChoices";
-import useGameData from "@/hooks/useGameData";
+import type useGameData from "@/hooks/useGameData";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
-import { ChoiceType } from "@/interface/customType";
+import type { ChoiceType } from "@/interface/customType";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -32,18 +32,19 @@ export default function GameBuilderContent({
   });
 
   const handleAddPageAndChoice = (pageId: number, depth: number) => {
-    console.log(`POST /game/${gameId}/page 카드 추가`);
-    console.log("(hidden) 페이지 데이터 추가");
-    console.log("선택지 카드 UI 추가");
+    // console.log(`POST /game/${gameId}/page 카드 추가`);
+    // console.log("(hidden) 페이지 데이터 추가");
+    // console.log("선택지 카드 UI 추가");
     const success = addClientChoice(pageId);
     success && addPage({ depth });
   };
   const handleAddPageAndChoiceByAI = async (pageId: number) => {
-    console.log(`POST /game/${gameId}/page 카드 추가`);
-    console.log("(hidden) 페이지 데이터 추가");
-    console.log(`GET /game/${gameId}/page/${pageId}/recommend-choices`);
-    console.log("선택지 카드 추가 🤖");
-    addAiChoice({ gameId, pageId });
+    // console.log(`POST /game/${gameId}/page 카드 추가`);
+    // console.log("(hidden) 페이지 데이터 추가");
+    // console.log(`GET /game/${gameId}/page/${pageId}/recommend-choices`);
+    // console.log("선택지 카드 추가 🤖");
+    const response = addAiChoice({ gameId, pageId });
+    return response;
   };
   const handleFixChoice = (pageId: number, choice: ChoiceType) => {
     if (choice.source === "server") updateChoices(pageId, choice);
@@ -57,7 +58,7 @@ export default function GameBuilderContent({
     if (choice.source === "server") deleteChoice(pageId, choice.id);
   };
 
-  const availablePages = gamePageData?.map((page) => ({
+  const availablePages = gamePageData.map((page) => ({
     pageId: page.id,
     title: page.abridgement,
   }));
@@ -66,7 +67,7 @@ export default function GameBuilderContent({
 
   return (
     <div className="flex-1 flex flex-col gap-4">
-      {gamePageData?.map((page) => {
+      {gamePageData.map((page) => {
         const choices = page.choices as ChoiceType[];
         const clientChoice = clientChoicesMap.get(page.id) as
           | ChoiceType[]
@@ -81,28 +82,21 @@ export default function GameBuilderContent({
               addAIChoice={() => handleAddPageAndChoiceByAI(page.id)}
               updatePage={updatePage}
             />
-            {choices.map((choice, idx) => (
-              <ChoiceCard
-                key={`page${page.id}choice${idx}`}
-                choice={choice}
-                defaultFixed={true}
-                fixChoice={(choice) => handleFixChoice(page.id, choice)}
-                removeChoice={() => handleDeleteChoice(page.id, choice)}
-                availablePages={availablePages}
-                linkedPage={getToPage(choice.toPageId)}
-              />
-            ))}
-            {clientChoice?.map((choice, idx) => (
-              <ChoiceCard
-                key={`page${page.id}clientChoice${idx}`}
-                choice={choice}
-                defaultFixed={false}
-                fixChoice={(choice) => handleFixChoice(page.id, choice)}
-                removeChoice={() => handleDeleteChoice(page.id, choice)}
-                availablePages={availablePages}
-                linkedPage={getToPage(choice.toPageId)}
-              />
-            ))}
+            {[...choices, ...(clientChoice ? clientChoice : [])].map(
+              (choice) => (
+                <ChoiceCard
+                  key={`page${page.id}choice${choice.id}`}
+                  choice={choice}
+                  defaultFixed={choice.source === "server"}
+                  fixChoice={(partialChoice) =>
+                    handleFixChoice(page.id, partialChoice)
+                  }
+                  removeChoice={() => handleDeleteChoice(page.id, choice)}
+                  availablePages={availablePages}
+                  linkedPage={getToPage(choice.toPageId)}
+                />
+              )
+            )}
           </div>
         );
       })}

@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useThemeStore } from "@/store/useTheme";
 
 export default function CSSThemeProvider({

@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import { ExtendsCreateGameResDto, NewGameBuild } from "@/interface/newGameData";
-import {
+import { NewGameBuild } from "@/interface/newGameData";
+import type { ExtendsCreateGameResDto } from "@/interface/newGameData";
+import type {
   ChoiceType,
   GameBuild,
   GameType,
@@ -12,9 +13,7 @@ const setGameWithSource = (
   gameData: GameBuild,
   source: PageType["source"]
 ): GameType => {
-  console.log(gameData);
-
-  const pagesWithTag = gameData?.pages?.map((page) => ({
+  const pagesWithTag = gameData.pages.map((page) => ({
     ...page,
     source,
   })) as PageType[];
@@ -117,7 +116,7 @@ export default function useGameData({
       return filteredPages.map((page) => ({
         ...page,
         choices: page.choices.filter(
-          (choice: any) => choice.toPageId !== pageId
+          (choice: ChoiceType) => choice.toPageId !== pageId
         ),
       }));
     });

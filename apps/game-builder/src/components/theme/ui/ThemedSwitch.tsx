@@ -1,5 +1,5 @@
-import { useThemeStore } from "@/store/useTheme";
 import { Switch } from "@repo/ui/components/ui/Switch.tsx";
+import { useThemeStore } from "@/store/useTheme";
 
 interface SwitchProps {
   name: string;

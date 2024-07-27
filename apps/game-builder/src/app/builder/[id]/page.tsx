@@ -4,14 +4,10 @@ import GameBuilder from "@/components/game/builder/GameBuilder";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
-  const gameId = +id;
+  const gameId = Number(id);
   const gameAllResponse = await getGameAllById(id);
 
-  if (
-    isNaN(gameId) ||
-    gameAllResponse.success === false ||
-    !gameAllResponse.gameAll
-  ) {
+  if (isNaN(gameId) || !gameAllResponse.success) {
     notFound();
   }
 

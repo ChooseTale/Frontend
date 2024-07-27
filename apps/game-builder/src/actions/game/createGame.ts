@@ -1,9 +1,9 @@
 "use server";
+import type { HttpError } from "@choosetale/nestia-type";
+import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
+import type { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
 import { API_URL } from "@/constant/config";
-import { HttpError } from "@choosetale/nestia-type";
-import { ErrorResponse, SuccessResponse } from "../action";
-import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
-import { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
+import type { ErrorResponse, SuccessResponse } from "../action";
 
 interface CreateSuccessResponse extends SuccessResponse {
   gameInitData: CreateGameResDto;

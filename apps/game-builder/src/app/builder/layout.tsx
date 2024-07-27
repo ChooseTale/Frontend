@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import TopNav from "@/components/common/partial/TopNav";
 import { NextButton } from "@/components/button/NextButton";
 

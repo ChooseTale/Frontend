@@ -1,19 +1,18 @@
 "use server";
-import * as type from "@choosetale/nestia-type";
+import type { HttpError } from "@choosetale/nestia-type";
+import type { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
 import { API_URL } from "@/constant/config";
-
-import { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
-import { ErrorResponse, SuccessResponse } from "../action";
+import type { ErrorResponse, SuccessResponse } from "../action";
 
 interface UpdateSuccessResponse extends SuccessResponse {
   game: UpdateGameReqDto;
 }
-type updateGameResponse = UpdateSuccessResponse | ErrorResponse;
+type UpdateGameResponse = UpdateSuccessResponse | ErrorResponse;
 
 export const updateGame = async (
   formData: UpdateGameReqDto,
   gameId: string
-): Promise<updateGameResponse> => {
+): Promise<UpdateGameResponse> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}`, {
       method: "PATCH",
@@ -23,9 +22,10 @@ export const updateGame = async (
       body: JSON.stringify(formData),
       mode: "no-cors",
     });
+    const game = (await response.json()) as UpdateGameReqDto;
 
-    return response.json();
+    return { success: true, game };
   } catch (error) {
-    return { success: false, error: error as type.HttpError };
+    return { success: false, error: error as HttpError };
   }
 };

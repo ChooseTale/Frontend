@@ -1,5 +1,6 @@
-import { UseFormReturn } from "react-hook-form";
-import { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
+"use client";
+import type { UseFormReturn } from "react-hook-form";
+import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
@@ -48,7 +49,7 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
             message: "게임 이름을 30자 내로 입력해주세요",
           },
         })}
-        errMsg={errors["title"]?.message ?? ""}
+        errMsg={errors.title?.message ?? ""}
         className={lessThan3LeftForTitle ? "text-red-500 border-red-500" : ""}
       />
 
@@ -74,7 +75,7 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
             message: "2,000자 내로 입력해주세요",
           },
         })}
-        errMsg={errors["pageOneContent"]?.message}
+        errMsg={errors.pageOneContent?.message}
         className={lessThan20LeftForPageContent ? "text-red-500" : ""}
       />
     </>

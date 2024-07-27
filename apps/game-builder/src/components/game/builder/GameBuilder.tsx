@@ -1,11 +1,10 @@
 "use client";
-import { GetAllGameResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 import useGameData from "@/hooks/useGameData";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
+import { useGameStore } from "@/store/gameStore";
+import type { GameBuild } from "@/interface/customType";
 import GameBuilderContent from "./GameBuilderContent";
 import StoryLine from "./StoryLine";
-import { useGameStore } from "@/store/gameStore";
-import { GameBuild } from "@/interface/customType";
 
 export default function GameBuilder({
   gameBuildData,
