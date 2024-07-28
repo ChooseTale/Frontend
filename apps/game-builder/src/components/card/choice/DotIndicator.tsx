@@ -1,14 +1,11 @@
 import { Link1Icon } from "@radix-ui/react-icons";
-import type { LinkedPage } from "@/interface/customType";
 
 export default function DotIndicator({
   isChoosen,
   theme,
-  linkedPage,
 }: {
   isChoosen: boolean;
   theme?: string;
-  linkedPage: LinkedPage | undefined;
 }) {
   const unChoosenClass =
     theme === "old-game" ? "!w-5 !h-5 -left-[16px]" : "!w-4 !h-4 -left-[8px]";
@@ -22,9 +19,6 @@ export default function DotIndicator({
       {isChoosen && (
         <div className="flex items-center gap-[2px] absolute top-1/2 -translate-y-1/2 left-[2px]">
           <Link1Icon className="h-3 w-3" color="#ffffff" />
-          <p className="px-1 w-14 text-xs text-green-500 overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {linkedPage?.title}
-          </p>
         </div>
       )}
     </div>

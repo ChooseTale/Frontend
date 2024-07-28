@@ -43,4 +43,5 @@ export interface GameType {
 export interface LinkedPage {
   pageId: number;
   title: string;
+  isEnding: boolean;
 }

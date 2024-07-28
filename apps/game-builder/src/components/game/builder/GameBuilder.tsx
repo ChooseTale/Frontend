@@ -20,11 +20,11 @@ export default function GameBuilder({
   });
 
   return (
-    <div className="flex-1 relative flex px-6 pt-4">
+    <div className="flex-1 relative flex px-6">
       <StoryLine />
       <GameSubmitButton />
 
-      <div className="flex-1 flex flex-col gap-4 pb-20">
+      <div className="flex-1 pb-20">
         <GameBuilderContent {...useGameDataProps} gameId={gameId} />
       </div>
     </div>

@@ -47,12 +47,13 @@ export default function GameBuilderContent({
   const availablePages = gamePageList.map((page) => ({
     pageId: page.id,
     title: page.abridgement,
+    isEnding: page.isEnding,
   }));
-  const getToPage = (toPageId: number) =>
+  const getLinkedPage = (toPageId: number) =>
     availablePages.find((p) => p.pageId === toPageId);
 
   return (
-    <div className="flex-1 flex flex-col gap-4">
+    <div className="flex-1 flex flex-col">
       {gamePageList.map((page) => {
         const choices = page.choices as ChoiceType[];
         const clientChoice = clientChoicesMap.get(page.id) as
@@ -60,7 +61,7 @@ export default function GameBuilderContent({
           | undefined;
 
         return (
-          <div key={`page${page.id}`} className="flex flex-col gap-4">
+          <div key={`page${page.id}`} className="flex flex-col">
             <PageCard
               page={page}
               choicesLength={page.choices.length + (clientChoice?.length ?? 0)}
@@ -81,7 +82,7 @@ export default function GameBuilderContent({
                     }
                     removeChoice={() => handleDeleteChoice(page.id, choice)}
                     availablePages={availablePages}
-                    linkedPage={getToPage(choice.toPageId)}
+                    linkedPage={getLinkedPage(choice.toPageId)}
                   />
                 );
               }
