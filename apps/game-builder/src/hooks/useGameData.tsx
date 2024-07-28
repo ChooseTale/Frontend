@@ -9,6 +9,8 @@ import type {
   PageType,
 } from "@/interface/customType";
 
+const tempIsEnding = false;
+
 const setGameWithSource = (
   gameData: GameBuild,
   source: PageType["source"]
@@ -23,6 +25,7 @@ const setGameWithSource = (
       ...page,
       choices: choicesWithTag,
       source,
+      isEnding: tempIsEnding,
     } as PageType;
   });
 

@@ -10,7 +10,7 @@ export default function LinkedPageIndicator({
 }) {
   return (
     <button
-      className={`w-full absolute -bottom-1 translate-y-full rounded-lg shadow-sm border border-green-500 text-card-foreground cursor-pointer hover:shadow-md transition ${linkedPage.isEnding ? "bg-green-100" : ""}`}
+      className={`w-full absolute -bottom-1 translate-y-full rounded-lg shadow-sm border border-green-500 text-card-foreground cursor-pointer hover:shadow-md transition ${linkedPage.isEnding ? "!bg-green-100" : ""}`}
       onClick={onClick}
       type="button"
     >
