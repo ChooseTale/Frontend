@@ -46,20 +46,22 @@ export default function PageCard({
         </CardContent>
       </div>
 
-      {choicesLength < 4 && (
-        <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
-          <ThemedIconButton onClick={addChoice}>
-            <CardStackPlusIcon className="h-8 w-8" />
-          </ThemedIconButton>
-          <ThemedIconButton onClick={addAIChoice}>
-            <Image
-              className="h-8 w-8 -translate-y-[2px]"
-              src={robotIcon}
-              alt="generate choice"
-            />
-          </ThemedIconButton>
-        </CardFooter>
-      )}
+      <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
+        {choicesLength < 4 && (
+          <>
+            <ThemedIconButton onClick={addChoice}>
+              <CardStackPlusIcon className="h-8 w-8" />
+            </ThemedIconButton>
+            <ThemedIconButton onClick={addAIChoice}>
+              <Image
+                className="h-8 w-8 -translate-y-[2px]"
+                src={robotIcon}
+                alt="generate choice"
+              />
+            </ThemedIconButton>
+          </>
+        )}
+      </CardFooter>
 
       <GameEditDraw page={page} updatePage={updatePage} />
     </ThemedCard>
