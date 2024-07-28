@@ -29,6 +29,7 @@ interface BasePage extends Page {
   description: string;
   source: "server" | "client";
   choices: BaseChoice[];
+  isEnding: boolean;
 }
 
 export type PageType = BasePage & { source: "server" | "client" };

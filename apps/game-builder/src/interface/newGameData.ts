@@ -49,6 +49,7 @@ export class NewGameBuild {
         depth: 0,
         choices: [],
         source: "client",
+        isEnding: false,
       },
     ];
   }

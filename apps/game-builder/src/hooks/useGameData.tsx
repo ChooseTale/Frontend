@@ -106,14 +106,17 @@ export default function useGameData({
       depth,
       choices: [],
       source: "client",
+      isEnding: false,
     };
 
     setGamePageList((prevData: PageType[]) => [...prevData, newPage]);
   };
 
-  const updatePage = (updatedPage: PageType) => {
+  const updatePage = (updatedPage: Partial<PageType>) => {
     setGamePageList((prevData) =>
-      prevData.map((page) => (page.id === updatedPage.id ? updatedPage : page))
+      prevData.map((page) =>
+        page.id === updatedPage.id ? { ...page, ...updatedPage } : page
+      )
     );
   };
 
@@ -130,6 +133,10 @@ export default function useGameData({
     });
   };
 
+  const switchPageIsEnding = (partialPage: Partial<PageType>) => {
+    updatePage(partialPage);
+  };
+
   return {
     gamePageList,
     addPage,
@@ -138,5 +145,6 @@ export default function useGameData({
     addChoice,
     updateChoices,
     deleteChoice,
+    switchPageIsEnding,
   };
 }

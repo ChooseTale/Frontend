@@ -16,6 +16,7 @@ import GameEditFields from "@/components/game/edit/form/GameEditFields";
 import type { PageType } from "@/interface/customType";
 import type useGameData from "@/hooks/useGameData";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
+import EndingPageSwitch from "./form/EndingPageSwitch";
 
 interface GameEditDrawProps {
   theme?: string;
@@ -34,7 +35,8 @@ export default function GameEditDraw({
 }: GameEditDrawProps) {
   const [isOpen, setIsOpen] = useState(false);
   const useFormProps = useForm({ defaultValues: page });
-  const { handleSubmit, reset } = useFormProps;
+  const { handleSubmit, reset, setValue } = useFormProps;
+  const { isEnding } = page;
 
   const onSubmit: SubmitHandler<PageType> = (fieldValues) => {
     updatePage(fieldValues);
@@ -65,6 +67,11 @@ export default function GameEditDraw({
           </DrawerHeader>
 
           <GameEditFields {...useFormProps} />
+
+          <EndingPageSwitch
+            isEnding={isEnding}
+            onCheckedChange={() => setValue("isEnding", !isEnding)}
+          />
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
             <ThemedButton className="w-full is-success" type="submit">

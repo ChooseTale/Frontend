@@ -31,16 +31,17 @@ export default function PageCard({
   updatePage,
   deletePage,
 }: PageCardProps) {
-  const { abridgement, description } = page;
+  const { abridgement, description, isEnding } = page;
+  const showChoiceButtons = choicesLength < 4 && !isEnding;
 
   return (
-    <ThemedCard className="relative">
+    <ThemedCard className={`relative ${isEnding ? "bg-green-100" : ""}`}>
       <DotIndicator />
 
       <div className="min-h-24 flex-1">
         <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-center">
           <CardTitle
-            className={`mb-2 !text-[16px] break-all ${choicesLength < 4 ? "" : "pr-6"}`}
+            className={`mb-2 !text-[16px] break-all ${showChoiceButtons ? "" : "pr-6"}`}
           >
             {abridgement}
           </CardTitle>
@@ -51,7 +52,7 @@ export default function PageCard({
       </div>
 
       <CardFooter className="flex items-center p-0 pt-2 gap-1">
-        {choicesLength < 4 && (
+        {showChoiceButtons && (
           <>
             <ThemedIconButton onClick={addChoice}>
               <CardStackPlusIcon className="h-8 w-8" />
