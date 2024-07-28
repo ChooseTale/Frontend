@@ -70,7 +70,7 @@ export default function PageCard({
       <GameEditDraw page={page} updatePage={updatePage} />
 
       <ThemedIconButton
-        className="absolute h-4 w-4 right-10 top-[10px]"
+        className="absolute h-4 w-4 right-10 top-[6px]"
         onClick={deletePage}
       >
         <TrashIcon className="h-4 w-4" />
