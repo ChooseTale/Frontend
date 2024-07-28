@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CardStackPlusIcon } from "@radix-ui/react-icons";
+import { CardStackPlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import {
   CardContent,
   CardDescription,
@@ -20,6 +20,7 @@ interface PageCardProps {
   addChoice: () => void;
   addAIChoice: () => void;
   updatePage: ReturnType<typeof useGameData>["updatePage"];
+  deletePage: () => void;
 }
 
 export default function PageCard({
@@ -28,6 +29,7 @@ export default function PageCard({
   addChoice,
   addAIChoice,
   updatePage,
+  deletePage,
 }: PageCardProps) {
   const { abridgement, description } = page;
 
@@ -37,7 +39,9 @@ export default function PageCard({
 
       <div className="min-h-24 flex-1">
         <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-center">
-          <CardTitle className="mb-1 !text-[16px] break-all">
+          <CardTitle
+            className={`mb-2 !text-[16px] break-all ${choicesLength < 4 ? "" : "pr-6"}`}
+          >
             {abridgement}
           </CardTitle>
           <CardDescription className="text-xs line-clamp-4 mb-0 break-all">
@@ -46,7 +50,7 @@ export default function PageCard({
         </CardContent>
       </div>
 
-      <CardFooter className="flex items-center p-0 pr-4 pt-2 gap-1">
+      <CardFooter className="flex items-center p-0 pt-2 gap-1">
         {choicesLength < 4 && (
           <>
             <ThemedIconButton onClick={addChoice}>
@@ -64,6 +68,13 @@ export default function PageCard({
       </CardFooter>
 
       <GameEditDraw page={page} updatePage={updatePage} />
+
+      <ThemedIconButton
+        className="absolute h-4 w-4 right-10 top-[10px]"
+        onClick={deletePage}
+      >
+        <TrashIcon className="h-4 w-4" />
+      </ThemedIconButton>
     </ThemedCard>
   );
 }

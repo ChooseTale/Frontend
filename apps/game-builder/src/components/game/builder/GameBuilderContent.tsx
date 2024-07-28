@@ -13,7 +13,7 @@ export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageList, deleteChoice, updatePage, updateChoices } =
+  const { gamePageList, deleteChoice, updatePage, updateChoices, deletePage } =
     useGameDataProps;
   const {
     clientChoicesMap,
@@ -28,7 +28,7 @@ export default function GameBuilderContent({
   const handleAddChoice = (pageId: number) => {
     addClientChoice(pageId);
   };
-  const handleAddChoiceByAI = async (pageId: number) => {
+  const handleAddChoiceByAI = (pageId: number) => {
     addAiChoice({ gameId, pageId });
   };
   const handleFixChoice = (pageId: number, choice: ChoiceType) => {
@@ -38,6 +38,10 @@ export default function GameBuilderContent({
   const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
     if (choice.source === "server") deleteChoice(pageId, choice.id);
     if (choice.source === "client") removeClientChoice(pageId, choice.id);
+  };
+  const handleDeletePage = (pageId: number) => {
+    if (confirm("페이지를 삭제하면 페이지의 선택지가 함께 삭제됩니다."))
+      deletePage(pageId);
   };
 
   const availablePages = gamePageList.map((page) => ({
@@ -63,6 +67,7 @@ export default function GameBuilderContent({
               addChoice={() => handleAddChoice(page.id)}
               addAIChoice={() => handleAddChoiceByAI(page.id)}
               updatePage={updatePage}
+              deletePage={() => handleDeletePage(page.id)}
             />
             {[...choices, ...(clientChoice ? clientChoice : [])].map(
               (choice) => {
