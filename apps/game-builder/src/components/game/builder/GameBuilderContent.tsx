@@ -1,9 +1,10 @@
 "use client";
 import useClientChoices from "@/hooks/useClientChoices";
 import type useGameData from "@/hooks/useGameData";
+import type { ChoiceType } from "@/interface/customType";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
-import type { ChoiceType } from "@/interface/customType";
+import UnLinkedPages from "./UnLinkedPages";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -52,9 +53,18 @@ export default function GameBuilderContent({
   const getLinkedPage = (toPageId: number) =>
     availablePages.find((p) => p.pageId === toPageId);
 
+  console.log(gamePageList);
+
   return (
     <div className="flex-1 flex flex-col">
+      <UnLinkedPages
+        gamePageList={gamePageList}
+        updatePage={updatePage}
+        handleDeletePage={handleDeletePage}
+      />
+
       {gamePageList.map((page) => {
+        if (page.depth < 0) return;
         const choices = page.choices as ChoiceType[];
         const clientChoice = clientChoicesMap.get(page.id) as
           | ChoiceType[]
