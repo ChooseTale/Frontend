@@ -1,6 +1,6 @@
 import { TrashIcon } from "@radix-ui/react-icons";
-import { PageType } from "@/interface/customType";
-import useGameData from "@/hooks/useGameData";
+import type { PageType } from "@/interface/customType";
+import type useGameData from "@/hooks/useGameData";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
 import GameEditDraw from "../edit/GameEditDraw";
 
@@ -24,8 +24,8 @@ export default function UnLinkedPages({
         </div>
       </div>
       <div className="relative w-full flex flex-col gap-2">
-        {[...unLinkedPagesList, ...unLinkedPagesList].map((page) => (
-          <div className="w-full relative">
+        {unLinkedPagesList.map((page) => (
+          <div className="w-full relative" key={`un-linked-page-${page.id}`}>
             <div
               className="w-full rounded-md border px-3 py-2 !pr-20 border-[#22c55e] text-[#22c55e] bg-white shadow-sm"
               key={page.id}

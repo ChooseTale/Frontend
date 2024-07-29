@@ -4,9 +4,9 @@ import type useGameData from "@/hooks/useGameData";
 import type { ChoiceType } from "@/interface/customType";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
+import GameSubmitButton from "@/components/button/GameSubmitButton";
 import UnLinkedPages from "./UnLinkedPages";
 import StoryLine from "./StoryLine";
-import GameSubmitButton from "@/components/button/GameSubmitButton";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -54,8 +54,6 @@ export default function GameBuilderContent({
   }));
   const getLinkedPage = (toPageId: number) =>
     availablePages.find((p) => p.pageId === toPageId);
-
-  console.log(gamePageList);
 
   return (
     <div className="flex-1 relative px-6">
