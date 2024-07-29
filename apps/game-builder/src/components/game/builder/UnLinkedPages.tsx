@@ -14,13 +14,14 @@ export default function UnLinkedPages({
   handleDeletePage: (pageId: number) => void;
 }) {
   const unLinkedPagesList = gamePageList.filter((page) => page.depth === -1);
+  if (!unLinkedPagesList.length) return;
 
   return (
     <div className="flex flex-col">
       <div className="flex gap-1 justify-end my-2">
         <h4 className="text-xs">미연결 페이지</h4>
         <div className="w-4 h-4 flex justify-center items-center rounded-full bg-green-400 text-white text-xs">
-          3
+          {unLinkedPagesList.length}
         </div>
       </div>
       <div className="relative w-full flex flex-col gap-2">
