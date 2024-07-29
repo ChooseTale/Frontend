@@ -23,9 +23,9 @@ export default function UnLinkedPages({
           3
         </div>
       </div>
-      <div className="relative w-full flex items-center gap-2">
-        {unLinkedPagesList.map((page) => (
-          <>
+      <div className="relative w-full flex flex-col gap-2">
+        {[...unLinkedPagesList, ...unLinkedPagesList].map((page) => (
+          <div className="w-full relative">
             <div
               className="w-full rounded-md border px-3 py-2 !pr-20 border-[#22c55e] text-[#22c55e] bg-white shadow-sm"
               key={page.id}
@@ -42,7 +42,7 @@ export default function UnLinkedPages({
               </ThemedIconButton>
             </div>
             <GameEditDraw page={page} updatePage={updatePage} />
-          </>
+          </div>
         ))}
       </div>
       <div className="text-center text-[10px] text-[#49de7f] mt-2">● ● ●</div>

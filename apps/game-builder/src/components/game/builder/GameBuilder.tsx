@@ -1,10 +1,8 @@
 "use client";
 import useGameData from "@/hooks/useGameData";
-import GameSubmitButton from "@/components/button/GameSubmitButton";
 import { useGameStore } from "@/store/gameStore";
 import type { GameBuild } from "@/interface/customType";
 import GameBuilderContent from "./GameBuilderContent";
-import StoryLine from "./StoryLine";
 
 export default function GameBuilder({
   gameBuildData,
@@ -19,14 +17,5 @@ export default function GameBuilder({
     gameBuildData,
   });
 
-  return (
-    <div className="flex-1 relative flex px-6">
-      <StoryLine />
-      <GameSubmitButton />
-
-      <div className="flex-1 pb-20">
-        <GameBuilderContent {...useGameDataProps} gameId={gameId} />
-      </div>
-    </div>
-  );
+  return <GameBuilderContent {...useGameDataProps} gameId={gameId} />;
 }

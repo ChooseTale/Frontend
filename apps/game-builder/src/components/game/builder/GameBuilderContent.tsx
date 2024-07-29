@@ -5,6 +5,8 @@ import type { ChoiceType } from "@/interface/customType";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
 import UnLinkedPages from "./UnLinkedPages";
+import StoryLine from "./StoryLine";
+import GameSubmitButton from "@/components/button/GameSubmitButton";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -56,50 +58,63 @@ export default function GameBuilderContent({
   console.log(gamePageList);
 
   return (
-    <div className="flex-1 flex flex-col">
-      <UnLinkedPages
-        gamePageList={gamePageList}
-        updatePage={updatePage}
-        handleDeletePage={handleDeletePage}
-      />
+    <div className="flex-1 relative px-6">
+      <div className="pl-10">
+        <UnLinkedPages
+          gamePageList={gamePageList}
+          updatePage={updatePage}
+          handleDeletePage={handleDeletePage}
+        />
+      </div>
 
-      {gamePageList.map((page) => {
-        if (page.depth < 0) return;
-        const choices = page.choices as ChoiceType[];
-        const clientChoice = clientChoicesMap.get(page.id) as
-          | ChoiceType[]
-          | undefined;
+      <div className="flex">
+        <div>
+          <StoryLine />
+          <GameSubmitButton />
+        </div>
 
-        return (
-          <div key={`page${page.id}`} className="flex flex-col">
-            <PageCard
-              page={page}
-              choicesLength={page.choices.length + (clientChoice?.length ?? 0)}
-              addChoice={() => handleAddChoice(page.id)}
-              addAIChoice={() => handleAddChoiceByAI(page.id)}
-              updatePage={updatePage}
-              deletePage={() => handleDeletePage(page.id)}
-            />
-            {[...choices, ...(clientChoice ? clientChoice : [])].map(
-              (choice) => {
-                return (
-                  <ChoiceCard
-                    key={`${choice.source}-page${page.id}-choice${choice.id}`}
-                    choice={choice}
-                    defaultFixed={choice.source === "server"}
-                    fixChoice={(partialChoice) =>
-                      handleFixChoice(page.id, partialChoice)
-                    }
-                    removeChoice={() => handleDeleteChoice(page.id, choice)}
-                    availablePages={availablePages}
-                    linkedPage={getLinkedPage(choice.toPageId)}
-                  />
-                );
-              }
-            )}
-          </div>
-        );
-      })}
+        <div className="flex-1 pb-28">
+          {gamePageList.map((page) => {
+            if (page.depth < 0) return;
+            const choices = page.choices as ChoiceType[];
+            const clientChoice = clientChoicesMap.get(page.id) as
+              | ChoiceType[]
+              | undefined;
+
+            return (
+              <div key={`page${page.id}`} className="flex flex-col">
+                <PageCard
+                  page={page}
+                  choicesLength={
+                    page.choices.length + (clientChoice?.length ?? 0)
+                  }
+                  addChoice={() => handleAddChoice(page.id)}
+                  addAIChoice={() => handleAddChoiceByAI(page.id)}
+                  updatePage={updatePage}
+                  deletePage={() => handleDeletePage(page.id)}
+                />
+                {[...choices, ...(clientChoice ? clientChoice : [])].map(
+                  (choice) => {
+                    return (
+                      <ChoiceCard
+                        key={`${choice.source}-page${page.id}-choice${choice.id}`}
+                        choice={choice}
+                        defaultFixed={choice.source === "server"}
+                        fixChoice={(partialChoice) =>
+                          handleFixChoice(page.id, partialChoice)
+                        }
+                        removeChoice={() => handleDeleteChoice(page.id, choice)}
+                        availablePages={availablePages}
+                        linkedPage={getLinkedPage(choice.toPageId)}
+                      />
+                    );
+                  }
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
