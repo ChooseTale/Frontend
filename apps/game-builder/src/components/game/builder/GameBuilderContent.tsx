@@ -57,7 +57,7 @@ export default function GameBuilderContent({
 
   return (
     <div className="flex-1 relative px-6">
-      <div className="pl-10">
+      <div className="pl-6">
         <UnLinkedPages
           gamePageList={gamePageList}
           updatePage={updatePage}
