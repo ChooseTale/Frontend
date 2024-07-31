@@ -1,67 +1,101 @@
+import type { Control, FieldValues, Path } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { Switch } from "@repo/ui/components/ui/Switch.tsx";
 import { useThemeStore } from "@/store/useTheme";
 
-interface SwitchProps {
-  name: string;
-  checked: boolean;
-  onCheckedChange: () => void;
+interface SwitchProps<T extends FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
 }
 
-export default function ThemedSwitch({
+export default function ThemedSwitch<T extends FieldValues>({
   name,
-  checked,
-  onCheckedChange,
-}: SwitchProps) {
+  control,
+}: SwitchProps<T>) {
   const { theme } = useThemeStore((state) => state);
 
   if (theme === "windows-98") {
     return (
-      <>
-        <div>
-          <input type="radio" id={`${name}-yes`} name={name} />
-          <label htmlFor={`${name}-yes`}>네</label>
-        </div>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <>
+            <div>
+              <input
+                type="radio"
+                id={`${name}-true`}
+                {...field}
+                value="true"
+                checked={field.value === "true"}
+                onChange={() => field.onChange("true")}
+              />
+              <label htmlFor={`${name}-true`}>네</label>
+            </div>
 
-        <div>
-          <input type="radio" id={`${name}-no`} name={name} />
-          <label htmlFor={`${name}-no`}>아니오</label>
-        </div>
-      </>
+            <div>
+              <input
+                type="radio"
+                id={`${name}-false`}
+                {...field}
+                value="false"
+                checked={field.value === "false"}
+                onChange={() => field.onChange("false")}
+              />
+              <label htmlFor={`${name}-false`}>아니오</label>
+            </div>
+          </>
+        )}
+      />
     );
   }
 
   if (theme === "old-game") {
     return (
-      <>
-        <label className="text-sm font-bold mb-0">
-          <input
-            type="radio"
-            className="nes-radio"
-            name={name}
-            defaultChecked={checked}
-          />
-          <span>네</span>
-        </label>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <>
+            <label className="text-sm font-bold mb-0">
+              <input
+                type="radio"
+                className="nes-radio"
+                {...field}
+                value="true"
+                checked={field.value === "true"}
+                onChange={() => field.onChange("true")}
+              />
+              <span>네</span>
+            </label>
 
-        <label className="text-sm font-bold mb-0">
-          <input
-            type="radio"
-            className="nes-radio"
-            name={name}
-            defaultChecked={!checked}
-          />
-          <span>아니오</span>
-        </label>
-      </>
+            <label className="text-sm font-bold mb-0">
+              <input
+                type="radio"
+                className="nes-radio"
+                {...field}
+                value="false"
+                checked={field.value === "false"}
+                onChange={() => field.onChange("false")}
+              />
+              <span>아니오</span>
+            </label>
+          </>
+        )}
+      />
     );
   }
 
   return (
-    <Switch
-      id={name}
+    <Controller
+      control={control}
       name={name}
-      checked={checked}
-      onCheckedChange={onCheckedChange}
+      render={({ field }) => (
+        <Switch
+          checked={Boolean(field.value)}
+          onCheckedChange={field.onChange}
+        />
+      )}
     />
   );
 }

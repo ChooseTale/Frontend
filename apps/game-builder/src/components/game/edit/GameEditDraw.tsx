@@ -35,7 +35,7 @@ export default function GameEditDraw({
 }: GameEditDrawProps) {
   const [isOpen, setIsOpen] = useState(false);
   const useFormProps = useForm({ defaultValues: page });
-  const { handleSubmit, reset, setValue, watch, getValues } = useFormProps;
+  const { handleSubmit, reset, control } = useFormProps;
 
   const onSubmit: SubmitHandler<PageType> = (fieldValues) => {
     updatePage(fieldValues);
@@ -67,10 +67,7 @@ export default function GameEditDraw({
 
           <GameEditFields {...useFormProps} />
 
-          <EndingPageSwitch
-            isEnding={watch("isEnding")}
-            onCheckedChange={() => setValue("isEnding", !getValues("isEnding"))}
-          />
+          <EndingPageSwitch control={control} />
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
             <ThemedButton className="w-full is-success" type="submit">

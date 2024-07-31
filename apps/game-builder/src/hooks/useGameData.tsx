@@ -5,7 +5,7 @@ import type { ExtendsCreateGameResDto } from "@/interface/newGameData";
 import type {
   ChoiceType,
   GameBuild,
-  GameType,
+  GameBuildType,
   PageType,
 } from "@/interface/customType";
 
@@ -14,7 +14,7 @@ const tempIsEnding = false;
 const setGameWithSource = (
   gameData: GameBuild,
   source: PageType["source"]
-): GameType => {
+): GameBuildType => {
   const pagesWithTag = gameData.pages.map((page) => {
     const choicesWithTag = page.choices.map((choice) => ({
       ...choice,
@@ -33,7 +33,9 @@ const setGameWithSource = (
     ...gameData,
     pages: pagesWithTag,
     source,
-  } as GameType;
+    description: "",
+    isPrivate: false,
+  } as GameBuildType;
 };
 
 export default function useGameData({
@@ -43,7 +45,8 @@ export default function useGameData({
   createdGame: ExtendsCreateGameResDto | null;
   gameBuildData: GameBuild;
 }) {
-  const newGame: GameType | null = createdGame && new NewGameBuild(createdGame);
+  const newGame: GameBuildType | null =
+    createdGame && new NewGameBuild(createdGame);
   const game = setGameWithSource(gameBuildData, "server");
   const [gamePageList, setGamePageList] = useState(
     newGame?.pages ?? game.pages

@@ -3,6 +3,9 @@ import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import type { PageType } from "@/interface/customType";
+import MaxLengthText, {
+  setMaxLengthOptions,
+} from "@/components/common/form/MaxLengthText";
 
 const MAX_LENGTH = {
   abridgement: 50,
@@ -18,22 +21,24 @@ export default function GameEditFields({
     watch,
   } = useFormProps;
 
-  const pageContentLen = watch("description").length || 0;
-  const pageContentLenString = formatNumberWithCommas(pageContentLen);
-  const lessThan20LeftForPageContent =
-    MAX_LENGTH.description - pageContentLen < 20;
+  const descriptioContentLen = watch("description").length || 0;
+  const descriptionMaxLengthOptions = setMaxLengthOptions(
+    descriptioContentLen,
+    MAX_LENGTH.description,
+    20
+  );
 
   return (
     <>
       <ThemedInputField
         labelText="요약"
         placeholder="페이지를 요약해보세요"
-        maxLength={50}
+        maxLength={MAX_LENGTH.abridgement}
         {...register("abridgement", {
           required: "페이지 요약을 입력해주세요",
           maxLength: {
-            value: 50,
-            message: "요약을 50자 내로 입력해주세요",
+            value: MAX_LENGTH.abridgement,
+            message: `요약을 ${MAX_LENGTH.abridgement}자 내로 입력해주세요`,
           },
         })}
         autoComplete="off"
@@ -43,16 +48,7 @@ export default function GameEditFields({
         요약은 플레이어에게 보이지 않습니다.
       </p>
 
-      <div>
-        <p
-          className={`relative h-0 top-4 px-1 text-xs text-right ${
-            lessThan20LeftForPageContent ? "text-red-500 border-red-500" : ""
-          }`}
-        >
-          {pageContentLenString} /{" "}
-          {formatNumberWithCommas(MAX_LENGTH.description)}
-        </p>
-      </div>
+      <MaxLengthText {...descriptionMaxLengthOptions} className="top-4" />
       <ThemedTextareaField
         labelText="내용"
         placeholder="페이지의 내용을 입력하세요"
@@ -62,12 +58,12 @@ export default function GameEditFields({
           required: "페이지 내용을 입력해주세요",
           maxLength: {
             value: MAX_LENGTH.description,
-            message: "페이지 내용을 3,000자 내로 입력해주세요",
+            message: `페이지 내용을 ${formatNumberWithCommas(MAX_LENGTH.description)}자 내로 입력해주세요`,
           },
         })}
         autoComplete="off"
         errMsg={errors.description?.message}
-        className={lessThan20LeftForPageContent ? "text-red-500" : ""}
+        className={descriptionMaxLengthOptions.isLessThan ? "text-red-500" : ""}
       />
     </>
   );

@@ -46,7 +46,7 @@ export default function UnLinkedPages({
           </div>
         ))}
       </div>
-      <div className="w-1/3 mx-auto mt-4 text-center border-[#49de7f] border-b-2 border-dashed"></div>
+      <div className="w-1/3 mx-auto mt-4 text-center border-[#49de7f] border-b-2 border-dashed" />
     </div>
   );
 }

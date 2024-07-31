@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Image from "next/image";
+import { ImageIcon } from "@radix-ui/react-icons";
 import {
   Carousel,
   CarouselContent,
@@ -6,10 +9,14 @@ import {
   CarouselPrevious,
 } from "@repo/ui/components/ui/Carousel.tsx";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio.tsx";
-import Image from "next/image";
 import { useThemeStore } from "@/store/useTheme";
+import type { Thumbnail } from "@/interface/customType";
 
-export default function ThemedCarousel() {
+interface ThemedCarouselProps {
+  thumbnails: Thumbnail[];
+}
+
+export default function ThemedCarousel({ thumbnails }: ThemedCarouselProps) {
   const { theme } = useThemeStore((state) => state);
   let themeClass;
 
@@ -26,36 +33,12 @@ export default function ThemedCarousel() {
   return (
     <Carousel>
       <CarouselContent className="mx-10">
-        <CarouselItem>
-          <AspectRatio ratio={16 / 9}>
-            <Image
-              src="https://picsum.photos/600/400"
-              alt="Image"
-              className="rounded-md object-cover border"
-              fill
-            />
-          </AspectRatio>
-        </CarouselItem>
-        <CarouselItem>
-          <AspectRatio ratio={16 / 9}>
-            <Image
-              src="https://picsum.photos/600/400"
-              alt="Image"
-              className="rounded-md object-cover border"
-              fill
-            />
-          </AspectRatio>
-        </CarouselItem>
-        <CarouselItem>
-          <AspectRatio ratio={16 / 9}>
-            <Image
-              src="https://picsum.photos/600/400"
-              alt="Image"
-              className="rounded-md object-cover border"
-              fill
-            />
-          </AspectRatio>
-        </CarouselItem>
+        {thumbnails.map((thumbnail) => (
+          <CarouselItemWithOnError
+            thumbnail={thumbnail}
+            key={`thumbnail-${thumbnail.id}`}
+          />
+        ))}
       </CarouselContent>
       <CarouselPrevious
         type="button"
@@ -78,5 +61,37 @@ export default function ThemedCarousel() {
         }}
       />
     </Carousel>
+  );
+}
+
+function CarouselItemWithOnError({ thumbnail }: { thumbnail: Thumbnail }) {
+  const [src, setSrc] = useState(thumbnail.url);
+  const [isError, setIsError] = useState(false);
+  const placeholderSrc =
+    "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80";
+
+  const handleError = () => {
+    setSrc(placeholderSrc);
+    setIsError(true);
+  };
+
+  return (
+    <CarouselItem>
+      <AspectRatio ratio={16 / 9}>
+        <Image
+          src={src}
+          alt="Image"
+          className="rounded-md object-cover border"
+          fill
+          onError={handleError}
+        />
+        {isError && (
+          <div className="absolute w-full h-full rounded-md border border-red-500 flex justify-center items-center">
+            <ImageIcon className="w-10 h-10" color="#aaaaaa" />
+            <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
+          </div>
+        )}
+      </AspectRatio>
+    </CarouselItem>
   );
 }

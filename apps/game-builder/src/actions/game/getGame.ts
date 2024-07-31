@@ -2,12 +2,12 @@
 import type { HttpError } from "@choosetale/nestia-type";
 import type { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 import { API_URL } from "@/constant/config";
-import type { ExtendsCreateGameResDto } from "@/interface/newGameData";
+import type { GameInfo } from "@/interface/customType";
 import type { ErrorResponse, SuccessResponse } from "../action";
 
 // --게임 정보 불러오기--
 interface GetGameDataSuccessResponse extends SuccessResponse {
-  gameInfo: ExtendsCreateGameResDto;
+  gameInfo: GameInfo;
 }
 export type GetGameDataResponse = GetGameDataSuccessResponse | ErrorResponse;
 
@@ -23,7 +23,7 @@ export const getGameInfoById = async (
       mode: "no-cors",
     });
 
-    const gameInfo = (await response.json()) as ExtendsCreateGameResDto;
+    const gameInfo = (await response.json()) as GameInfo;
     return { success: true, gameInfo };
   } catch (error) {
     return { success: false, error: error as HttpError };

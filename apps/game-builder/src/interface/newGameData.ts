@@ -31,15 +31,20 @@ export interface ExtendsCreateGameResDto extends CreateGameResDto {
     content: string;
     abridgement: string;
   };
+  isPrivate: boolean;
 }
 export class NewGameBuild {
   id: number;
   title: string;
   pages: PageType[];
+  isPrivate: boolean;
+  description: string;
 
   constructor(props: ExtendsCreateGameResDto) {
     this.id = props.id;
     this.title = "";
+    this.description = "";
+    this.isPrivate = false;
     this.pages = [
       {
         ...props.page,
