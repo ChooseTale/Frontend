@@ -3,16 +3,15 @@ import type { HttpError } from "@choosetale/nestia-type";
 import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import type { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
 import { API_URL } from "@/constant/config";
-import type { ErrorResponse, SuccessResponse } from "../action";
+import type { ApiResponse, SuccessResponse } from "../action";
 
 interface CreateSuccessResponse extends SuccessResponse {
   gameInitData: CreateGameResDto;
 }
-type CreateGameResponse = CreateSuccessResponse | ErrorResponse;
 
 export const createGame = async (
   formData: CreateGameReqDto
-): Promise<CreateGameResponse> => {
+): Promise<ApiResponse<CreateSuccessResponse>> => {
   try {
     const response = await fetch(`${API_URL}/game`, {
       method: "POST",

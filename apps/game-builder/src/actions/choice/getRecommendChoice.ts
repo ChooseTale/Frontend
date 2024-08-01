@@ -1,6 +1,6 @@
 "use server";
 import type { HttpError } from "@choosetale/nestia-type";
-import type { ErrorResponse, SuccessResponse } from "../action";
+import type { ApiResponse, SuccessResponse } from "../action";
 
 // --게임 정보 불러오기--
 interface GetRecommendChoiceSuccessResponse extends SuccessResponse {
@@ -9,14 +9,11 @@ interface GetRecommendChoiceSuccessResponse extends SuccessResponse {
     description: string;
   }[];
 }
-export type GetRecommendChoiceResponse =
-  | GetRecommendChoiceSuccessResponse
-  | ErrorResponse;
 
 export const getRecommendChoice = async (
   gameId: number,
   pageId: number
-): Promise<GetRecommendChoiceResponse> => {
+): Promise<ApiResponse<GetRecommendChoiceSuccessResponse>> => {
   try {
     const response = await fetch(
       `/game/${gameId}/page/${pageId}/recommend-choices`,

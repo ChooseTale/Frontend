@@ -1,27 +1,17 @@
-import Image from "next/image";
 import type { useForm } from "react-hook-form";
-import {
-  ImageIcon,
-  InfoCircledIcon,
-  Pencil1Icon,
-  TrashIcon,
-} from "@radix-ui/react-icons";
+import { InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
-import ThemedCarousel from "@themed/ThemedCarousel";
 import ThemedSelectField from "@themed/ThemedSelectField";
-import ThemedIconButton from "@themed/ThemedIconButton";
-import ThemedLabel from "@themed/ThemedLabel";
-import ThemedCard from "@themed/ThemedCard";
 import type { GameInfo } from "@/interface/customType";
-import robotIcon from "@asset/icon/robot-solid.svg";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import MaxLengthText, {
   setMaxLengthOptions,
 } from "@/components/common/form/MaxLengthText";
 import TextWithCounts from "@/components/common/text/TextWithCounts";
 import DateDisplay from "@/components/common/text/DateDisplay";
+import Thumbnails from "./Thumbnails";
 
 const MAX_LENGTH = {
   title: 50,
@@ -71,28 +61,7 @@ export default function GameConfirmFields({
         errMsg={errors.title?.message ?? ""}
       />
 
-      <div className="flex flex-col gap-2">
-        <ThemedLabel htmlFor="" labelText="썸네일" />
-        <ThemedCard className="flex-col !py-4 gap-4">
-          <ThemedCarousel thumbnails={getValues("thumbnails")} />
-
-          <div className="flex justify-center gap-1">
-            <ThemedIconButton>
-              <ImageIcon className="h-5 w-5 m-1" />
-            </ThemedIconButton>
-            <ThemedIconButton>
-              <Image
-                className="h-5 w-5 m-1 -translate-y-[2px]"
-                src={robotIcon}
-                alt="generate choice"
-              />
-            </ThemedIconButton>
-            <ThemedIconButton>
-              <TrashIcon className="h-5 w-5 m-1" />
-            </ThemedIconButton>
-          </div>
-        </ThemedCard>
-      </div>
+      <Thumbnails {...useFormProps} />
 
       <ThemedSelectField name="genre" labelText="게임 장르" control={control} />
 

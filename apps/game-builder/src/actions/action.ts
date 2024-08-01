@@ -8,3 +8,5 @@ export interface ErrorResponse {
   success: false;
   error: HttpError | Error;
 }
+
+export type ApiResponse<T> = T | ErrorResponse;

@@ -3,17 +3,16 @@ import type { HttpError } from "@choosetale/nestia-type";
 import type { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 import { API_URL } from "@/constant/config";
 import type { GameInfo } from "@/interface/customType";
-import type { ErrorResponse, SuccessResponse } from "../action";
+import type { ApiResponse, SuccessResponse } from "../action";
 
 // --게임 정보 불러오기--
 interface GetGameDataSuccessResponse extends SuccessResponse {
   gameInfo: GameInfo;
 }
-export type GetGameDataResponse = GetGameDataSuccessResponse | ErrorResponse;
 
 export const getGameInfoById = async (
   gameId: string
-): Promise<GetGameDataResponse> => {
+): Promise<ApiResponse<GetGameDataSuccessResponse>> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}/data`, {
       method: "GET",
@@ -34,11 +33,10 @@ export const getGameInfoById = async (
 interface GetGameAllSuccessResponse extends SuccessResponse {
   gameAll: GetGameAllResDto;
 }
-export type GetGameAllResponse = GetGameAllSuccessResponse | ErrorResponse;
 
 export const getGameAllById = async (
   gameId: string
-): Promise<GetGameAllResponse> => {
+): Promise<ApiResponse<GetGameAllSuccessResponse>> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}`, {
       method: "GET",
