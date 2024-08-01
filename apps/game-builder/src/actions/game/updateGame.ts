@@ -11,7 +11,7 @@ type UpdateGameResponse = UpdateSuccessResponse | ErrorResponse;
 
 export const updateGame = async (
   formData: UpdateGameReqDto,
-  gameId: string
+  gameId: number
 ): Promise<UpdateGameResponse> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}`, {
@@ -20,7 +20,6 @@ export const updateGame = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-      mode: "no-cors",
     });
     const game = (await response.json()) as UpdateGameReqDto;
 
