@@ -2,6 +2,7 @@ import { TrashIcon } from "@radix-ui/react-icons";
 import type { PageType } from "@/interface/customType";
 import type useGameData from "@/hooks/useGameData";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
+import TextWithCounts from "@/components/common/text/TextWithCounts";
 import GameEditDraw from "../edit/GameEditDraw";
 
 export default function UnLinkedPages({
@@ -19,10 +20,10 @@ export default function UnLinkedPages({
   return (
     <div className="flex flex-col">
       <div className="flex gap-1 justify-end my-2">
-        <h4 className="text-xs">미연결 페이지</h4>
-        <div className="w-4 h-4 flex justify-center items-center rounded-full bg-green-400 text-white text-xs">
-          {unLinkedPagesList.length}
-        </div>
+        <TextWithCounts
+          text="미연결 페이지"
+          counts={unLinkedPagesList.length}
+        />
       </div>
       <div className="relative w-full flex flex-col gap-2">
         {unLinkedPagesList.map((page) => (

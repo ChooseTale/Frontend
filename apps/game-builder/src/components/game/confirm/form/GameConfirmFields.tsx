@@ -1,20 +1,27 @@
 import Image from "next/image";
 import type { useForm } from "react-hook-form";
-import { ImageIcon, TrashIcon } from "@radix-ui/react-icons";
+import {
+  ImageIcon,
+  InfoCircledIcon,
+  Pencil1Icon,
+  TrashIcon,
+} from "@radix-ui/react-icons";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
+import ThemedCarousel from "@themed/ThemedCarousel";
+import ThemedSelectField from "@themed/ThemedSelectField";
+import ThemedIconButton from "@themed/ThemedIconButton";
+import ThemedLabel from "@themed/ThemedLabel";
+import ThemedCard from "@themed/ThemedCard";
 import type { GameInfo } from "@/interface/customType";
 import robotIcon from "@asset/icon/robot-solid.svg";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import MaxLengthText, {
   setMaxLengthOptions,
 } from "@/components/common/form/MaxLengthText";
-import ThemedCarousel from "../../../theme/ui/ThemedCarousel";
-import ThemedSelectField from "../../../theme/ui/ThemedSelectField";
-import ThemedIconButton from "../../../theme/ui/ThemedIconButton";
-import ThemedLabel from "../../../theme/ui/ThemedLabel";
-import ThemedCard from "../../../theme/ui/ThemedCard";
+import TextWithCounts from "@/components/common/text/TextWithCounts";
+import DateDisplay from "@/components/common/text/DateDisplay";
 
 const MAX_LENGTH = {
   title: 50,
@@ -105,9 +112,34 @@ export default function GameConfirmFields({
         errMsg={errors.description?.message ?? ""}
       />
 
-      <div className="flex gap-4 justify-end items-center">
-        <p className="mb-0 text-xs">게임을 비공개로 올릴까요?</p>
-        <ThemedSwitch name="isPrivate" control={control} />
+      <div className="flex flex-col sm:!flex-row gap-2">
+        <div className="flex gap-2 items-center">
+          <p className="mb-0 text-xs">게임을 비공개로 올릴까요?</p>
+          <ThemedSwitch name="isPrivate" control={control} />
+        </div>
+
+        <div className="flex flex-col gap-1 flex-1 items-end min-w-[230px]">
+          <div className="text-xs flex items-center gap-2" title="작성 날짜">
+            <Pencil1Icon color="#28c362" />
+            <DateDisplay date={getValues("createdAt")} />
+          </div>
+
+          <div className="flex gap-2 flex-wrap" title="게임 상세">
+            <InfoCircledIcon color="#28c362" />
+            <TextWithCounts
+              text="페이지 수"
+              counts={getValues("counts.pages")}
+            />
+            <TextWithCounts
+              text="선택지 수"
+              counts={getValues("counts.choices")}
+            />
+            <TextWithCounts
+              text="엔딩 수"
+              counts={getValues("counts.ending")}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
