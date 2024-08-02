@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <TopNav title="새 게임" isSticky={false}>
         <NextButton
           nextTo="/game/confirm"
-          options={{ seachParams: { id: true } }}
+          options={{ searchParams: { id: true }, withParamsId: true }}
         />
       </TopNav>
       {children}

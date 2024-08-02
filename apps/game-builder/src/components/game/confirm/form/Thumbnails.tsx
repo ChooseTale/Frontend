@@ -1,4 +1,3 @@
-// "use client";
 import Image from "next/image";
 import { useRef } from "react";
 import { type useForm } from "react-hook-form";

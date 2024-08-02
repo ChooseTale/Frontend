@@ -11,7 +11,7 @@ interface GetGameDataSuccessResponse extends SuccessResponse {
 }
 
 export const getGameInfoById = async (
-  gameId: string
+  gameId: number
 ): Promise<ApiResponse<GetGameDataSuccessResponse>> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}/data`, {
@@ -35,7 +35,7 @@ interface GetGameAllSuccessResponse extends SuccessResponse {
 }
 
 export const getGameAllById = async (
-  gameId: string
+  gameId: number
 ): Promise<ApiResponse<GetGameAllSuccessResponse>> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}`, {

@@ -5,7 +5,7 @@ import { getGameInfoById } from "@/actions/game/getGame";
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
   const gameId = Number(id);
-  const gameInfoResponse = await getGameInfoById(id);
+  const gameInfoResponse = await getGameInfoById(gameId);
 
   if (isNaN(gameId) || !gameInfoResponse.success) {
     notFound();
