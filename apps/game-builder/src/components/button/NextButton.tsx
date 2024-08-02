@@ -19,7 +19,6 @@ export function NextButton({
   const pathname = usePathname();
   let queryString = "";
 
-  // 쿼리 문자열 생성
   if (options?.searchParams) {
     for (const key in options.searchParams) {
       const match = searchParams.get(key);
