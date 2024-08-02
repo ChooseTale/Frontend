@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { type Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { ImageIcon } from "@radix-ui/react-icons";
 import {
@@ -116,7 +116,7 @@ function CarouselItemWithOnError({
           <Image
             src={src}
             alt={`thumbnail image ${thumbnail.id}`}
-            className="rounded-md object-cover border"
+            className="rounded-md object-cover border select-none"
             onError={handleError}
             fill
             priority={idx <= 1}

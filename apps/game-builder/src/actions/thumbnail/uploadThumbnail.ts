@@ -23,7 +23,7 @@ export const uploadThumbnail = async (
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = (await response.json()) as { message: string };
       throw new Error(errorData.message || "Failed to upload thumbnails");
     }
 
