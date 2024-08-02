@@ -24,6 +24,7 @@ export default function GameBuilderContent({
     removeClientChoice,
     addAiChoice,
     updateClientChoice,
+    isGenerating,
   } = useClientChoices({
     gamePageList,
   });
@@ -90,6 +91,7 @@ export default function GameBuilderContent({
                   addAIChoice={() => handleAddChoiceByAI(page.id)}
                   updatePage={updatePage}
                   deletePage={() => handleDeletePage(page.id)}
+                  isGenerating={isGenerating}
                 />
                 {[...choices, ...(clientChoice ? clientChoice : [])].map(
                   (choice) => {

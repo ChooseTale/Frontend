@@ -1,4 +1,4 @@
-import { type Dispatch, SetStateAction, useEffect, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { ImageIcon } from "@radix-ui/react-icons";
 import {

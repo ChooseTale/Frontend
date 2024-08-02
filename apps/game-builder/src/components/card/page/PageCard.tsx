@@ -21,6 +21,7 @@ interface PageCardProps {
   addAIChoice: () => void;
   updatePage: ReturnType<typeof useGameData>["updatePage"];
   deletePage: () => void;
+  isGenerating: boolean;
 }
 
 export default function PageCard({
@@ -30,6 +31,7 @@ export default function PageCard({
   addAIChoice,
   updatePage,
   deletePage,
+  isGenerating,
 }: PageCardProps) {
   const { abridgement, description, isEnding } = page;
   const showChoiceButtons = choicesLength < 4 && !isEnding;
@@ -52,7 +54,9 @@ export default function PageCard({
           </CardContent>
         </div>
 
-        <CardFooter className="flex items-center p-0 pt-2 gap-1">
+        <CardFooter
+          className={`flex items-center p-0 pt-2 gap-1 ${isGenerating ? "pointer-events-none cursor-default animate-pulse duration-1000" : ""}`}
+        >
           {showChoiceButtons && (
             <>
               <ThemedIconButton onClick={addChoice}>

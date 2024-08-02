@@ -20,7 +20,7 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={`overflow-hidden ${inter.className}`}>
         <MobileWrapper>
           <CSSThemeProvider>
             <div className="h-[calc(100vh-80px)] flex flex-col">

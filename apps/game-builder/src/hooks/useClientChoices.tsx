@@ -14,6 +14,7 @@ export default function useClientChoices({
   const [clientChoicesMap, setClientChoicesMap] = useState<
     Map<number, Choice[]>
   >(new Map());
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const addClientChoice = (pageId: number, choice?: ChoiceType): boolean => {
     let success = false;
@@ -46,6 +47,7 @@ export default function useClientChoices({
     });
     return success;
   };
+
   const addAiChoice = async ({
     gameId,
     pageId,
@@ -53,26 +55,33 @@ export default function useClientChoices({
     pageId: number;
     gameId: number;
   }) => {
+    setIsGenerating(true);
     const res = await getRecommendChoice(gameId, pageId);
     if (!res.success) return;
-
     const choices = res.choices as ChoiceType[];
-    const newChoices: ChoiceType[] = choices.map((choice) => ({
-      ...choice,
-      id:
-        (gamePageList.find((page) => page.id === pageId)?.choices.length ?? 0) +
-        (clientChoicesMap.get(pageId)?.length ?? 0) +
-        1,
-      fromPageId: pageId,
-      toPageId: -1,
-      createdAt: new Date().toISOString(),
-    }));
 
     setClientChoicesMap((prevMap) => {
       const existingChoices = prevMap.get(pageId) || [];
-      const updatedChoices = [...existingChoices, ...newChoices];
+      const minIndex = existingChoices.reduce(
+        (min, choice) => Math.min(min, choice.id),
+        0
+      );
+
+      const newChoices: ChoiceType[] = choices.map((choice, index) => ({
+        ...choice,
+        id: minIndex - (index + 1),
+        fromPageId: pageId,
+        toPageId: -1,
+        createdAt: new Date().toISOString(),
+        source: "client",
+      }));
+
+      const combinedChoices = [...existingChoices, ...newChoices];
+      const limitedChoices = combinedChoices.slice(0, 4);
+
       const newMap = new Map(prevMap);
-      newMap.set(pageId, updatedChoices);
+      newMap.set(pageId, limitedChoices);
+      setIsGenerating(false);
       return newMap;
     });
   };
@@ -116,5 +125,6 @@ export default function useClientChoices({
     addClientChoice,
     removeClientChoice,
     updateClientChoice,
+    isGenerating,
   };
 }

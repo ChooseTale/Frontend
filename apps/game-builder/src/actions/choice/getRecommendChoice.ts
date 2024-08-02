@@ -1,5 +1,6 @@
 "use server";
 import type { HttpError } from "@choosetale/nestia-type";
+import { API_URL } from "@/constant/config";
 import type { ApiResponse, SuccessResponse } from "../action";
 
 // --게임 정보 불러오기--
@@ -16,13 +17,12 @@ export const getRecommendChoice = async (
 ): Promise<ApiResponse<GetRecommendChoiceSuccessResponse>> => {
   try {
     const response = await fetch(
-      `/game/${gameId}/page/${pageId}/recommend-choices`,
+      `${API_URL}/game/${gameId}/page/${pageId}/recommend-choices`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors",
       }
     );
 
