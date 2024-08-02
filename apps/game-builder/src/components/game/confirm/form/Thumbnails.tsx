@@ -30,15 +30,10 @@ export default function Thumbnails({
     fileInputRef.current && fileInputRef.current.click();
   };
 
-  const onFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      const result = await handleUpload(gameId, files);
-      if (result) {
-        setTimeout(() => {
-          setCurrentThumbnailIdx(getValues("thumbnails").length + 1);
-        }, 500);
-      }
+      handleUpload(gameId, files);
     }
   };
 
