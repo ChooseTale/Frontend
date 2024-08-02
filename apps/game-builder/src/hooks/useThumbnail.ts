@@ -5,11 +5,12 @@ import { uploadThumbnail } from "@/actions/thumbnail/uploadThumbnail";
 import { deleteThumbnail } from "@/actions/thumbnail/deleteThumbnail";
 import { generateThumbnail } from "@/actions/thumbnail/generateThumbnail";
 
-export default function UseThumbnail({
+export default function useThumbnail({
   ...useFormProps
 }: ReturnType<typeof useForm<GameInfo>>) {
   const { setValue, getValues } = useFormProps;
   const [currentThumbnailIdx, setCurrentThumbnailIdx] = useState(0);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // 이미지 업로드
   const handleUpload = useCallback(
@@ -38,6 +39,7 @@ export default function UseThumbnail({
   // AI 이미지 생성 요청 핸들러
   const handleGenerate = useCallback(
     async (gameId: number) => {
+      setIsGenerating(true);
       const response = await generateThumbnail(gameId);
 
       if (response.success) {
@@ -46,6 +48,7 @@ export default function UseThumbnail({
         setValue("thumbnails", [...currentThumbnails, { id: imageId, url }]);
 
         setTimeout(() => {
+          setIsGenerating(false);
           setCurrentThumbnailIdx(getValues("thumbnails").length + 1);
         }, 500);
       }
@@ -76,5 +79,6 @@ export default function UseThumbnail({
     handleDelete,
     currentThumbnailIdx,
     setCurrentThumbnailIdx,
+    isGenerating,
   };
 }
