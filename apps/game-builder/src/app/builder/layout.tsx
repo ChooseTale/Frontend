@@ -6,10 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <TopNav title="새 게임" isSticky={false}>
-        <NextButton
-          nextTo="/game/confirm"
-          options={{ searchParams: { id: true }, withParamsId: true }}
-        />
+        <NextButton nextTo="/game/confirm" options={{ withParamsId: true }} />
       </TopNav>
       {children}
     </>
