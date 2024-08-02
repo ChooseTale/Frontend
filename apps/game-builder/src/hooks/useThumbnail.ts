@@ -1,7 +1,8 @@
 import { useCallback, useState } from "react";
 import type { useForm } from "react-hook-form";
-import { uploadThumbnail } from "@/actions/thumbnail/uploadThumbnail";
 import type { GameInfo } from "@/interface/customType";
+import { uploadThumbnail } from "@/actions/thumbnail/uploadThumbnail";
+import { deleteThumbnail } from "@/actions/thumbnail/deleteThumbnail";
 
 export default function UseThumbnail({
   ...useFormProps
@@ -49,14 +50,15 @@ export default function UseThumbnail({
   const handleDelete = useCallback(
     async (gameId: number, index: number) => {
       const imageId = getValues("thumbnails")[index].id;
-      // const response = await deleteThumbnail(gameId, imageId);
-      // if (response.success) {
-      //   const currentThumbnails = watch("thumbnails") || [];
-      //   const updatedThumbnails = currentThumbnails.filter(
-      //     (_, i) => i !== index
-      //   );
-      //   setValue("thumbnails", updatedThumbnails);
-      // }
+      const response = await deleteThumbnail(gameId, imageId);
+
+      if (response.success) {
+        const currentThumbnails = watch("thumbnails") || [];
+        const updatedThumbnails = currentThumbnails.filter(
+          (_, i) => i !== index
+        );
+        setValue("thumbnails", updatedThumbnails);
+      }
     },
     [watch, getValues, setValue]
   );
