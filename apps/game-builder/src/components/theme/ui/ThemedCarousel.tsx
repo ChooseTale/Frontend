@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { ImageIcon } from "@radix-ui/react-icons";
 import {
@@ -7,16 +7,23 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@repo/ui/components/ui/Carousel.tsx";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio.tsx";
 import { useThemeStore } from "@/store/useTheme";
-import type { Thumbnail } from "@/interface/customType";
+import { type Thumbnail } from "@/interface/customType";
 
 interface ThemedCarouselProps {
   thumbnails: Thumbnail[];
+  setCurrentThumbnailId: Dispatch<SetStateAction<number>>;
+  currentThumbnailIdx: number;
 }
 
-export default function ThemedCarousel({ thumbnails }: ThemedCarouselProps) {
+export default function ThemedCarousel({
+  thumbnails,
+  setCurrentThumbnailId,
+  currentThumbnailIdx,
+}: ThemedCarouselProps) {
   const { theme } = useThemeStore((state) => state);
   let themeClass;
 
@@ -30,12 +37,33 @@ export default function ThemedCarousel({ thumbnails }: ThemedCarouselProps) {
     default:
   }
 
+  const [api, setApi] = useState<CarouselApi>();
+  useEffect(() => {
+    if (api) {
+      const updateCurrentThumbnailId = () =>
+        setCurrentThumbnailId(api.selectedScrollSnap());
+
+      updateCurrentThumbnailId();
+
+      api.on("select", updateCurrentThumbnailId);
+      return () => {
+        api.off("select", updateCurrentThumbnailId);
+      };
+    }
+  });
+
+  useEffect(() => {
+    if (api && currentThumbnailIdx !== api.selectedScrollSnap())
+      api.scrollTo(currentThumbnailIdx);
+  }, [api, currentThumbnailIdx]);
+
   return (
-    <Carousel>
+    <Carousel setApi={setApi}>
       <CarouselContent className="mx-10">
-        {thumbnails.map((thumbnail) => (
+        {thumbnails.map((thumbnail, idx) => (
           <CarouselItemWithOnError
             thumbnail={thumbnail}
+            idx={idx}
             key={`thumbnail-${thumbnail.id}`}
           />
         ))}
@@ -64,7 +92,13 @@ export default function ThemedCarousel({ thumbnails }: ThemedCarouselProps) {
   );
 }
 
-function CarouselItemWithOnError({ thumbnail }: { thumbnail: Thumbnail }) {
+function CarouselItemWithOnError({
+  thumbnail,
+  idx,
+}: {
+  thumbnail: Thumbnail;
+  idx: number;
+}) {
   const [src, setSrc] = useState(thumbnail.url);
   const [isError, setIsError] = useState(false);
   const placeholderSrc =
@@ -76,15 +110,19 @@ function CarouselItemWithOnError({ thumbnail }: { thumbnail: Thumbnail }) {
   };
 
   return (
-    <CarouselItem>
-      <AspectRatio ratio={16 / 9}>
-        <Image
-          src={src}
-          alt="Image"
-          className="rounded-md object-cover border"
-          fill
-          onError={handleError}
-        />
+    <CarouselItem className="px-2">
+      <AspectRatio ratio={9 / 9}>
+        <div className="absolute w-full h-full">
+          <Image
+            src={src}
+            alt={`thumbnail image ${thumbnail.id}`}
+            className="rounded-md object-cover border"
+            onError={handleError}
+            fill
+            priority={idx <= 1}
+            sizes="(max-width: 600px) 80vw, 400px"
+          />
+        </div>
         {isError && (
           <div className="absolute w-full h-full rounded-md border border-red-500 flex justify-center items-center">
             <ImageIcon className="w-10 h-10" color="#aaaaaa" />
