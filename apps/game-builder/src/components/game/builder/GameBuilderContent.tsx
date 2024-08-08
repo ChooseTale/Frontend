@@ -16,8 +16,14 @@ export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageList, deleteChoice, updatePage, updateChoices, deletePage } =
-    useGameDataProps;
+  const {
+    gamePageList,
+    deleteChoice,
+    addPage,
+    updatePage,
+    updateChoices,
+    deletePage,
+  } = useGameDataProps;
   const {
     clientChoicesMap,
     addClientChoice,
@@ -106,6 +112,8 @@ export default function GameBuilderContent({
                         removeChoice={() => handleDeleteChoice(page.id, choice)}
                         availablePages={availablePages}
                         linkedPage={getLinkedPage(choice.toPageId)}
+                        addPage={addPage}
+                        depth={page.depth}
                       />
                     );
                   }
