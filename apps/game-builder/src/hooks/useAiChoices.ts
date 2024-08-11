@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
 import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
 import type { ChoiceType } from "@/interface/customType";
-import { useChoicesState } from "./useChoicesState";
+import type { useChoicesState } from "./useChoicesState";
 
 interface UseAiChoicesStateProps {
   setChoicesMap: ReturnType<typeof useChoicesState>["setChoicesMap"];
@@ -18,16 +18,6 @@ export function useAiChoice({
     gameId: number;
     pageId: number;
   } | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (socketRef.current) {
-        console.log("bye");
-        socketRef.current.off("recommend-choices", handleRecommendChoices);
-        socketRef.current.disconnect();
-      }
-    };
-  }, []);
 
   const addAiChoice = async ({
     gameId,
@@ -50,41 +40,53 @@ export function useAiChoice({
     currentRequest.current = { gameId, pageId };
   };
 
-  const handleRecommendChoices = (data: any) => {
-    const choices = data as ChoiceType[];
-    if (!currentRequest.current) return;
-    const { pageId } = currentRequest.current;
+  const handleRecommendChoices = useCallback(
+    (data: ChoiceType[]) => {
+      const choices = data;
+      if (!currentRequest.current) return;
+      const { pageId } = currentRequest.current;
 
-    setClientChoicesMap((prevMap) => {
-      const existingChoices = prevMap.get(pageId) || [];
-      const minIndex = existingChoices.reduce(
-        (min, choice) => Math.min(min, choice.id),
-        0
-      );
+      setClientChoicesMap((prevMap) => {
+        const existingChoices = prevMap.get(pageId) || [];
+        const minIndex = existingChoices.reduce(
+          (min, choice) => Math.min(min, choice.id),
+          0
+        );
 
-      const newChoices: ChoiceType[] = choices.map((choice, index) => ({
-        ...choice,
-        id: minIndex - (index + 1),
-        fromPageId: pageId,
-        toPageId: -1,
-        createdAt: new Date().toISOString(),
-        source: "client",
-      }));
+        const newChoices: ChoiceType[] = choices.map((choice, index) => ({
+          ...choice,
+          id: minIndex - (index + 1),
+          fromPageId: pageId,
+          toPageId: -1,
+          createdAt: new Date().toISOString(),
+          source: "client",
+        }));
 
-      const combinedChoices = [...existingChoices, ...newChoices];
-      const limitedChoices = combinedChoices.slice(0, 4);
+        const combinedChoices = [...existingChoices, ...newChoices];
+        const limitedChoices = combinedChoices.slice(0, 4);
 
-      const newMap = new Map(prevMap);
-      newMap.set(pageId, limitedChoices);
+        const newMap = new Map(prevMap);
+        newMap.set(pageId, limitedChoices);
 
-      socketRef.current?.disconnect();
-      socketRef.current = null;
-      currentRequest.current = null;
-      setIsGenerating(false);
+        socketRef.current?.disconnect();
+        socketRef.current = null;
+        currentRequest.current = null;
+        setIsGenerating(false);
 
-      return newMap;
-    });
-  };
+        return newMap;
+      });
+    },
+    [setClientChoicesMap]
+  );
+
+  useEffect(() => {
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.off("recommend-choices", handleRecommendChoices);
+        socketRef.current.disconnect();
+      }
+    };
+  }, [handleRecommendChoices]);
 
   return {
     addAiChoice,

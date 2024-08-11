@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
-import type { ChoiceType } from "@/interface/customType";
 import type { Page } from "@choosetale/nestia-type/lib/structures/Page";
+import type { ChoiceType } from "@/interface/customType";
 
 interface UseChoicesStateProps {
   gamePageList: Page[];
