@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
 import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
+import { SOCKET_URL } from "@/constant/config";
 import type { ChoiceType } from "@/interface/customType";
 import type { useChoicesState } from "./useChoicesState";
 
@@ -30,7 +31,7 @@ export function useAiChoice({
     const res = await getRecommendChoice(gameId, pageId);
     if (!res.success || socketRef.current) return;
 
-    const socket = io("http://localhost:5002/chat-gpt");
+    const socket = io(SOCKET_URL + "/chat-gpt");
 
     socket.on("connect", () => {
       socket.on("recommend-choices", handleRecommendChoices);
