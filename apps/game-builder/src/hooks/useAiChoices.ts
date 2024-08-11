@@ -42,6 +42,8 @@ export function useAiChoice({
 
   const handleRecommendChoices = useCallback(
     (data: ChoiceType[]) => {
+      // FIXME: 소켓 메시지 업데이트 예정
+      // state: "success" | "error" 체크 필요
       const choices = data;
       if (!currentRequest.current) return;
       const { pageId } = currentRequest.current;
