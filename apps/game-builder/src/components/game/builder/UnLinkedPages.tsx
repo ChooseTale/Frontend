@@ -11,7 +11,7 @@ export default function UnLinkedPages({
   handleDeletePage,
 }: {
   gamePageList: PageType[];
-  updatePage: ReturnType<typeof useGameData>["updatePage"];
+  updatePage: ReturnType<typeof useGameData>["updatePageData"];
   handleDeletePage: (pageId: number) => void;
 }) {
   const unLinkedPagesList = gamePageList.filter((page) => page.depth === -1);

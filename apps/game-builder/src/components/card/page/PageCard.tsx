@@ -19,7 +19,7 @@ interface PageCardProps {
   choicesLength: number;
   addChoice: () => void;
   addAIChoice: () => void;
-  updatePage: ReturnType<typeof useGameData>["updatePage"];
+  updatePage: ReturnType<typeof useGameData>["updatePageData"];
   deletePage: () => void;
   isGenerating: boolean;
 }

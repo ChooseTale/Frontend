@@ -22,6 +22,7 @@ interface PageCardProps {
   defaultFixed: boolean;
   fixChoice: (partialChoice: ChoiceType) => void;
   removeChoice: () => void;
+  addPageData;
   availablePages: LinkedPage[];
   linkedPage: LinkedPage | undefined;
 }

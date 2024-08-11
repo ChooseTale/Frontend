@@ -52,7 +52,7 @@ export default function useGameData({
     newGame?.pages ?? game.pages
   );
 
-  const updateChoices = (pageId: number, updatedChoice: ChoiceType) => {
+  const updateChoicesData = (pageId: number, updatedChoice: ChoiceType) => {
     setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
         page.id === pageId
@@ -67,7 +67,7 @@ export default function useGameData({
     );
   };
 
-  const addChoice = (pageId: number, choice: ChoiceType) => {
+  const addChoiceData = (pageId: number, choice: ChoiceType) => {
     setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
         page.id === pageId
@@ -77,7 +77,7 @@ export default function useGameData({
     );
   };
 
-  const deleteChoice = (pageId: number, choiceId: number) => {
+  const deleteChoiceData = (pageId: number, choiceId: number) => {
     let toPageId: number | undefined;
 
     setGamePageList((prevData) =>
@@ -97,10 +97,10 @@ export default function useGameData({
       })
     );
 
-    if (toPageId !== undefined) deletePage(toPageId);
+    if (toPageId !== undefined) deletePageData(toPageId);
   };
 
-  const addPage = ({ depth }: { depth: number }) => {
+  const addPageData = ({ depth }: { depth: number }) => {
     // FIXME: api 요청하도록 변경 필요
     const newPageId = gamePageList.length + 1;
     const newPage: PageType = {
@@ -118,7 +118,7 @@ export default function useGameData({
     setGamePageList((prevData: PageType[]) => [...prevData, newPage]);
   };
 
-  const updatePage = (updatedPage: Partial<PageType>) => {
+  const updatePageData = (updatedPage: Partial<PageType>) => {
     setGamePageList((prevData) =>
       prevData.map((page) =>
         page.id === updatedPage.id ? { ...page, ...updatedPage } : page
@@ -126,7 +126,7 @@ export default function useGameData({
     );
   };
 
-  const deletePage = (pageId: number) => {
+  const deletePageData = (pageId: number) => {
     setGamePageList((prevData) => {
       const filteredPages = prevData.filter((page) => page.id !== pageId);
 
@@ -140,17 +140,17 @@ export default function useGameData({
   };
 
   const switchPageIsEnding = (partialPage: Partial<PageType>) => {
-    updatePage(partialPage);
+    updatePageData(partialPage);
   };
 
   return {
     gamePageList,
-    addPage,
-    updatePage,
-    deletePage,
-    addChoice,
-    updateChoices,
-    deleteChoice,
+    addPageData,
+    updatePageData,
+    deletePageData,
+    addChoiceData,
+    updateChoicesData,
+    deleteChoiceData,
     switchPageIsEnding,
   };
 }

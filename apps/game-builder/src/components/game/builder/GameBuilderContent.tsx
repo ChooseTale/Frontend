@@ -1,5 +1,5 @@
 "use client";
-import useClientChoices from "@/hooks/useClientChoices";
+import useChoices from "@/hooks/useChoices";
 import type useGameData from "@/hooks/useGameData";
 import type { ChoiceType } from "@/interface/customType";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
@@ -16,36 +16,41 @@ export default function GameBuilderContent({
   gameId,
   ...useGameDataProps
 }: GameBuilderContentProps) {
-  const { gamePageList, deleteChoice, updatePage, updateChoices, deletePage } =
-    useGameDataProps;
   const {
-    clientChoicesMap,
-    addClientChoice,
-    removeClientChoice,
+    gamePageList,
+    deleteChoiceData,
+    updatePageData,
+    updateChoicesData,
+    deletePageData,
+  } = useGameDataProps;
+  const {
+    choicesMap,
+    addChoice,
+    removeChoice,
     addAiChoice,
-    updateClientChoice,
+    updateChoice,
     isGenerating,
-  } = useClientChoices({
+  } = useChoices({
     gamePageList,
   });
 
-  const handleAddChoice = (pageId: number) => {
-    addClientChoice(pageId);
+  const handleAddChoiceByUser = (pageId: number) => {
+    addChoice(pageId);
   };
   const handleAddChoiceByAI = (pageId: number) => {
     addAiChoice({ gameId, pageId });
   };
   const handleFixChoice = (pageId: number, choice: ChoiceType) => {
-    if (choice.source === "server") updateChoices(pageId, choice);
-    if (choice.source === "client") updateClientChoice(pageId, choice);
+    updateChoice(pageId, choice);
+    updateChoicesData(pageId, choice);
   };
   const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
-    if (choice.source === "server") deleteChoice(pageId, choice.id);
-    if (choice.source === "client") removeClientChoice(pageId, choice.id);
+    removeChoice(pageId, choice.id);
+    deleteChoiceData(pageId, choice.id);
   };
   const handleDeletePage = (pageId: number) => {
     if (confirm("페이지를 삭제하면 페이지의 선택지가 함께 삭제됩니다."))
-      deletePage(pageId);
+      deletePageData(pageId);
   };
 
   const availablePages = gamePageList.map((page) => ({
@@ -61,7 +66,7 @@ export default function GameBuilderContent({
       <div className="pl-6">
         <UnLinkedPages
           gamePageList={gamePageList}
-          updatePage={updatePage}
+          updatePage={updatePageData}
           handleDeletePage={handleDeletePage}
         />
       </div>
@@ -76,7 +81,7 @@ export default function GameBuilderContent({
           {gamePageList.map((page) => {
             if (page.depth < 0) return;
             const choices = page.choices as ChoiceType[];
-            const clientChoice = clientChoicesMap.get(page.id) as
+            const clientChoice = choicesMap.get(page.id) as
               | ChoiceType[]
               | undefined;
 
@@ -87,9 +92,9 @@ export default function GameBuilderContent({
                   choicesLength={
                     page.choices.length + (clientChoice?.length ?? 0)
                   }
-                  addChoice={() => handleAddChoice(page.id)}
+                  addChoice={() => handleAddChoiceByUser(page.id)}
                   addAIChoice={() => handleAddChoiceByAI(page.id)}
-                  updatePage={updatePage}
+                  updatePage={updatePageData}
                   deletePage={() => handleDeletePage(page.id)}
                   isGenerating={isGenerating}
                 />

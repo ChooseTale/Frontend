@@ -21,7 +21,7 @@ import EndingPageSwitch from "./form/EndingPageSwitch";
 interface GameEditDrawProps {
   theme?: string;
   page: PageType;
-  updatePage: ReturnType<typeof useGameData>["updatePage"];
+  updatePage: ReturnType<typeof useGameData>["updatePageData"];
 }
 export interface GameEditFieldsType {
   abridgement: string;
