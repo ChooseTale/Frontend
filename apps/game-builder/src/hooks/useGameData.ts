@@ -116,9 +116,9 @@ export default function useGameData({
         choices: [],
         createdAt: new Date().toISOString(),
         depth,
-        description: "",
+        description: pageData.content,
         id: res.page.id,
-        isEnding: false,
+        isEnding: pageData.isEnding,
         source: "client",
         updatedAt: new Date().toISOString(),
       };

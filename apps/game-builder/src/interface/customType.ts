@@ -54,6 +54,11 @@ export interface GameType {
 
 export interface LinkedPage {
   pageId: number;
-  title: string;
+  content: string;
+  isEnding: boolean;
+}
+
+export interface NewPage {
+  content: string;
   isEnding: boolean;
 }

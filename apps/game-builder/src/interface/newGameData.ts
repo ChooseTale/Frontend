@@ -48,13 +48,14 @@ export class NewGameBuild {
     this.pages = [
       {
         ...props.page,
-        id: props.page.id,
-        description: props.page.content,
+        choices: [],
         createdAt: new Date().toISOString(),
         depth: 0,
-        choices: [],
-        source: "client",
+        description: props.page.content,
+        id: props.page.id,
         isEnding: false,
+        source: "client",
+        updatedAt: new Date().toISOString(),
       },
     ];
   }
