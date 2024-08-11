@@ -7,6 +7,7 @@ import PageCard from "@components/card/page/PageCard";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
 import UnLinkedPages from "./UnLinkedPages";
 import StoryLine from "./StoryLine";
+import NewPageModal from "./NewPageModal";
 
 interface GameBuilderContentProps extends ReturnType<typeof useGameData> {
   gameId: number;
@@ -35,6 +36,12 @@ export default function GameBuilderContent({
     gamePageList,
   });
 
+  const handleNewPage = (newPageData: {
+    content: string;
+    isEnding: boolean;
+  }) => {
+    addPage({ depth: -1, pageData: newPageData });
+  };
   const handleAddChoice = (pageId: number) => {
     addClientChoice(pageId);
   };
@@ -63,8 +70,9 @@ export default function GameBuilderContent({
     availablePages.find((p) => p.pageId === toPageId);
 
   return (
-    <div className="flex-1 relative px-6">
-      <div className="pl-6">
+    <div className="flex-1 flex flex-col relative px-6">
+      <div className="pl-6 flex flex-col">
+        <NewPageModal handleNewPage={handleNewPage} />
         <UnLinkedPages
           gamePageList={gamePageList}
           updatePage={updatePage}
@@ -72,7 +80,7 @@ export default function GameBuilderContent({
         />
       </div>
 
-      <div className="flex">
+      <div className="flex flex-1">
         <div>
           <StoryLine />
           <GameSubmitButton />

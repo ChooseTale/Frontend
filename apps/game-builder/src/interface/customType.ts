@@ -31,11 +31,11 @@ interface BaseChoice extends Choice {
   source: "server" | "client";
 }
 interface BasePage extends Page {
-  title: string;
   description: string;
   source: "server" | "client";
   choices: BaseChoice[];
   isEnding: boolean;
+  updatedAt: string;
 }
 
 export type PageType = BasePage & { source: "server" | "client" };

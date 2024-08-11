@@ -19,7 +19,7 @@ export default function UnLinkedPages({
 
   return (
     <div className="flex flex-col">
-      <div className="flex gap-1 justify-end my-2">
+      <div className="-mt-5 mb-2">
         <TextWithCounts
           text="미연결 페이지"
           counts={unLinkedPagesList.length}
@@ -32,7 +32,9 @@ export default function UnLinkedPages({
               className="w-full rounded-md border px-3 py-2 !pr-20 border-[#22c55e] text-[#22c55e] bg-white shadow-sm"
               key={page.id}
             >
-              <p className="w-full text-xs">{page.abridgement}</p>
+              <p className="w-full text-xs line-clamp-1">
+                {page.abridgement ? page.abridgement : page.description}
+              </p>
             </div>
 
             <div className="absolute top-0 right-0">

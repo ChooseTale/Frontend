@@ -101,21 +101,26 @@ export default function useGameData({
     if (toPageId !== undefined) deletePage(toPageId);
   };
 
-  const addPage = async ({ depth }: { depth: number }) => {
-    const res = await createPage(gameBuildData.id);
-    console.log(res);
+  const addPage = async ({
+    depth,
+    pageData,
+  }: {
+    depth: number;
+    pageData: { content: string; isEnding: boolean };
+  }) => {
+    const res = await createPage(gameBuildData.id, pageData);
 
     if (res.success) {
       const newPage: PageType = {
-        id: res.page.id,
-        title: "",
         abridgement: "",
-        description: "",
+        choices: [],
         createdAt: new Date().toISOString(),
         depth,
-        choices: [],
-        source: "client",
+        description: "",
+        id: res.page.id,
         isEnding: false,
+        source: "client",
+        updatedAt: new Date().toISOString(),
       };
 
       setGamePageList((prevData: PageType[]) => [...prevData, newPage]);

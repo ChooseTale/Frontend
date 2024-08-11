@@ -10,6 +10,7 @@ import {
 } from "@radix-ui/react-icons";
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card.tsx";
 import type { ChoiceType, LinkedPage } from "@/interface/customType";
+import useGameData from "@/hooks/useGameData";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import ThemedInputField from "@/components/theme/ui/ThemedInputField";
@@ -24,6 +25,8 @@ interface PageCardProps {
   removeChoice: () => void;
   availablePages: LinkedPage[];
   linkedPage: LinkedPage | undefined;
+  addPage: ReturnType<typeof useGameData>["addPage"];
+  depth: number;
 }
 
 export default function ChoiceCard({
@@ -33,6 +36,8 @@ export default function ChoiceCard({
   removeChoice,
   availablePages,
   linkedPage,
+  addPage,
+  depth,
 }: PageCardProps) {
   const [isFixed, setIsFixed] = useState(defaultFixed);
   const isSavedChoice = defaultFixed;
@@ -50,14 +55,29 @@ export default function ChoiceCard({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (formData: typeof defaultValues) => {
-    const newChoice = {
-      ...formData,
-      toPageId: Number(formData.toPageId),
-    };
+  const onSubmit = async (formData: typeof defaultValues) => {
+    const toPageId = Number(formData.toPageId);
+    if (toPageId === -99) {
+      // addPage({ depth: depth + 1 });
+      // if (res?.id !== undefined) {
+      //   const toNewPageId = res.id;
+      //   const newChoice = {
+      //     ...formData,
+      //     toPageId: toNewPageId,
+      //   };
+      //   fixChoice(newChoice);
+      //   setIsFixed(!isFixed);
+      //   return;
+      // }
+    }
 
-    fixChoice(newChoice);
-    setIsFixed(!isFixed);
+    // const newChoice = {
+    //   ...formData,
+    //   toPageId: Number(formData.toPageId),
+    // };
+
+    // fixChoice(newChoice);
+    // setIsFixed(!isFixed);
   };
 
   const handleRemove = () => {
@@ -109,6 +129,9 @@ export default function ChoiceCard({
                 {...register("toPageId", { required: true })}
                 className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors.toPageId ? "border-red-500" : ""}`}
               >
+                <option key={-99} value={-99}>
+                  새 페이지 생성
+                </option>
                 {availablePages.map((page) => (
                   <option key={page.pageId} value={page.pageId}>
                     {page.title}

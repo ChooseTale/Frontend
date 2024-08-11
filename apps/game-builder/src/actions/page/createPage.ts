@@ -9,7 +9,8 @@ interface CreateSuccessResponse extends SuccessResponse {
 }
 
 export const createPage = async (
-  gameId: number
+  gameId: number,
+  pageData: { isEnding: boolean; content: string }
 ): Promise<ApiResponse<CreateSuccessResponse>> => {
   try {
     const response = await fetch(`${API_URL}/game/${gameId}/page`, {
@@ -17,10 +18,7 @@ export const createPage = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        isEnding: false,
-        content: "",
-      }),
+      body: JSON.stringify(pageData),
     });
     const page = (await response.json()) as CreatePageResDto;
 
