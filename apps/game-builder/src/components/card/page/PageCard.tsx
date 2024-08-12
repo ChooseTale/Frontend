@@ -1,5 +1,9 @@
 import Image from "next/image";
-import { CardStackPlusIcon, TrashIcon } from "@radix-ui/react-icons";
+import {
+  CardStackPlusIcon,
+  StopwatchIcon,
+  TrashIcon,
+} from "@radix-ui/react-icons";
 import {
   CardContent,
   CardDescription,
@@ -7,11 +11,12 @@ import {
   CardTitle,
 } from "@repo/ui/components/ui/Card.tsx";
 import type { PageType } from "@/interface/customType";
+import type useGameData from "@/hooks/useGameData";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import robotIcon from "@asset/icon/robot-solid.svg";
 import GameEditDraw from "@/components/game/edit/GameEditDraw";
-import type useGameData from "@/hooks/useGameData";
+import DateDisplayRelative from "@/components/common/text/DateDisplayRelative";
 import DotIndicator from "./DotIndicator";
 
 interface PageCardProps {
@@ -71,6 +76,10 @@ export default function PageCard({
               </ThemedIconButton>
             </>
           )}
+          <div className="absolute bottom-3 right-3 text-xs mt-2 opacity-50 flex items-center gap-1">
+            <StopwatchIcon className="w-3 h-3" />
+            <DateDisplayRelative date={page.updatedAt} />
+          </div>
         </CardFooter>
 
         <GameEditDraw page={page} updatePage={updatePage} />
