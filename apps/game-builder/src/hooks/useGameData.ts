@@ -53,7 +53,7 @@ export default function useGameData({
     newGame?.pages ?? game.pages
   );
 
-  const updateChoices = (pageId: number, updatedChoice: ChoiceType) => {
+  const updateChoicesData = (pageId: number, updatedChoice: ChoiceType) => {
     setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
         page.id === pageId
@@ -68,7 +68,7 @@ export default function useGameData({
     );
   };
 
-  const addChoice = (pageId: number, choice: ChoiceType) => {
+  const addChoiceData = (pageId: number, choice: ChoiceType) => {
     setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
         page.id === pageId
@@ -78,7 +78,7 @@ export default function useGameData({
     );
   };
 
-  const deleteChoice = (pageId: number, choiceId: number) => {
+  const deleteChoiceData = (pageId: number, choiceId: number) => {
     let toPageId: number | undefined;
 
     setGamePageList((prevData) =>
@@ -98,10 +98,10 @@ export default function useGameData({
       })
     );
 
-    if (toPageId !== undefined) deletePage(toPageId);
+    if (toPageId !== undefined) deletePageData(toPageId);
   };
 
-  const addPage = async ({
+  const addPageData = async ({
     depth,
     pageData,
   }: {
@@ -128,7 +128,7 @@ export default function useGameData({
     }
   };
 
-  const updatePage = (updatedPage: Partial<PageType>) => {
+  const updatePageData = (updatedPage: Partial<PageType>) => {
     setGamePageList((prevData) =>
       prevData.map((page) =>
         page.id === updatedPage.id ? { ...page, ...updatedPage } : page
@@ -136,7 +136,7 @@ export default function useGameData({
     );
   };
 
-  const deletePage = (pageId: number) => {
+  const deletePageData = (pageId: number) => {
     setGamePageList((prevData) => {
       const filteredPages = prevData.filter((page) => page.id !== pageId);
 
@@ -150,17 +150,17 @@ export default function useGameData({
   };
 
   const switchPageIsEnding = (partialPage: Partial<PageType>) => {
-    updatePage(partialPage);
+    updatePageData(partialPage);
   };
 
   return {
     gamePageList,
-    addPage,
-    updatePage,
-    deletePage,
-    addChoice,
-    updateChoices,
-    deleteChoice,
+    addPageData,
+    updatePageData,
+    deletePageData,
+    addChoiceData,
+    updateChoicesData,
+    deleteChoiceData,
     switchPageIsEnding,
   };
 }
