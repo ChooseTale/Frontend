@@ -97,47 +97,51 @@ export default function GameBuilderContent({
         </div>
 
         <div className="flex-1 pb-28">
-          {gamePageList.map((page) => {
-            if (page.depth < 0) return;
-            const choices = page.choices as ChoiceType[];
-            const clientChoice = choicesMap.get(page.id) as
-              | ChoiceType[]
-              | undefined;
+          {gamePageList
+            .sort((a, b) => a.depth - b.depth)
+            .map((page) => {
+              if (page.depth < 0) return;
+              const choices = page.choices as ChoiceType[];
+              const clientChoice = choicesMap.get(page.id) as
+                | ChoiceType[]
+                | undefined;
 
-            return (
-              <div key={`page${page.id}`} className="flex flex-col">
-                <PageCard
-                  page={page}
-                  choicesLength={
-                    page.choices.length + (clientChoice?.length ?? 0)
-                  }
-                  addChoice={() => handleAddChoiceByUser(page.id)}
-                  addAIChoice={() => handleAddChoiceByAI(page.id)}
-                  updatePage={updatePageData}
-                  deletePage={() => handleDeletePage(page.id)}
-                  isGenerating={isGenerating}
-                />
-                {[...choices, ...(clientChoice ? clientChoice : [])].map(
-                  (choice) => {
-                    return (
-                      <ChoiceCard
-                        key={`${choice.source}-page${page.id}-choice${choice.id}`}
-                        choice={choice}
-                        defaultFixed={choice.source === "server"}
-                        fixChoice={(partialChoice) =>
-                          handleFixChoice(page.id, partialChoice)
-                        }
-                        removeChoice={() => handleDeleteChoice(page.id, choice)}
-                        availablePages={availablePages}
-                        linkedPage={getLinkedPage(choice.toPageId)}
-                        handleNewPage={handleNewPage}
-                      />
-                    );
-                  }
-                )}
-              </div>
-            );
-          })}
+              return (
+                <div key={`page${page.id}`} className="flex flex-col">
+                  <PageCard
+                    page={page}
+                    choicesLength={
+                      page.choices.length + (clientChoice?.length ?? 0)
+                    }
+                    addChoice={() => handleAddChoiceByUser(page.id)}
+                    addAIChoice={() => handleAddChoiceByAI(page.id)}
+                    updatePage={updatePageData}
+                    deletePage={() => handleDeletePage(page.id)}
+                    isGenerating={isGenerating}
+                  />
+                  {[...choices, ...(clientChoice ? clientChoice : [])].map(
+                    (choice) => {
+                      return (
+                        <ChoiceCard
+                          key={`${choice.source}-page${page.id}-choice${choice.id}`}
+                          choice={choice}
+                          defaultFixed={choice.source === "server"}
+                          fixChoice={(partialChoice) =>
+                            handleFixChoice(page.id, partialChoice)
+                          }
+                          removeChoice={() =>
+                            handleDeleteChoice(page.id, choice)
+                          }
+                          availablePages={availablePages}
+                          linkedPage={getLinkedPage(choice.toPageId)}
+                          handleNewPage={handleNewPage}
+                        />
+                      );
+                    }
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
