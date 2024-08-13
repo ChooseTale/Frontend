@@ -1,16 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
+import { SOCKET_URL } from "@/config/config";
+import type { ChoiceType, MaxChoiceLengthEnum } from "@/interface/customType";
 import { getRecommendChoice } from "@/actions/choice/getRecommendChoice";
-import { SOCKET_URL } from "@/constant/config";
-import type { ChoiceType } from "@/interface/customType";
-import type { useChoicesState } from "./useChoicesState";
+import type { useUnFixedChoices } from "./useChoicesState";
 
 interface UseAiChoicesStateProps {
-  setChoicesMap: ReturnType<typeof useChoicesState>["setChoicesMap"];
+  setUnFixedChoicesMap: ReturnType<
+    typeof useUnFixedChoices
+  >["setUnFixedChoicesMap"];
+  unFixedChoicesLength: number;
+  maxChoiceLength: MaxChoiceLengthEnum;
 }
 
 export function useAiChoice({
-  setChoicesMap: setClientChoicesMap,
+  setUnFixedChoicesMap,
+  unFixedChoicesLength,
+  maxChoiceLength,
 }: UseAiChoicesStateProps) {
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -31,7 +37,7 @@ export function useAiChoice({
     const res = await getRecommendChoice(gameId, pageId);
     if (!res.success || socketRef.current) return;
 
-    const socket = io(SOCKET_URL + "/chat-gpt");
+    const socket = io(`${SOCKET_URL}/chat-gpt`);
 
     socket.on("connect", () => {
       socket.on("recommend-choices", handleRecommendChoices);
@@ -49,7 +55,7 @@ export function useAiChoice({
       if (!currentRequest.current) return;
       const { pageId } = currentRequest.current;
 
-      setClientChoicesMap((prevMap) => {
+      setUnFixedChoicesMap((prevMap) => {
         const existingChoices = prevMap.get(pageId) || [];
         const minIndex = existingChoices.reduce(
           (min, choice) => Math.min(min, choice.id),
@@ -66,7 +72,10 @@ export function useAiChoice({
         }));
 
         const combinedChoices = [...existingChoices, ...newChoices];
-        const limitedChoices = combinedChoices.slice(0, 4);
+        const limitedChoices = combinedChoices.slice(
+          0,
+          maxChoiceLength - unFixedChoicesLength
+        );
 
         const newMap = new Map(prevMap);
         newMap.set(pageId, limitedChoices);
@@ -79,7 +88,7 @@ export function useAiChoice({
         return newMap;
       });
     },
-    [setClientChoicesMap]
+    [setUnFixedChoicesMap, maxChoiceLength, unFixedChoicesLength]
   );
 
   useEffect(() => {

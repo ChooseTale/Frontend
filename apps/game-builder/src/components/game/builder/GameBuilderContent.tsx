@@ -27,7 +27,7 @@ export default function GameBuilderContent({
     deletePageData,
   } = useGameDataProps;
   const {
-    choicesMap,
+    unFixedChoicesMap: choicesMap,
     addChoice,
     removeChoice,
     addAiChoice,
@@ -102,16 +102,17 @@ export default function GameBuilderContent({
             .map((page) => {
               if (page.depth < 0) return;
               const choices = page.choices as ChoiceType[];
-              const clientChoice = choicesMap.get(page.id) as
+              const unFixedChoice = choicesMap.get(page.id) as
                 | ChoiceType[]
                 | undefined;
+              const combinedChoices = [...choices, ...(unFixedChoice ?? [])];
 
               return (
                 <div key={`page${page.id}`} className="flex flex-col">
                   <PageCard
                     page={page}
                     choicesLength={
-                      page.choices.length + (clientChoice?.length ?? 0)
+                      page.choices.length + (unFixedChoice?.length ?? 0)
                     }
                     addChoice={() => handleAddChoiceByUser(page.id)}
                     addAIChoice={() => handleAddChoiceByAI(page.id)}
@@ -119,26 +120,22 @@ export default function GameBuilderContent({
                     deletePage={() => handleDeletePage(page.id)}
                     isGenerating={isGenerating}
                   />
-                  {[...choices, ...(clientChoice ? clientChoice : [])].map(
-                    (choice) => {
-                      return (
-                        <ChoiceCard
-                          key={`${choice.source}-page${page.id}-choice${choice.id}`}
-                          choice={choice}
-                          defaultFixed={choice.source === "server"}
-                          fixChoice={(partialChoice) =>
-                            handleFixChoice(page.id, partialChoice)
-                          }
-                          removeChoice={() =>
-                            handleDeleteChoice(page.id, choice)
-                          }
-                          availablePages={availablePages}
-                          linkedPage={getLinkedPage(choice.toPageId)}
-                          handleNewPage={handleNewPage}
-                        />
-                      );
-                    }
-                  )}
+                  {combinedChoices.map((choice) => {
+                    return (
+                      <ChoiceCard
+                        key={`${choice.source}-page${page.id}-choice${choice.id}`}
+                        choice={choice}
+                        defaultFixed={choice.source === "server"}
+                        fixChoice={(partialChoice) =>
+                          handleFixChoice(page.id, partialChoice)
+                        }
+                        removeChoice={() => handleDeleteChoice(page.id, choice)}
+                        availablePages={availablePages}
+                        linkedPage={getLinkedPage(choice.toPageId)}
+                        handleNewPage={handleNewPage}
+                      />
+                    );
+                  })}
                 </div>
               );
             })}

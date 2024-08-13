@@ -1,7 +1,7 @@
 "use server";
 import type { HttpError } from "@choosetale/nestia-type";
 import type { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
-import { API_URL } from "@/constant/config";
+import { API_URL } from "@/config/config";
 import type { GameInfo } from "@/interface/customType";
 import type { ApiResponse, SuccessResponse } from "../action";
 

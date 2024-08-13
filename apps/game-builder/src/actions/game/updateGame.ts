@@ -1,7 +1,7 @@
 "use server";
 import type { HttpError } from "@choosetale/nestia-type";
 import type { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
-import { API_URL } from "@/constant/config";
+import { API_URL } from "@/config/config";
 import type { ApiResponse, SuccessResponse } from "../action";
 
 interface UpdateSuccessResponse extends SuccessResponse {

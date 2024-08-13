@@ -1,32 +1,38 @@
 import { useState } from "react";
 import type { Choice } from "@choosetale/nestia-type/lib/structures/Choice";
 import type { Page } from "@choosetale/nestia-type/lib/structures/Page";
-import type { ChoiceType } from "@/interface/customType";
+import type { ChoiceType, MaxChoiceLengthEnum } from "@/interface/customType";
 
-interface UseChoicesStateProps {
+interface UseChoicesProps {
   gamePageList: Page[];
+  maxChoiceLength: MaxChoiceLengthEnum;
 }
 
-export function useChoicesState({ gamePageList }: UseChoicesStateProps) {
-  const [choicesMap, setChoicesMap] = useState<Map<number, Choice[]>>(
-    new Map()
-  );
+export function useUnFixedChoices({
+  gamePageList,
+  maxChoiceLength,
+}: UseChoicesProps) {
+  const [unFixedChoicesMap, setUnFixedChoicesMap] = useState<
+    Map<number, Choice[]>
+  >(new Map());
 
   const addChoice = (pageId: number, choice?: ChoiceType): boolean => {
     let success = false;
-    setChoicesMap((prevMap) => {
-      const actualChoiceLength =
+    setUnFixedChoicesMap((prevMap) => {
+      const fixedChoiceLength =
         gamePageList.find((page) => page.id === pageId)?.choices.length ?? 0;
-      const choiceLength = prevMap.get(pageId)?.length ?? 0;
+      const unFixedChoices = prevMap.get(pageId) || [];
 
-      if (actualChoiceLength + choiceLength >= 4) {
+      if (
+        fixedChoiceLength + unFixedChoices.length >=
+        Number(maxChoiceLength)
+      ) {
         success = false;
         return prevMap;
       }
 
-      const existingChoices = prevMap.get(pageId) || [];
       const newChoice: ChoiceType = {
-        id: existingChoices.length,
+        id: unFixedChoices.length,
         fromPageId: pageId,
         toPageId: -1,
         createdAt: new Date().toISOString(),
@@ -34,9 +40,9 @@ export function useChoicesState({ gamePageList }: UseChoicesStateProps) {
         description: choice?.description ?? "",
         source: "client",
       };
-      const updatedChoices = [...existingChoices, newChoice];
+      const updatedUnFixedChoices = [...unFixedChoices, newChoice];
       const newMap = new Map(prevMap);
-      newMap.set(pageId, updatedChoices);
+      newMap.set(pageId, updatedUnFixedChoices);
 
       success = true;
       return newMap;
@@ -45,9 +51,9 @@ export function useChoicesState({ gamePageList }: UseChoicesStateProps) {
   };
 
   const updateChoice = (pageId: number, updatedChoice: Partial<ChoiceType>) => {
-    setChoicesMap((prevMap) => {
-      const existingChoices = prevMap.get(pageId) || [];
-      const updatedChoices = existingChoices.map((choice) =>
+    setUnFixedChoicesMap((prevMap) => {
+      const unFixedChoices = prevMap.get(pageId) || [];
+      const updatedChoices = unFixedChoices.map((choice) =>
         choice.id === updatedChoice.id
           ? { ...choice, ...updatedChoice }
           : choice
@@ -59,7 +65,7 @@ export function useChoicesState({ gamePageList }: UseChoicesStateProps) {
   };
 
   const removeChoice = (pageId: number, choiceId: number) => {
-    setChoicesMap((prevMap) => {
+    setUnFixedChoicesMap((prevMap) => {
       const existingChoices = prevMap.get(pageId) || [];
       const updatedChoices = existingChoices.filter(
         (choice) => choice.id !== choiceId
@@ -75,8 +81,8 @@ export function useChoicesState({ gamePageList }: UseChoicesStateProps) {
   };
 
   return {
-    choicesMap,
-    setChoicesMap,
+    unFixedChoicesMap,
+    setUnFixedChoicesMap,
     addChoice,
     updateChoice,
     removeChoice,

@@ -62,3 +62,7 @@ export interface NewPage {
   content: string;
   isEnding: boolean;
 }
+
+export enum MaxChoiceLengthEnum {
+  DEFAULT = 4,
+}

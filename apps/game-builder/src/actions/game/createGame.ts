@@ -2,7 +2,7 @@
 import type { HttpError } from "@choosetale/nestia-type";
 import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import type { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
-import { API_URL } from "@/constant/config";
+import { API_URL } from "@/config/config";
 import type { ApiResponse, SuccessResponse } from "../action";
 
 interface CreateSuccessResponse extends SuccessResponse {
