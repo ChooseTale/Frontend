@@ -23,7 +23,7 @@ interface PageCardProps {
   page: PageType;
   choicesLength: number;
   addChoice: () => void;
-  addAIChoice: () => void;
+  genAIChoice: () => void;
   updatePage: ReturnType<typeof useGameData>["updatePageData"];
   deletePage: () => void;
   isGenerating: boolean;
@@ -33,7 +33,7 @@ export default function PageCard({
   page,
   choicesLength,
   addChoice,
-  addAIChoice,
+  genAIChoice,
   updatePage,
   deletePage,
   isGenerating,
@@ -67,7 +67,7 @@ export default function PageCard({
               <ThemedIconButton onClick={addChoice}>
                 <CardStackPlusIcon className="h-8 w-8" />
               </ThemedIconButton>
-              <ThemedIconButton onClick={addAIChoice}>
+              <ThemedIconButton onClick={genAIChoice}>
                 <Image
                   className="h-8 w-8 -translate-y-[2px]"
                   src={robotIcon}

@@ -26,7 +26,7 @@ export function useAiChoice({
     pageId: number;
   } | null>(null);
 
-  const addAiChoice = async ({
+  const genAiChoice = async ({
     gameId,
     pageId,
   }: {
@@ -101,7 +101,7 @@ export function useAiChoice({
   }, [handleRecommendChoices]);
 
   return {
-    addAiChoice,
+    genAiChoice,
     isGenerating,
   };
 }

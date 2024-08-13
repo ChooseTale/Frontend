@@ -27,10 +27,10 @@ export default function GameBuilderContent({
     deletePageData,
   } = useGameDataProps;
   const {
-    unFixedChoicesMap: choicesMap,
+    unFixedChoicesMap,
     addChoice,
     removeChoice,
-    addAiChoice,
+    genAiChoice,
     updateChoice,
     isGenerating,
   } = useChoices({
@@ -46,8 +46,8 @@ export default function GameBuilderContent({
   const handleAddChoiceByUser = (pageId: number) => {
     addChoice(pageId);
   };
-  const handleAddChoiceByAI = (pageId: number) => {
-    addAiChoice({ gameId, pageId });
+  const handleGenChoiceByAI = (pageId: number) => {
+    genAiChoice({ gameId, pageId });
   };
   const handleFixChoice = (pageId: number, choice: ChoiceType) => {
     updateChoice(pageId, choice);
@@ -102,7 +102,7 @@ export default function GameBuilderContent({
             .map((page) => {
               if (page.depth < 0) return;
               const choices = page.choices as ChoiceType[];
-              const unFixedChoice = choicesMap.get(page.id) as
+              const unFixedChoice = unFixedChoicesMap.get(page.id) as
                 | ChoiceType[]
                 | undefined;
               const combinedChoices = [...choices, ...(unFixedChoice ?? [])];
@@ -115,7 +115,7 @@ export default function GameBuilderContent({
                       page.choices.length + (unFixedChoice?.length ?? 0)
                     }
                     addChoice={() => handleAddChoiceByUser(page.id)}
-                    addAIChoice={() => handleAddChoiceByAI(page.id)}
+                    genAIChoice={() => handleGenChoiceByAI(page.id)}
                     updatePage={updatePageData}
                     deletePage={() => handleDeletePage(page.id)}
                     isGenerating={isGenerating}

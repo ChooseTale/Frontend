@@ -16,7 +16,7 @@ export default function useChoices({ gamePageList }: UseClientChoicesProps) {
     updateChoice,
     removeChoice,
   } = useUnFixedChoices({ gamePageList, maxChoiceLength });
-  const { addAiChoice, isGenerating } = useAiChoice({
+  const { genAiChoice, isGenerating } = useAiChoice({
     setUnFixedChoicesMap,
     unFixedChoicesLength: unFixedChoicesMap.size,
     maxChoiceLength,
@@ -25,9 +25,9 @@ export default function useChoices({ gamePageList }: UseClientChoicesProps) {
   return {
     unFixedChoicesMap,
     addChoice,
-    addAiChoice,
     updateChoice,
     removeChoice,
+    genAiChoice,
     isGenerating,
   };
 }
