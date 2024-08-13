@@ -93,7 +93,7 @@ export default function GameBuilderContent({
       <div className="flex flex-1">
         <div>
           <StoryLine />
-          <GameSubmitButton />
+          <GameSubmitButton gameId={gameId} />
         </div>
 
         <div className="flex-1 pb-28">

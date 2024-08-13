@@ -2,7 +2,13 @@ import { useRouter } from "next/navigation";
 import { RocketIcon } from "@radix-ui/react-icons";
 import ThemedIconButton from "@themed/ThemedIconButton";
 
-export default function GameSubmitButton({ theme }: { theme?: string }) {
+export default function GameSubmitButton({
+  theme,
+  gameId,
+}: {
+  theme?: string;
+  gameId: number;
+}) {
   let themeClass;
 
   switch (theme) {
@@ -14,7 +20,7 @@ export default function GameSubmitButton({ theme }: { theme?: string }) {
 
   const router = useRouter();
   const goConfirm = () => {
-    router.push("/game/confirm");
+    router.push(`/game/confirm/${gameId}`);
   };
 
   return (
