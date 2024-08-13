@@ -10,6 +10,7 @@ import type {
 } from "@/interface/customType";
 import { createPage } from "@/actions/page/createPage";
 import { updatePage } from "@/actions/page/updatePage";
+import { deletePage } from "@/actions/page/deletePage";
 
 const setGameWithSource = (
   gameData: GameBuild,
@@ -97,6 +98,23 @@ export default function useGameData({
     }
   };
 
+  const deletePageData = async (pageId: number) => {
+    const result = await deletePage(gameBuildData.id, pageId);
+
+    if (result.success) {
+      setGamePageList((prevData) => {
+        const filteredPages = prevData.filter((page) => page.id !== pageId);
+
+        return filteredPages.map((page) => ({
+          ...page,
+          choices: page.choices.filter(
+            (choice: ChoiceType) => choice.toPageId !== pageId
+          ),
+        }));
+      });
+    }
+  };
+
   const updateChoicesData = (pageId: number, updatedChoice: ChoiceType) => {
     setGamePageList((prevData: PageType[]) =>
       prevData.map((page) =>
@@ -143,19 +161,6 @@ export default function useGameData({
     );
 
     if (toPageId !== undefined) deletePageData(toPageId);
-  };
-
-  const deletePageData = (pageId: number) => {
-    setGamePageList((prevData) => {
-      const filteredPages = prevData.filter((page) => page.id !== pageId);
-
-      return filteredPages.map((page) => ({
-        ...page,
-        choices: page.choices.filter(
-          (choice: ChoiceType) => choice.toPageId !== pageId
-        ),
-      }));
-    });
   };
 
   return {
