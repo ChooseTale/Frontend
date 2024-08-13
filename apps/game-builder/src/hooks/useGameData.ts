@@ -9,8 +9,7 @@ import type {
   PageType,
 } from "@/interface/customType";
 import { createPage } from "@/actions/page/createPage";
-
-const tempIsEnding = false;
+import { updatePage } from "@/actions/page/updatePage";
 
 const setGameWithSource = (
   gameData: GameBuild,
@@ -26,7 +25,6 @@ const setGameWithSource = (
       ...page,
       choices: choicesWithTag,
       source,
-      isEnding: tempIsEnding,
     } as PageType;
   });
 
@@ -52,6 +50,52 @@ export default function useGameData({
   const [gamePageList, setGamePageList] = useState(
     newGame?.pages ?? game.pages
   );
+
+  const addPageData = async ({
+    depth,
+    pageData,
+  }: {
+    depth: number;
+    pageData: { content: string; isEnding: boolean };
+  }) => {
+    const res = await createPage(gameBuildData.id, pageData);
+
+    if (res.success) {
+      const newPage: PageType = {
+        abridgement: "",
+        choices: [],
+        createdAt: new Date().toISOString(),
+        depth,
+        description: pageData.content,
+        id: res.page.id,
+        isEnding: pageData.isEnding,
+        source: "client",
+        updatedAt: new Date().toISOString(),
+      };
+
+      setGamePageList((prevData: PageType[]) => [...prevData, newPage]);
+      return { id: res.page.id };
+    }
+  };
+
+  const updatePageData = async (pageId: number, updatedPage: PageType) => {
+    const { abridgement, description, isEnding } = updatedPage;
+    if (!abridgement || !description || isEnding === undefined) return;
+
+    const res = await updatePage(gameBuildData.id, pageId, {
+      abridgement,
+      content: description,
+      isEnding,
+    });
+
+    if (res.success) {
+      setGamePageList((prevData) =>
+        prevData.map((page) =>
+          page.id === updatedPage.id ? { ...page, ...updatedPage } : page
+        )
+      );
+    }
+  };
 
   const updateChoicesData = (pageId: number, updatedChoice: ChoiceType) => {
     setGamePageList((prevData: PageType[]) =>
@@ -101,41 +145,6 @@ export default function useGameData({
     if (toPageId !== undefined) deletePageData(toPageId);
   };
 
-  const addPageData = async ({
-    depth,
-    pageData,
-  }: {
-    depth: number;
-    pageData: { content: string; isEnding: boolean };
-  }) => {
-    const res = await createPage(gameBuildData.id, pageData);
-
-    if (res.success) {
-      const newPage: PageType = {
-        abridgement: "",
-        choices: [],
-        createdAt: new Date().toISOString(),
-        depth,
-        description: pageData.content,
-        id: res.page.id,
-        isEnding: pageData.isEnding,
-        source: "client",
-        updatedAt: new Date().toISOString(),
-      };
-
-      setGamePageList((prevData: PageType[]) => [...prevData, newPage]);
-      return { id: res.page.id };
-    }
-  };
-
-  const updatePageData = (updatedPage: Partial<PageType>) => {
-    setGamePageList((prevData) =>
-      prevData.map((page) =>
-        page.id === updatedPage.id ? { ...page, ...updatedPage } : page
-      )
-    );
-  };
-
   const deletePageData = (pageId: number) => {
     setGamePageList((prevData) => {
       const filteredPages = prevData.filter((page) => page.id !== pageId);
@@ -149,10 +158,6 @@ export default function useGameData({
     });
   };
 
-  const switchPageIsEnding = (partialPage: Partial<PageType>) => {
-    updatePageData(partialPage);
-  };
-
   return {
     gamePageList,
     addPageData,
@@ -161,6 +166,5 @@ export default function useGameData({
     addChoiceData,
     updateChoicesData,
     deleteChoiceData,
-    switchPageIsEnding,
   };
 }

@@ -2,7 +2,7 @@
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import useChoices from "@/hooks/useChoices";
 import type useGameData from "@/hooks/useGameData";
-import type { ChoiceType } from "@/interface/customType";
+import type { ChoiceType, PageType } from "@/interface/customType";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
@@ -42,6 +42,9 @@ export default function GameBuilderContent({
     isEnding: boolean;
   }) => {
     addPageData({ depth: -1, pageData: newPageData });
+  };
+  const handleUpdatePage = async (pageId: number, updatedPage: PageType) => {
+    await updatePageData(pageId, updatedPage);
   };
   const handleAddChoiceByUser = (pageId: number) => {
     addChoice(pageId);
@@ -85,7 +88,7 @@ export default function GameBuilderContent({
 
         <UnLinkedPages
           gamePageList={gamePageList}
-          updatePage={updatePageData}
+          updatePage={handleUpdatePage}
           handleDeletePage={handleDeletePage}
         />
       </div>
@@ -116,7 +119,7 @@ export default function GameBuilderContent({
                     }
                     addChoice={() => handleAddChoiceByUser(page.id)}
                     genAIChoice={() => handleGenChoiceByAI(page.id)}
-                    updatePage={updatePageData}
+                    updatePage={handleUpdatePage}
                     deletePage={() => handleDeletePage(page.id)}
                     isGenerating={isGenerating}
                   />

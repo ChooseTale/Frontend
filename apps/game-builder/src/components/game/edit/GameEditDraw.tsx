@@ -38,7 +38,7 @@ export default function GameEditDraw({
   const { handleSubmit, reset, control } = useFormProps;
 
   const onSubmit: SubmitHandler<PageType> = (fieldValues) => {
-    updatePage(fieldValues);
+    updatePage(page.id, fieldValues);
     setIsOpen(false);
   };
 
