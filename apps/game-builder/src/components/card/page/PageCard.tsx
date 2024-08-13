@@ -60,7 +60,7 @@ export default function PageCard({
         </div>
 
         <CardFooter
-          className={`flex items-center p-0 pt-2 gap-1 ${isGenerating ? "pointer-events-none cursor-default animate-pulse duration-1000" : ""}`}
+          className={`flex items-center p-0 pt-2 gap-1 ${isGenerating ? "pointer-events-none cursor-default animate-pulse duration-1000" : ""} ${isEnding ? "flex-col justify-center items-end" : ""}`}
         >
           {showChoiceButtons && (
             <>
@@ -76,10 +76,18 @@ export default function PageCard({
               </ThemedIconButton>
             </>
           )}
-          <div className="absolute bottom-3 right-3 text-xs mt-2 opacity-50 flex items-center gap-1">
+
+          <div
+            className={`${showChoiceButtons ? "absolute" : ""} bottom-3 right-3 text-xs opacity-50 flex items-center gap-1`}
+          >
             <StopwatchIcon className="w-3 h-3" />
             <DateDisplayRelative date={page.updatedAt} />
           </div>
+          {isEnding && (
+            <div className="flex items-center justify-end text-xs opacity-50">
+              엔딩 페이지
+            </div>
+          )}
         </CardFooter>
 
         <GameEditDraw page={page} updatePage={updatePage} />
