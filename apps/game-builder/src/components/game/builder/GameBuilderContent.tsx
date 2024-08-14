@@ -52,17 +52,20 @@ export default function GameBuilderContent({
   const handleGenChoiceByAI = (pageId: number) => {
     genAiChoice({ gameId, pageId });
   };
-  const handleFixChoice = (pageId: number, choice: ChoiceType) => {
+  const handleFixChoice = async (pageId: number, choice: ChoiceType) => {
     const payload: NewChoice = {
       parentPageId: choice.fromPageId,
       childPageId: choice.toPageId,
       title: choice.title,
       description: choice.description,
     };
-    removeUnFixedChoice(pageId, choice.id);
-    if (choice.source === "client") addChoiceData(pageId, payload);
-    if (choice.source === "server")
+    if (choice.source === "client") {
+      const success = await addChoiceData(pageId, payload);
+      if (success) removeUnFixedChoice(pageId, choice.id);
+    }
+    if (choice.source === "server") {
       updateChoicesData(gameId, choice.id, payload);
+    }
   };
   const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
     removeUnFixedChoice(pageId, choice.id);

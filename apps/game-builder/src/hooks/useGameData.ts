@@ -141,13 +141,14 @@ export default function useGameData({
         )
       );
     }
+    return result.success;
   };
 
   const updateChoicesData = async (
     pageId: number,
     choiceId: number,
     choiceData: NewChoice
-  ) => { 
+  ) => {
     const result = await updateChoice(gameBuildData.id, choiceId, choiceData);
 
     if (result.success) {
