@@ -16,7 +16,7 @@ export function useUnFixedChoices({
     Map<number, Choice[]>
   >(new Map());
 
-  const addChoice = (pageId: number, choice?: ChoiceType): boolean => {
+  const addUnFixedChoice = (pageId: number, choice?: ChoiceType): boolean => {
     let success = false;
     setUnFixedChoicesMap((prevMap) => {
       const fixedChoiceLength =
@@ -50,7 +50,10 @@ export function useUnFixedChoices({
     return success;
   };
 
-  const updateChoice = (pageId: number, updatedChoice: Partial<ChoiceType>) => {
+  const updateUnFixedChoice = (
+    pageId: number,
+    updatedChoice: Partial<ChoiceType>
+  ) => {
     setUnFixedChoicesMap((prevMap) => {
       const unFixedChoices = prevMap.get(pageId) || [];
       const updatedChoices = unFixedChoices.map((choice) =>
@@ -64,7 +67,7 @@ export function useUnFixedChoices({
     });
   };
 
-  const removeChoice = (pageId: number, choiceId: number) => {
+  const removeUnFixedChoice = (pageId: number, choiceId: number) => {
     setUnFixedChoicesMap((prevMap) => {
       const existingChoices = prevMap.get(pageId) || [];
       const updatedChoices = existingChoices.filter(
@@ -83,8 +86,8 @@ export function useUnFixedChoices({
   return {
     unFixedChoicesMap,
     setUnFixedChoicesMap,
-    addChoice,
-    updateChoice,
-    removeChoice,
+    addUnFixedChoice,
+    updateUnFixedChoice,
+    removeUnFixedChoice,
   };
 }

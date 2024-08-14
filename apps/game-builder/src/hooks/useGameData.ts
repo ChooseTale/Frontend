@@ -6,11 +6,14 @@ import type {
   ChoiceType,
   GameBuild,
   GameBuildType,
+  NewChoice,
   PageType,
 } from "@/interface/customType";
 import { createPage } from "@/actions/page/createPage";
 import { updatePage } from "@/actions/page/updatePage";
 import { deletePage } from "@/actions/page/deletePage";
+import { createChoice } from "@/actions/choice/createChoice";
+import { updateChoice } from "@/actions/choice/updateChoice";
 
 const setGameWithSource = (
   gameData: GameBuild,
@@ -115,29 +118,60 @@ export default function useGameData({
     }
   };
 
-  const updateChoicesData = (pageId: number, updatedChoice: ChoiceType) => {
-    setGamePageList((prevData: PageType[]) =>
-      prevData.map((page) =>
-        page.id === pageId
-          ? {
-              ...page,
-              choices: page.choices.map((choice) =>
-                choice.id === updatedChoice.id ? updatedChoice : choice
-              ),
-            }
-          : page
-      )
-    );
+  const addChoiceData = async (pageId: number, choice: NewChoice) => {
+    const result = await createChoice(gameBuildData.id, choice);
+
+    if (result.success) {
+      const newChoice: ChoiceType = {
+        ...choice,
+        source: "server",
+        fromPageId: choice.parentPageId,
+        toPageId: choice.childPageId,
+        id: result.choice.id,
+        createdAt: new Date().toISOString(),
+      };
+      setGamePageList((prevData: PageType[]) =>
+        prevData.map((page) =>
+          page.id === pageId
+            ? {
+                ...page,
+                choices: [...page.choices, newChoice],
+              }
+            : page
+        )
+      );
+    }
   };
 
-  const addChoiceData = (pageId: number, choice: ChoiceType) => {
-    setGamePageList((prevData: PageType[]) =>
-      prevData.map((page) =>
-        page.id === pageId
-          ? { ...page, choices: [...page.choices, choice] }
-          : page
-      )
-    );
+  const updateChoicesData = async (
+    pageId: number,
+    choiceId: number,
+    choiceData: NewChoice
+  ) => { 
+    const result = await updateChoice(gameBuildData.id, choiceId, choiceData);
+
+    if (result.success) {
+      const newChoice: ChoiceType = {
+        ...choiceData,
+        source: "server",
+        fromPageId: choiceData.parentPageId,
+        toPageId: choiceData.childPageId,
+        id: result.choice.id,
+        createdAt: new Date().toISOString(),
+      };
+      setGamePageList((prevData: PageType[]) =>
+        prevData.map((page) =>
+          page.id === pageId
+            ? {
+                ...page,
+                choices: page.choices.map((choice) =>
+                  choice.id === newChoice.id ? newChoice : choice
+                ),
+              }
+            : page
+        )
+      );
+    }
   };
 
   const deleteChoiceData = (pageId: number, choiceId: number) => {

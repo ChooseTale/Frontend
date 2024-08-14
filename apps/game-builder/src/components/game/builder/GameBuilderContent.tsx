@@ -2,7 +2,7 @@
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import useChoices from "@/hooks/useChoices";
 import type useGameData from "@/hooks/useGameData";
-import type { ChoiceType, PageType } from "@/interface/customType";
+import type { ChoiceType, NewChoice, PageType } from "@/interface/customType";
 import ChoiceCard from "@/components/card/choice/ChoiceCard";
 import PageCard from "@components/card/page/PageCard";
 import GameSubmitButton from "@/components/button/GameSubmitButton";
@@ -20,18 +20,18 @@ export default function GameBuilderContent({
 }: GameBuilderContentProps) {
   const {
     gamePageList,
-    deleteChoiceData,
     addPageData,
     updatePageData,
+    addChoiceData,
     updateChoicesData,
+    deleteChoiceData,
     deletePageData,
   } = useGameDataProps;
   const {
     unFixedChoicesMap,
-    addChoice,
-    removeChoice,
+    addUnFixedChoice,
+    removeUnFixedChoice,
     genAiChoice,
-    updateChoice,
     isGenerating,
   } = useChoices({
     gamePageList,
@@ -47,17 +47,25 @@ export default function GameBuilderContent({
     await updatePageData(pageId, updatedPage);
   };
   const handleAddChoiceByUser = (pageId: number) => {
-    addChoice(pageId);
+    addUnFixedChoice(pageId);
   };
   const handleGenChoiceByAI = (pageId: number) => {
     genAiChoice({ gameId, pageId });
   };
   const handleFixChoice = (pageId: number, choice: ChoiceType) => {
-    updateChoice(pageId, choice);
-    updateChoicesData(pageId, choice);
+    const payload: NewChoice = {
+      parentPageId: choice.fromPageId,
+      childPageId: choice.toPageId,
+      title: choice.title,
+      description: choice.description,
+    };
+    removeUnFixedChoice(pageId, choice.id);
+    if (choice.source === "client") addChoiceData(pageId, payload);
+    if (choice.source === "server")
+      updateChoicesData(gameId, choice.id, payload);
   };
   const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
-    removeChoice(pageId, choice.id);
+    removeUnFixedChoice(pageId, choice.id);
     deleteChoiceData(pageId, choice.id);
   };
   const handleDeletePage = (pageId: number) => {
@@ -123,22 +131,26 @@ export default function GameBuilderContent({
                     deletePage={() => handleDeletePage(page.id)}
                     isGenerating={isGenerating}
                   />
-                  {combinedChoices.map((choice) => {
-                    return (
-                      <ChoiceCard
-                        key={`${choice.source}-page${page.id}-choice${choice.id}`}
-                        choice={choice}
-                        defaultFixed={choice.source === "server"}
-                        fixChoice={(partialChoice) =>
-                          handleFixChoice(page.id, partialChoice)
-                        }
-                        removeChoice={() => handleDeleteChoice(page.id, choice)}
-                        availablePages={availablePages}
-                        linkedPage={getLinkedPage(choice.toPageId)}
-                        handleNewPage={handleNewPage}
-                      />
-                    );
-                  })}
+                  {combinedChoices
+                    .sort((a, b) => a.id - b.id)
+                    .map((choice) => {
+                      return (
+                        <ChoiceCard
+                          key={`${choice.source}-page${page.id}-choice${choice.id}`}
+                          choice={choice}
+                          defaultFixed={choice.source === "server"}
+                          fixChoice={(partialChoice) =>
+                            handleFixChoice(page.id, partialChoice)
+                          }
+                          removeChoice={() =>
+                            handleDeleteChoice(page.id, choice)
+                          }
+                          availablePages={availablePages}
+                          linkedPage={getLinkedPage(choice.toPageId)}
+                          handleNewPage={handleNewPage}
+                        />
+                      );
+                    })}
                 </div>
               );
             })}

@@ -85,7 +85,6 @@ export default function ChoiceCard({
       />
     );
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="pt-4">
       <ThemedCard className="relative min-h-24 !ml-12" isChoice>

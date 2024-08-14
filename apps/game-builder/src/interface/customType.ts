@@ -33,7 +33,7 @@ interface BaseChoice extends Choice {
 interface BasePage extends Page {
   description: string;
   source: "server" | "client";
-  choices: BaseChoice[];
+  choices: (BaseChoice | ChoiceType)[];
   isEnding: boolean;
   updatedAt: string;
 }
@@ -61,6 +61,13 @@ export interface LinkedPage {
 export interface NewPage {
   content: string;
   isEnding: boolean;
+}
+
+export interface NewChoice {
+  parentPageId: number;
+  childPageId: number;
+  title: string;
+  description: string;
 }
 
 export enum MaxChoiceLengthEnum {
