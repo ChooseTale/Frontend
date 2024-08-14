@@ -14,6 +14,7 @@ import { updatePage } from "@/actions/page/updatePage";
 import { deletePage } from "@/actions/page/deletePage";
 import { createChoice } from "@/actions/choice/createChoice";
 import { updateChoice } from "@/actions/choice/updateChoice";
+import { deleteChoice } from "@/actions/choice/deleteChoice";
 
 const setGameWithSource = (
   gameData: GameBuild,
@@ -175,27 +176,26 @@ export default function useGameData({
     }
   };
 
-  const deleteChoiceData = (pageId: number, choiceId: number) => {
-    let toPageId: number | undefined;
+  const deleteChoiceData = async (pageId: number, choiceId: number) => {
+    const result = await deleteChoice(gameBuildData.id, choiceId);
 
-    setGamePageList((prevData) =>
-      prevData.map((page) => {
-        if (page.id === pageId) {
-          const updatedChoices = page.choices.filter((choice) => {
-            if (choice.id === choiceId) {
-              toPageId = choice.toPageId;
-              return false;
-            }
-            return true;
-          });
+    if (result.success) {
+      setGamePageList((prevData) =>
+        prevData.map((page) => {
+          if (page.id === pageId) {
+            const updatedChoices = page.choices.filter((choice) => {
+              if (choice.id === choiceId) {
+                return false;
+              }
+              return true;
+            });
 
-          return { ...page, choices: updatedChoices };
-        }
-        return page;
-      })
-    );
-
-    if (toPageId !== undefined) deletePageData(toPageId);
+            return { ...page, choices: updatedChoices };
+          }
+          return page;
+        })
+      );
+    }
   };
 
   return {

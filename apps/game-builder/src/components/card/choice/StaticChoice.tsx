@@ -24,10 +24,6 @@ export function StaticChoice({
   editChoice: () => void;
   linkedPage: LinkedPage | undefined;
 }) {
-  const onClickRemove = () => {
-    if (confirm("삭제 하시겠습니까?")) removeChoice();
-  };
-
   const scrollToPage = (pageId: number) => {
     const pageElement = document.getElementById(`page-${pageId}`);
     if (pageElement) {
@@ -63,7 +59,7 @@ export function StaticChoice({
           >
             <LockClosedIcon className="h-4 w-4" />
           </ThemedIconButton>
-          <ThemedIconButton onClick={onClickRemove}>
+          <ThemedIconButton onClick={removeChoice}>
             <TrashIcon className="h-7 w-7 m-[2px]" />
           </ThemedIconButton>
         </CardFooter>

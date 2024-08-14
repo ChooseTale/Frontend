@@ -68,8 +68,8 @@ export default function GameBuilderContent({
     }
   };
   const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
-    removeUnFixedChoice(pageId, choice.id);
-    deleteChoiceData(pageId, choice.id);
+    if (choice.source === "client") removeUnFixedChoice(pageId, choice.id);
+    if (choice.source === "server") deleteChoiceData(pageId, choice.id);
   };
   const handleDeletePage = (pageId: number) => {
     if (confirm("페이지를 삭제하면 페이지의 선택지가 함께 삭제됩니다."))
