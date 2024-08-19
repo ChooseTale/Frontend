@@ -31,7 +31,7 @@ export default function ConirmGame({
     const res = await updateGame(payload, gameId);
 
     if (res.success) {
-      router.push(`/?gameid=${gameId}`);
+      router.push(`/detail/${gameId}`);
     } else {
       alert(res.error);
     }
