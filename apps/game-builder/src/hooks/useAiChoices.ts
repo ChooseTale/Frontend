@@ -13,6 +13,11 @@ interface UseAiChoicesStateProps {
   maxChoiceLength: MaxChoiceLengthEnum;
 }
 
+interface ChoiceSocketMessage {
+  status: "success" | "error";
+  message: ChoiceType[];
+}
+
 export function useAiChoice({
   setUnFixedChoicesMap,
   unFixedChoicesLength,
@@ -35,6 +40,7 @@ export function useAiChoice({
   }) => {
     setIsGenerating(true);
     const res = await getRecommendChoice(gameId, pageId);
+
     if (!res.success || socketRef.current) return;
 
     const socket = io(`${SOCKET_URL}/chat-gpt`);
@@ -48,11 +54,17 @@ export function useAiChoice({
   };
 
   const handleRecommendChoices = useCallback(
-    (data: ChoiceType[]) => {
-      // FIXME: 소켓 메시지 업데이트 예정
-      // state: "success" | "error" 체크 필요
-      const choices = data;
-      if (!currentRequest.current) return;
+    (socketMsg: ChoiceSocketMessage) => {
+      const choices = socketMsg.message;
+
+      if (socketMsg.status === "error") {
+        socketRef.current?.disconnect();
+        socketRef.current = null;
+        currentRequest.current = null;
+        setIsGenerating(false);
+        throw new Error("AI choice generation failed");
+      }
+      if (!currentRequest.current || !(socketMsg.status === "success")) return;
       const { pageId } = currentRequest.current;
 
       setUnFixedChoicesMap((prevMap) => {

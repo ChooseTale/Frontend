@@ -26,8 +26,8 @@ export const getRecommendChoice = async (
       }
     );
 
-    const choices = await response.json();
-    return { success: true, choices };
+    const data = await response.json();
+    return { success: true, choices: data.message };
   } catch (error) {
     return { success: false, error: error as HttpError };
   }
