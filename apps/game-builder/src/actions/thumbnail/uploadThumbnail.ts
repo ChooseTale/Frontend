@@ -3,14 +3,16 @@ import type { HttpError } from "@choosetale/nestia-type";
 import { API_URL } from "@/config/config";
 import type { ApiResponse, SuccessResponse } from "../action";
 
+interface UploadThumbnail {
+  id: number;
+  url: string;
+  gameId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface UploadThumbnailSuccessResponse extends SuccessResponse {
-  uploadedThumbnail: {
-    id: number;
-    url: string;
-    gameId: number;
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  uploadedThumbnail: UploadThumbnail;
 }
 export const uploadThumbnail = async (
   gameId: number,
@@ -27,8 +29,12 @@ export const uploadThumbnail = async (
       throw new Error(errorData.message || "Failed to upload thumbnails");
     }
 
-    const uploadedThumbnail = await response.json();
-    return { success: true, uploadedThumbnail };
+    const data = (await response.json()) as UploadThumbnail[];
+    if (!data) {
+      throw new Error("Failed to upload thumbnails");
+    }
+
+    return { success: true, uploadedThumbnail: data[0] };
   } catch (error) {
     return { success: false, error: error as HttpError };
   }

@@ -25,7 +25,7 @@ export default function useThumbnail({
         const currentThumbnails = getValues("thumbnails") || [];
         setValue("thumbnails", [
           ...currentThumbnails,
-          ...response.uploadedThumbnail,
+          response.uploadedThumbnail,
         ]);
 
         setTimeout(() => {

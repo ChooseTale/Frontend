@@ -3,12 +3,18 @@ import type { HttpError } from "@choosetale/nestia-type";
 import { API_URL } from "@/config/config";
 import type { ApiResponse, SuccessResponse } from "../action";
 
+interface Choice {
+  title: string;
+  description: string;
+}
+
+interface SocketMessage {
+  message: Choice[];
+}
+
 // --게임 정보 불러오기--
 interface GetRecommendChoiceSuccessResponse extends SuccessResponse {
-  choices: {
-    title: string;
-    description: string;
-  }[];
+  choices: Choice[];
 }
 
 export const getRecommendChoice = async (
@@ -26,7 +32,7 @@ export const getRecommendChoice = async (
       }
     );
 
-    const data = await response.json();
+    const data = (await response.json()) as SocketMessage;
     return { success: true, choices: data.message };
   } catch (error) {
     return { success: false, error: error as HttpError };
