@@ -9,6 +9,7 @@ import type {
   NewChoice,
   PageType,
 } from "@/interface/customType";
+import { getGameAllById } from "@/actions/game/getGame";
 import { createPage } from "@/actions/page/createPage";
 import { updatePage } from "@/actions/page/updatePage";
 import { deletePage } from "@/actions/page/deletePage";
@@ -55,6 +56,7 @@ export default function useGameData({
   const [gamePageList, setGamePageList] = useState(
     newGame?.pages ?? game.pages
   );
+  const gameId = game.id;
 
   const addPageData = async ({
     depth,
@@ -198,6 +200,14 @@ export default function useGameData({
     }
   };
 
+  const reloadGameData = async () => {
+    const gameAllResponse = await getGameAllById(gameId);
+    if (gameAllResponse.success) {
+      const gameData = setGameWithSource(gameAllResponse.gameAll, "server");
+      setGamePageList(gameData.pages);
+    }
+  };
+
   return {
     gamePageList,
     addPageData,
@@ -206,5 +216,6 @@ export default function useGameData({
     addChoiceData,
     updateChoicesData,
     deleteChoiceData,
+    reloadGameData,
   };
 }

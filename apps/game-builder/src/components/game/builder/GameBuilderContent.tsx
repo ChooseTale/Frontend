@@ -26,6 +26,7 @@ export default function GameBuilderContent({
     updateChoicesData,
     deleteChoiceData,
     deletePageData,
+    reloadGameData,
   } = useGameDataProps;
   const {
     unFixedChoicesMap,
@@ -66,6 +67,7 @@ export default function GameBuilderContent({
     if (choice.source === "server") {
       updateChoicesData(gameId, choice.id, payload);
     }
+    reloadGameData();
   };
   const handleDeleteChoice = (pageId: number, choice: ChoiceType) => {
     if (choice.source === "client") removeUnFixedChoice(pageId, choice.id);

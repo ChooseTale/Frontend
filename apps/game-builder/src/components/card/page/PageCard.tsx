@@ -51,7 +51,11 @@ export default function PageCard({
             <CardTitle
               className={`mb-2 !text-[16px] break-all ${showChoiceButtons ? "" : "pr-6"}`}
             >
-              {abridgement}
+              {abridgement !== "" ? (
+                abridgement
+              ) : (
+                <span className="opacity-20">요약이 없습니다</span>
+              )}
             </CardTitle>
             <CardDescription className="text-xs line-clamp-4 mb-0 break-all">
               {description}
