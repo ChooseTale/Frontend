@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
-import { ImageIcon } from "@radix-ui/react-icons";
+import { ImageIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import {
   Carousel,
   CarouselContent,
@@ -17,12 +17,16 @@ interface ThemedCarouselProps {
   thumbnails: Thumbnail[];
   setCurrentThumbnailId: Dispatch<SetStateAction<number>>;
   currentThumbnailIdx: number;
+  mainThumbnailImageId: number;
+  handleChangeMainThumbnailImageId: (id: number) => void;
 }
 
 export default function ThemedCarousel({
   thumbnails,
   setCurrentThumbnailId,
   currentThumbnailIdx,
+  mainThumbnailImageId,
+  handleChangeMainThumbnailImageId,
 }: ThemedCarouselProps) {
   const { theme } = useThemeStore((state) => state);
   let themeClass;
@@ -65,6 +69,8 @@ export default function ThemedCarousel({
             thumbnail={thumbnail}
             idx={idx}
             key={`thumbnail-${thumbnail.id}`}
+            isMainThumbnailImageId={mainThumbnailImageId === thumbnail.id}
+            onChangeMainThumbnailImageId={handleChangeMainThumbnailImageId}
           />
         ))}
       </CarouselContent>
@@ -95,9 +101,13 @@ export default function ThemedCarousel({
 function CarouselItemWithOnError({
   thumbnail,
   idx,
+  isMainThumbnailImageId,
+  onChangeMainThumbnailImageId,
 }: {
   thumbnail: Thumbnail;
   idx: number;
+  isMainThumbnailImageId: boolean;
+  onChangeMainThumbnailImageId: (id: number) => void;
 }) {
   const [src, setSrc] = useState(thumbnail.url);
   const [isError, setIsError] = useState(false);
@@ -129,6 +139,20 @@ function CarouselItemWithOnError({
             <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
           </div>
         )}
+        <div className="absolute right-0 p-3">
+          <button
+            onClick={() => onChangeMainThumbnailImageId(thumbnail.id)}
+            type="button"
+            className={`p-1 text-xs rounded-xl shadow-md ${
+              isMainThumbnailImageId ? "!bg-green-400" : "!bg-white"
+            }`}
+          >
+            <StarFilledIcon
+              className="w-4 h-4"
+              color={`${isMainThumbnailImageId ? "#ffffff" : "#aaaaaa"}`}
+            />
+          </button>
+        </div>
       </AspectRatio>
     </CarouselItem>
   );

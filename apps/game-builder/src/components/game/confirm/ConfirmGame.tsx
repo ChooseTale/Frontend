@@ -16,17 +16,23 @@ export default function ConirmGame({
   gameId: number;
 }) {
   const router = useRouter();
-  const useFormProps = useForm({ defaultValues: gameInfoData });
+  const useFormProps = useForm({
+    defaultValues: {
+      ...gameInfoData,
+      thumbnailImageId: gameInfoData.thumbnails[0].id ?? -1,
+    },
+  });
   const { handleSubmit, watch } = useFormProps;
 
   const onSubmit: SubmitHandler<GameInfo> = async (fieldValues) => {
-    const { title, description, genre, isPrivate } = fieldValues;
+    const { title, description, genre, isPrivate, thumbnailImageId } =
+      fieldValues;
     const payload: UpdateGameReqDto = {
       title,
       description,
       genre,
       isPrivate,
-      thumbnailImageId: 0,
+      thumbnailImageId,
     };
     const res = await updateGame(payload, gameId);
 

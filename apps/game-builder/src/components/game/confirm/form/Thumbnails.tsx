@@ -18,9 +18,11 @@ export default function Thumbnails({
     handleUpload,
     handleGenerate,
     handleDelete,
+    handleChangeMainThumbnailImageId,
     currentThumbnailIdx,
     setCurrentThumbnailIdx,
     isGenerating,
+    mainThumbnailImageId,
   } = useThumbnails(useFormProps);
   const gameId = Number(getValues("id"));
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,6 +48,8 @@ export default function Thumbnails({
             thumbnails={watch("thumbnails")}
             setCurrentThumbnailId={setCurrentThumbnailIdx}
             currentThumbnailIdx={currentThumbnailIdx}
+            mainThumbnailImageId={mainThumbnailImageId}
+            handleChangeMainThumbnailImageId={handleChangeMainThumbnailImageId}
           />
         )}
 

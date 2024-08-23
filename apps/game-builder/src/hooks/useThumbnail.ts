@@ -8,9 +8,10 @@ import { generateThumbnail } from "@/actions/thumbnail/generateThumbnail";
 export default function useThumbnail({
   ...useFormProps
 }: ReturnType<typeof useForm<GameInfo>>) {
-  const { setValue, getValues } = useFormProps;
+  const { setValue, getValues, watch } = useFormProps;
   const [currentThumbnailIdx, setCurrentThumbnailIdx] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
+  const mainThumbnailImageId = watch("thumbnailImageId");
 
   // 이미지 업로드
   const handleUpload = useCallback(
@@ -73,12 +74,21 @@ export default function useThumbnail({
     [getValues, setValue]
   );
 
+  const handleChangeMainThumbnailImageId = useCallback(
+    (index: number) => {
+      setValue("thumbnailImageId", index);
+    },
+    [setValue]
+  );
+
   return {
     handleUpload,
     handleGenerate,
     handleDelete,
+    handleChangeMainThumbnailImageId,
     currentThumbnailIdx,
     setCurrentThumbnailIdx,
     isGenerating,
+    mainThumbnailImageId,
   };
 }
