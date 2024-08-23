@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameInfo } from "@/interface/customType";
 import DateDisplay from "@/components/common/text/DateDisplay";
 
@@ -11,18 +12,21 @@ export default function DetailGame({
   gameId: number;
 }) {
   return (
-    <section>
-      <header className="flex items-end gap-3 mb-4">
-        <h1 className="text-2xl">게임 상세 정보</h1>
+    <section className="relative px-4 ">
+      <header className="flex items-end gap-3 mt-4 mb-4">
+        <h1 className="text-2xl font-bold">게임 상세 정보</h1>
       </header>
-      <div className="flex flex-col px-4 py-2 border rounded-xl">
-        <Image
-          className="mx-auto w-2/3 h-[200px] bg-blue-100 border rounded-xl"
-          src={gameInfoData.thumbnails[0].url}
-          alt="game thumbnail"
-          width={300}
-          height={200}
-        />
+      <div className="flex flex-col gap-1">
+        <AspectRatio ratio={9 / 9} className="mb-2">
+          <Image
+            className="w-full h-full bg-blue-100 rounded-xl"
+            src={gameInfoData.thumbnails[0].url}
+            alt="game thumbnail"
+            width={300}
+            height={200}
+            objectFit="contain"
+          />
+        </AspectRatio>
         <h3>No: {gameId}</h3>
         <p>게임 제목: {gameInfoData.title}</p>
         <p>게임 장르: {gameInfoData.genre}</p>
