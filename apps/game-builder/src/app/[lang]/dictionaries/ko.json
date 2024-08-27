@@ -1,0 +1,23 @@
+{
+  "genre": {
+    "FANTASY": "판타지",
+    "SCI_FI": "공상 과학",
+    "HORROR": "공포",
+    "MYSTERY": "미스터리",
+    "ROMANCE": "로맨스",
+    "THRILLER": "스릴러",
+    "HISTORICAL": "역사",
+    "WESTERN": "서부극",
+    "DYSTOPIA": "디스토피아",
+    "SATIRE": "풍자",
+    "BIOGRAPHY": "전기",
+    "AUTOBIOGRAPHY": "자서전",
+    "ESSAY": "에세이",
+    "DRAMA": "드라마",
+    "POETRY": "시",
+    "COMIC": "코믹",
+    "NON_FICTION": "논픽션",
+    "FICTION": "픽션",
+    "OTHER": "기타"
+  }
+}

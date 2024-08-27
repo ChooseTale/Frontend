@@ -1,0 +1,23 @@
+{
+  "genre": {
+    "FANTASY": "Fantasy",
+    "SCI_FI": "Science Fiction",
+    "HORROR": "Horror",
+    "MYSTERY": "Mystery",
+    "ROMANCE": "Romance",
+    "THRILLER": "Thriller",
+    "HISTORICAL": "Historical",
+    "WESTERN": "Western",
+    "DYSTOPIA": "Dystopia",
+    "SATIRE": "Satire",
+    "BIOGRAPHY": "Biography",
+    "AUTOBIOGRAPHY": "Autobiography",
+    "ESSAY": "Essay",
+    "DRAMA": "Drama",
+    "POETRY": "Poetry",
+    "COMIC": "Comic",
+    "NON_FICTION": "Non-fiction",
+    "FICTION": "Fiction",
+    "OTHER": "Other"
+  }
+}

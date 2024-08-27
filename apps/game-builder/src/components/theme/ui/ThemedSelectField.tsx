@@ -11,7 +11,7 @@ import {
 } from "@repo/ui/components/ui/Select.tsx";
 import { useThemeStore } from "@/store/useTheme";
 import type { GameInfo } from "@/interface/customType";
-import { GENRES } from "@/interface/newGameData";
+import { GENRES } from "@/constants/genres";
 import ThemedLabel from "./ThemedLabel";
 
 interface ThemedSelectFieldProps extends InputProps {

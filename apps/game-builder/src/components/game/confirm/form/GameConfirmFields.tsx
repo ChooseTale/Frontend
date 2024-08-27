@@ -3,7 +3,6 @@ import { InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
-import ThemedSelectField from "@themed/ThemedSelectField";
 import type { GameInfo } from "@/interface/customType";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import MaxLengthText, {
@@ -12,6 +11,7 @@ import MaxLengthText, {
 import TextWithCounts from "@/components/common/text/TextWithCounts";
 import DateDisplay from "@/components/common/text/DateDisplay";
 import Thumbnails from "./Thumbnails";
+import GenresSelect from "./GenresSelect";
 
 const MAX_LENGTH = {
   title: 50,
@@ -63,7 +63,7 @@ export default function GameConfirmFields({
 
       <Thumbnails {...useFormProps} />
 
-      <ThemedSelectField name="genre" labelText="게임 장르" control={control} />
+      <GenresSelect name="genre" labelText="게임 장르" control={control} />
 
       <MaxLengthText {...descriptionMaxLengthOptions} className="top-6" />
       <ThemedTextareaField

@@ -9,7 +9,7 @@ import {
   PlusCircledIcon,
   TrashIcon,
 } from "@radix-ui/react-icons";
-import { CardContent, CardFooter } from "@repo/ui/components/ui/Card.tsx";
+import { CardContent, CardFooter } from "@repo/ui/components/ui/Card";
 import type { ChoiceType, LinkedPage } from "@/interface/customType";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";

@@ -1,29 +1,6 @@
 import type { CreateGameResDto } from "@choosetale/nestia-type/lib/structures/CreateGameResDto";
 import type { PageType } from "./customType";
 
-export const GENRES = [
-  "FANTASY",
-  "SCI_FI",
-  "HORROR",
-  "MYSTERY",
-  "ROMANCE",
-  "THRILLER",
-  "HISTORICAL",
-  "WESTERN",
-  "DYSTOPIA",
-  "SATIRE",
-  "BIOGRAPHY",
-  "AUTOBIOGRAPHY",
-  "ESSAY",
-  "DRAMA",
-  "POETRY",
-  "COMIC",
-  "NON_FICTION",
-  "FICTION",
-  "OTHER",
-] as const;
-
-export type GenreType = (typeof GENRES)[number];
 export interface ExtendsCreateGameResDto extends CreateGameResDto {
   page: {
     id: number;
