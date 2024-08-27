@@ -1,12 +1,14 @@
 import type { Dispatch, SetStateAction } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@repo/ui/components/ui/Dialog.tsx";
+import type { NewPage } from "@/interface/customType";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import ThemedTextareaField from "@/components/theme/ui/ThemedTextareaField";
@@ -14,7 +16,6 @@ import ThemedSwitch from "@/components/theme/ui/ThemedSwitch";
 import MaxLengthText, {
   setMaxLengthOptions,
 } from "@/components/common/form/MaxLengthText";
-import type { NewPage } from "@/interface/customType";
 
 interface NewPageModalProps extends ReturnType<typeof useForm<NewPage>> {
   handleNewPage: (newPageData: { content: string; isEnding: boolean }) => void;
@@ -36,23 +37,24 @@ export default function NewPageModal({
     isEnding: false,
   };
   const {
-    handleSubmit,
     register,
     watch,
     reset,
     formState: { errors },
     control,
+    trigger,
+    getValues,
   } = useForm({
     defaultValues,
   });
 
-  const onSubmit: SubmitHandler<typeof defaultValues> = (
-    fieldValues,
-    event
-  ) => {
-    event?.stopPropagation();
-    handleNewPage(fieldValues);
-    onClose();
+  const handleButtonClick = async () => {
+    const isValid = await trigger();
+    if (isValid) {
+      const fieldValues = getValues();
+      handleNewPage(fieldValues);
+      onClose();
+    }
   };
 
   const onClose = () => {
@@ -69,11 +71,12 @@ export default function NewPageModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent aria-describedby="add new page">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>새 페이지</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form className="space-y-4">
           <div>
             <MaxLengthText {...contentMaxLengthOptions} className="top-0" />
             <ThemedTextareaField
@@ -104,7 +107,9 @@ export default function NewPageModal({
                 엔딩 페이지
               </p>
             </div>
-            <ThemedButton type="submit">추가</ThemedButton>
+            <ThemedButton type="button" onClick={handleButtonClick}>
+              추가
+            </ThemedButton>
             <ThemedButton type="button" variant="ghost" onClick={onClose}>
               취소
             </ThemedButton>

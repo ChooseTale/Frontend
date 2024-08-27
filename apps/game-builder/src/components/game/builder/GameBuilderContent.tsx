@@ -74,8 +74,7 @@ export default function GameBuilderContent({
     if (choice.source === "server") deleteChoiceData(pageId, choice.id);
   };
   const handleDeletePage = (pageId: number) => {
-    if (confirm("페이지를 삭제하면 페이지의 선택지가 함께 삭제됩니다."))
-      deletePageData(pageId);
+    if (confirm("페이지를 삭제합니다.")) deletePageData(pageId);
   };
 
   const availablePages = gamePageList.map((page) => ({
@@ -137,14 +136,19 @@ export default function GameBuilderContent({
                     isGenerating={isGenerating}
                   />
                   {combinedChoices
-                    .sort((a, b) => a.id - b.id)
+                    .sort((a, b) => {
+                      if (a.id >= 0 && b.id >= 0) return a.id - b.id;
+                      if (a.id >= 0 && b.id < 0) return -1;
+                      if (a.id < 0 && b.id >= 0) return 1;
+                      return a.id - b.id;
+                    })
                     .map((choice) => {
                       return (
                         <ChoiceCard
                           key={`${choice.source}-page${page.id}-choice${choice.id}`}
                           choice={choice}
                           defaultFixed={choice.source === "server"}
-                          fixChoice={(partialChoice) =>
+                          handleFixChoice={(partialChoice) =>
                             handleFixChoice(page.id, partialChoice)
                           }
                           removeChoice={() =>
@@ -152,7 +156,7 @@ export default function GameBuilderContent({
                           }
                           availablePages={availablePages}
                           linkedPage={getLinkedPage(choice.toPageId)}
-                          handleNewPage={handleNewPage}
+                          addPageData={addPageData}
                         />
                       );
                     })}

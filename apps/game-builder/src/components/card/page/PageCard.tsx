@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {
   CardStackPlusIcon,
+  ReloadIcon,
   StopwatchIcon,
   TrashIcon,
 } from "@radix-ui/react-icons";
@@ -64,20 +65,30 @@ export default function PageCard({
         </div>
 
         <CardFooter
-          className={`flex items-center p-0 pt-2 gap-1 ${isGenerating ? "pointer-events-none cursor-default animate-pulse duration-1000" : ""} ${isEnding ? "flex-col justify-center items-end" : ""}`}
+          className={`flex items-center p-0 pt-2 gap-1 ${isEnding ? "flex-col justify-center items-end" : ""}`}
         >
           {showChoiceButtons && (
             <>
               <ThemedIconButton onClick={addChoice}>
                 <CardStackPlusIcon className="h-8 w-8" />
               </ThemedIconButton>
-              <ThemedIconButton onClick={genAIChoice}>
-                <Image
-                  className="h-8 w-8 -translate-y-[2px]"
-                  src={robotIcon}
-                  alt="generate choice"
-                />
-              </ThemedIconButton>
+              <div
+                className={`min-w-[40px] ${isGenerating ? "pointer-events-none cursor-default animate-pulse duration-1000" : ""}`}
+              >
+                {isGenerating ? (
+                  <ThemedIconButton onClick={genAIChoice}>
+                    <ReloadIcon className="h-6 w-6 animate-spin" />
+                  </ThemedIconButton>
+                ) : (
+                  <ThemedIconButton onClick={genAIChoice}>
+                    <Image
+                      className="h-8 w-8 -translate-y-[2px]"
+                      src={robotIcon}
+                      alt="generate choice"
+                    />
+                  </ThemedIconButton>
+                )}
+              </div>
             </>
           )}
 

@@ -123,6 +123,7 @@ export default function useGameData({
   };
 
   const addChoiceData = async (pageId: number, choice: NewChoice) => {
+    if (choice.childPageId < 0) throw new Error("Child page id is required");
     const result = await createChoice(gameBuildData.id, choice);
 
     if (result.success) {

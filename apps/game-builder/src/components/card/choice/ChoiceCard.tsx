@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/react-icons";
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card";
 import type { ChoiceType, LinkedPage } from "@/interface/customType";
+import type useGameData from "@/hooks/useGameData";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import ThemedInputField from "@/components/theme/ui/ThemedInputField";
@@ -22,21 +23,21 @@ import { StaticChoice } from "./StaticChoice";
 interface PageCardProps {
   choice: ChoiceType;
   defaultFixed: boolean;
-  fixChoice: (partialChoice: ChoiceType) => void;
   removeChoice: () => void;
   availablePages: LinkedPage[];
   linkedPage: LinkedPage | undefined;
-  handleNewPage: (newPageData: { content: string; isEnding: boolean }) => void;
+  handleFixChoice: (partialChoice: ChoiceType) => void;
+  addPageData: ReturnType<typeof useGameData>["addPageData"];
 }
 
 export default function ChoiceCard({
   choice,
   defaultFixed,
-  fixChoice,
+  handleFixChoice,
   removeChoice,
   availablePages,
   linkedPage,
-  handleNewPage,
+  addPageData,
 }: PageCardProps) {
   const [isFixed, setIsFixed] = useState(defaultFixed);
   const isSavedChoice = defaultFixed;
@@ -52,6 +53,8 @@ export default function ChoiceCard({
     getValues,
     formState: { errors },
     reset,
+    setValue,
+    watch,
   } = useForm({ defaultValues });
 
   const onSubmit = (formData: typeof defaultValues) => {
@@ -59,11 +62,19 @@ export default function ChoiceCard({
       ...formData,
       toPageId: Number(formData.toPageId),
     };
-
-    fixChoice(newChoice);
+    handleFixChoice(newChoice);
     setIsFixed(!isFixed);
   };
 
+  const handleNewPageOnChoice = async (newPageData: {
+    content: string;
+    isEnding: boolean;
+  }) => {
+    const res = await addPageData({ depth: -1, pageData: newPageData });
+    const pageId = res?.id;
+
+    pageId && setValue("toPageId", pageId);
+  };
   const handleRemove = () => {
     if (confirm("선택지를 삭제 하시겠습니까?")) removeChoice();
   };
@@ -110,13 +121,15 @@ export default function ChoiceCard({
               <Link2Icon className="h-5 w-5" />
               <select
                 {...register("toPageId", { required: true })}
-                className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors.toPageId ? "border-red-500" : ""}`}
+                className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors.toPageId ? "border-red-500" : ""} ${watch("toPageId") ? "bg-gray-100" : ""}`}
+                value={watch("toPageId")}
               >
+                <option value="-1">연결할 페이지를 선택하세요</option>
                 {availablePages
                   .filter((page) => page.pageId !== choice.fromPageId)
                   .map((page) => (
                     <option key={page.pageId} value={page.pageId}>
-                      {page.content.slice(0, 50)}
+                      {page.content.slice(0, 50)} : {page.pageId}
                     </option>
                   ))}
               </select>
@@ -147,7 +160,7 @@ export default function ChoiceCard({
             </ThemedIconButton>
           )}
 
-          <NewPage handleNewPage={handleNewPage}>
+          <NewPage handleNewPage={handleNewPageOnChoice}>
             <PlusCircledIcon className="h-5 w-5 m-[1px] cursor-pointer" />
           </NewPage>
 

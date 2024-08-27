@@ -10,6 +10,7 @@ import ThemedCard from "@/components/theme/ui/ThemedCard";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
 import DotIndicator from "./DotIndicator";
 import LinkedPageIndicator from "./LinkedPageIndicator";
+import UnLinkedPageIndicator from "./UnLinkedPageIndicator";
 
 export function StaticChoice({
   title = "title 없음",
@@ -35,11 +36,13 @@ export function StaticChoice({
     <div className="pt-4">
       <ThemedCard className="relative min-h-24 !ml-12 mb-7" isChoice>
         <DotIndicator isChoosen />
-        {linkedPage && (
+        {linkedPage ? (
           <LinkedPageIndicator
             onClick={() => scrollToPage(linkedPage.pageId)}
             linkedPage={linkedPage}
           />
+        ) : (
+          <UnLinkedPageIndicator />
         )}
 
         <div className="flex-1">
