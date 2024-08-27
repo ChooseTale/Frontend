@@ -51,7 +51,9 @@ export default function ConfirmGame({
       <GameConfirmFields {...useFormProps} />
 
       <div className="w-full flex">
-        <NextButton text={watch("isPrivate") ? "비공개 저장" : "퍼블리시"} />
+        <NextButton
+          text={watch("isPrivate") ? "비공개 저장" : "게임 게시하기"}
+        />
       </div>
     </form>
   );
