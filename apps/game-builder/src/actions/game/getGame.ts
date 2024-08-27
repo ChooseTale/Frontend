@@ -2,7 +2,7 @@
 import type { HttpError } from "@choosetale/nestia-type";
 import type { GetAllGameResDto as GetGameAllResDto } from "@choosetale/nestia-type/lib/structures/GetAllGameResDto";
 import { API_URL } from "@/config/config";
-import type { GameInfo } from "@/interface/customType";
+import type { ApiErrorResponse, GameInfo } from "@/interface/customType";
 import type { ApiResponse, SuccessResponse } from "../action";
 
 // --게임 정보 불러오기--
@@ -46,7 +46,14 @@ export const getGameAllById = async (
       mode: "no-cors",
     });
 
-    const gameAll = (await response.json()) as GetGameAllResDto;
+    const gameAll = (await response.json()) as
+      | ApiErrorResponse
+      | GetGameAllResDto;
+
+    if ("statusCode" in gameAll) {
+      return { success: false, error: new Error(gameAll.message) };
+    }
+
     return { success: true, gameAll };
   } catch (error) {
     return { success: false, error: error as HttpError };

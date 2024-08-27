@@ -17,32 +17,6 @@ import { createChoice } from "@/actions/choice/createChoice";
 import { updateChoice } from "@/actions/choice/updateChoice";
 import { deleteChoice } from "@/actions/choice/deleteChoice";
 
-const setGameWithSource = (
-  gameData: GameBuild,
-  source: PageType["source"]
-): GameBuildType => {
-  const pagesWithTag = gameData.pages.map((page) => {
-    const choicesWithTag = page.choices.map((choice) => ({
-      ...choice,
-      source,
-    })) as ChoiceType[];
-
-    return {
-      ...page,
-      choices: choicesWithTag,
-      source,
-    } as PageType;
-  });
-
-  return {
-    ...gameData,
-    pages: pagesWithTag,
-    source,
-    description: "",
-    isPrivate: false,
-  } as GameBuildType;
-};
-
 export default function useGameData({
   createdGame,
   gameBuildData,
@@ -50,6 +24,33 @@ export default function useGameData({
   createdGame: ExtendsCreateGameResDto | null;
   gameBuildData: GameBuild;
 }) {
+  const setGameWithSource = (
+    gameData: GameBuild,
+    source: PageType["source"]
+  ): GameBuildType => {
+    if (!gameData) throw new Error("gameData is required");
+    const pagesWithTag = gameData.pages?.map((page) => {
+      const choicesWithTag = page.choices?.map((choice) => ({
+        ...choice,
+        source,
+      })) as ChoiceType[];
+
+      return {
+        ...page,
+        choices: choicesWithTag,
+        source,
+      } as PageType;
+    });
+
+    return {
+      ...gameData,
+      pages: pagesWithTag,
+      source,
+      description: "",
+      isPrivate: false,
+    } as GameBuildType;
+  };
+
   const newGame: GameBuildType | null =
     createdGame && new NewGameBuild(createdGame);
   const game = setGameWithSource(gameBuildData, "server");

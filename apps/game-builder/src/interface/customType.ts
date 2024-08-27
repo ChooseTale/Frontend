@@ -4,6 +4,12 @@ import type { Page } from "@choosetale/nestia-type/lib/structures/Page";
 import type { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
 import type { Genres } from "@choosetale/nestia-type/lib/structures/Genres";
 
+export interface ApiErrorResponse {
+  statusCode: number;
+  message: string;
+  error: string;
+}
+
 export interface Thumbnail {
   id: number;
   url: string;
