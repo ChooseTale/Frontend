@@ -20,6 +20,7 @@ export const getGameInfoById = async (
         "Content-Type": "application/json",
       },
       mode: "no-cors",
+      next: { tags: ["game", "game-info"] },
     });
 
     const gameInfo = (await response.json()) as GameInfo;
@@ -44,6 +45,7 @@ export const getGameAllById = async (
         "Content-Type": "application/json",
       },
       mode: "no-cors",
+      next: { tags: ["game", "game-all"] },
     });
 
     const gameAll = (await response.json()) as

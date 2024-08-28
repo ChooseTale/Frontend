@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import type { HttpError } from "@choosetale/nestia-type";
 import { API_URL } from "@/config/config";
 import type { ApiResponse, SuccessResponse } from "../action";
@@ -24,6 +25,7 @@ export const generateThumbnail = async (
 
     const generatedThumbnail = await response.json();
 
+    revalidateTag("game-info");
     return {
       success: true,
       generatedThumbnail,

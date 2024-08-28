@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import type { HttpError } from "@choosetale/nestia-type";
 import type { UpdateChoiceResDto } from "@choosetale/nestia-type/lib/structures/UpdateChoiceResDto";
 import type { NewChoice } from "@/interface/customType";
@@ -28,6 +29,7 @@ export const updateChoice = async (
 
     const choice = (await response.json()) as UpdateChoiceResDto;
 
+    revalidateTag("game-all");
     return { success: true, choice };
   } catch (error) {
     return { success: false, error: error as HttpError };

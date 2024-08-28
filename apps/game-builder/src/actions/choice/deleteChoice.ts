@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import type { HttpError } from "@choosetale/nestia-type";
 import { API_URL } from "@/config/config";
 
@@ -11,6 +12,7 @@ export const deleteChoice = async (gameId: number, choiceId: number) => {
       },
     });
 
+    revalidateTag("game-all");
     return { success: true };
   } catch (error) {
     return { success: false, error: error as HttpError };

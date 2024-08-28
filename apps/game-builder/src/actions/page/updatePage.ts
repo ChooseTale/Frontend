@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import type { HttpError } from "@choosetale/nestia-type";
 import type { UpdatePageResDto } from "@choosetale/nestia-type/lib/structures/UpdatePageResDto";
 import { API_URL } from "@/config/config";
@@ -27,6 +28,7 @@ export const updatePage = async (
     });
     const page = (await response.json()) as UpdatePageResDto;
 
+    revalidateTag("game-all");
     return { success: true, page };
   } catch (error) {
     return { success: false, error: error as HttpError };

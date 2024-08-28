@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import type { HttpError } from "@choosetale/nestia-type";
 import { API_URL } from "@/config/config";
 import type { ApiResponse, SuccessResponse } from "../action";
@@ -20,6 +21,7 @@ export const deleteThumbnail = async (
       throw new Error(errorData.message || "Failed to delete thumbnail");
     }
 
+    revalidateTag("game-info");
     return { success: true };
   } catch (error) {
     return { success: false, error: error as HttpError };

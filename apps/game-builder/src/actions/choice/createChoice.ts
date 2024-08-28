@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import type { HttpError } from "@choosetale/nestia-type";
 import type { CreateChoiceResDto } from "@choosetale/nestia-type/lib/structures/CreateChoiceResDto";
 import type { ApiErrorResponse, NewChoice } from "@/interface/customType";
@@ -32,6 +33,7 @@ export const createChoice = async (
       throw new Error(choiceRes.message);
     }
 
+    revalidateTag("game-all");
     return { success: true, choice: choiceRes };
   } catch (error) {
     return { success: false, error: error as HttpError };
