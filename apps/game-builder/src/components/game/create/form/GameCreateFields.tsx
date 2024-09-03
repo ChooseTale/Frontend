@@ -2,8 +2,8 @@
 import type { UseFormReturn } from "react-hook-form";
 import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import ThemedInputField from "@themed/ThemedInputField";
-import ThemedTextareaField from "@themed/ThemedTextareaField";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
+import PageContentEditor from "@/components/common/editor/DescriptionEditor";
 
 type GameFieldsProps = UseFormReturn<CreateGameReqDto>;
 const MAX_LENGTH = {
@@ -16,6 +16,7 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
     register,
     formState: { errors },
     watch,
+    setValue,
   } = useFormProps;
 
   const titleLen = watch("title")?.length || 0;
@@ -26,6 +27,15 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
   const pageContentLenString = formatNumberWithCommas(pageContentLen);
   const lessThan20LeftForPageContent =
     MAX_LENGTH.pageOneContent - pageContentLen < 20;
+
+  const handleEditorChange = (content: string) => {
+    setValue("pageOneContent", content, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
+
+  const emptyInitialValue = "<p></p>";
 
   return (
     <>
@@ -63,20 +73,9 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
           {formatNumberWithCommas(MAX_LENGTH.pageOneContent)}
         </p>
       </div>
-      <ThemedTextareaField
-        labelText="이야기의 시작"
-        placeholder="첫 페이지의 내용 (2,000자 이내)"
-        rows={12}
-        maxLength={MAX_LENGTH.pageOneContent}
-        {...register("pageOneContent", {
-          required: "첫 페이지의 내용을 작성해주세요",
-          maxLength: {
-            value: MAX_LENGTH.pageOneContent,
-            message: "2,000자 내로 입력해주세요",
-          },
-        })}
-        errMsg={errors.pageOneContent?.message}
-        className={lessThan20LeftForPageContent ? "text-red-500" : ""}
+      <PageContentEditor
+        initialValue={emptyInitialValue}
+        onChange={handleEditorChange}
       />
     </>
   );

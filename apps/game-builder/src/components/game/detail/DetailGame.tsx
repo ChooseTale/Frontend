@@ -3,6 +3,7 @@ import Image from "next/image";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameInfo } from "@/interface/customType";
 import DateDisplay from "@/components/common/text/DateDisplay";
+import { DynamicViewer } from "@/components/common/viewer/DynamicViewer";
 
 export default function DetailGame({
   gameInfoData,
@@ -30,7 +31,16 @@ export default function DetailGame({
         <h3>No: {gameId}</h3>
         <p>게임 제목: {gameInfoData.title}</p>
         <p>게임 장르: {gameInfoData.genre}</p>
-        <p>게임 설명: {gameInfoData.description}</p>
+
+        <p>
+          게임 설명:
+          <DynamicViewer
+            initialEditType="markdown"
+            previewStyle="vertical"
+            height="600px"
+            initialValue={gameInfoData.description}
+          />
+        </p>
         <p>비공개 여부: {gameInfoData.isPrivate ? "비공개" : "공개"}</p>
         <p>
           생성날짜: <DateDisplay date={gameInfoData.createdAt} />
