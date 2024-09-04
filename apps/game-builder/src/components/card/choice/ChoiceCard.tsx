@@ -55,9 +55,17 @@ export default function ChoiceCard({
     reset,
     setValue,
     watch,
+    setError,
   } = useForm({ defaultValues });
 
   const onSubmit = (formData: typeof defaultValues) => {
+    setError("toPageId", {});
+    const toPageId = Number(formData.toPageId);
+
+    if (toPageId < 0) {
+      setError("toPageId", { message: "연결할 페이지를 선택하세요" });
+      return;
+    }
     const newChoice = {
       ...formData,
       toPageId: Number(formData.toPageId),
