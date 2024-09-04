@@ -16,8 +16,15 @@ export default function CreateGame() {
   const useFormProps = useForm<CreateGameReqDto>();
   const { handleSubmit } = useFormProps;
 
+  const emptyInitialValue = "<p></p>";
   const onSubmit: SubmitHandler<CreateGameReqDto> = async (data) => {
     const res = await createGame(data);
+    if (data.pageOneContent === emptyInitialValue) {
+      useFormProps.setError("pageOneContent", {
+        type: "required",
+        message: "내용을 입력해주세요",
+      });
+    }
 
     try {
       if (!res.success) throw new Error("게임 생성 실패");
@@ -38,7 +45,10 @@ export default function CreateGame() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full h-full flex flex-col justify-center gap-6"
     >
-      <GameCreateFields {...useFormProps} />
+      <GameCreateFields
+        {...useFormProps}
+        emptyInitialValue={emptyInitialValue}
+      />
 
       <div className="w-full flex">
         <NextButton text="다음으로" />

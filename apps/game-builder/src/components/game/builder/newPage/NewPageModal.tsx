@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -11,11 +11,11 @@ import {
 import type { NewPage } from "@/interface/customType";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
-import ThemedTextareaField from "@/components/theme/ui/ThemedTextareaField";
 import ThemedSwitch from "@/components/theme/ui/ThemedSwitch";
 import MaxLengthText, {
   setMaxLengthOptions,
 } from "@/components/common/form/MaxLengthText";
+import PageContentEditor from "@/components/common/editor/DescriptionEditor";
 
 interface NewPageModalProps extends ReturnType<typeof useForm<NewPage>> {
   handleNewPage: (newPageData: { content: string; isEnding: boolean }) => void;
@@ -44,12 +44,22 @@ export default function NewPageModal({
     control,
     trigger,
     getValues,
+    setValue,
+    setError,
   } = useForm({
     defaultValues,
   });
 
   const handleButtonClick = async () => {
     const isValid = await trigger();
+    const { content } = getValues();
+    if (emptyInitialValue === content) {
+      setError("content", {
+        type: "required",
+        message: "페이지 내용을 입력해주세요",
+      });
+    }
+
     if (isValid) {
       const fieldValues = getValues();
       handleNewPage(fieldValues);
@@ -69,6 +79,24 @@ export default function NewPageModal({
     20
   );
 
+  const emptyInitialValue = "<p></p>";
+  const handleEditorChange = (content: string) => {
+    setValue("content", content, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
+
+  useEffect(() => {
+    register("content", {
+      required: "페이지 내용을 입력해주세요",
+      maxLength: {
+        value: MAX_LENGTH.content,
+        message: `페이지 내용을 ${formatNumberWithCommas(MAX_LENGTH.content)}자 내로 입력해주세요`,
+      },
+    });
+  }, [register]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
@@ -79,23 +107,10 @@ export default function NewPageModal({
         <form className="space-y-4">
           <div>
             <MaxLengthText {...contentMaxLengthOptions} className="top-0" />
-            <ThemedTextareaField
-              labelText="내용"
-              placeholder="페이지의 내용을 입력하세요"
-              rows={10}
-              maxLength={MAX_LENGTH.content}
-              {...register("content", {
-                required: "페이지 내용을 입력해주세요",
-                maxLength: {
-                  value: MAX_LENGTH.content,
-                  message: `페이지 내용을 ${formatNumberWithCommas(MAX_LENGTH.content)}자 내로 입력해주세요`,
-                },
-              })}
-              autoComplete="off"
+            <PageContentEditor
+              initialValue={emptyInitialValue}
+              onChange={handleEditorChange}
               errMsg={errors.content?.message}
-              className={
-                contentMaxLengthOptions.isLessThan ? "text-red-500" : ""
-              }
             />
           </div>
           <DialogFooter className="flex flex-col gap-2">

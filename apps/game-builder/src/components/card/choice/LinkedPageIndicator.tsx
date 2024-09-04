@@ -1,5 +1,6 @@
 import { Link1Icon } from "@radix-ui/react-icons";
 import type { LinkedPage } from "@/interface/customType";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 
 export default function LinkedPageIndicator({
   linkedPage,
@@ -17,7 +18,7 @@ export default function LinkedPageIndicator({
       <div className="flex items-center px-2 py-1">
         <Link1Icon className="shrink-0 h-4 w-4" color="#24c45d" />
         <p className="px-1 text-xs text-green-500 overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {linkedPage?.content}
+          {removeEditorTags(linkedPage?.content)}
         </p>
       </div>
     </button>

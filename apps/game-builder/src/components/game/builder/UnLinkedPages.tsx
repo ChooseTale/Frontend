@@ -1,6 +1,7 @@
 import { TrashIcon } from "@radix-ui/react-icons";
 import type { PageType } from "@/interface/customType";
 import type useGameData from "@/hooks/useGameData";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
 import TextWithCounts from "@/components/common/text/TextWithCounts";
 import GameEditDraw from "../edit/GameEditDraw";
@@ -33,7 +34,9 @@ export default function UnLinkedPages({
               key={page.id}
             >
               <p className="w-full text-xs line-clamp-1">
-                {page.abridgement ? page.abridgement : page.description}
+                {page.abridgement
+                  ? page.abridgement
+                  : removeEditorTags(page.description)}
               </p>
             </div>
 

@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@repo/ui/components/ui/Card.tsx";
 import type { LinkedPage } from "@/interface/customType";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 import ThemedCard from "@/components/theme/ui/ThemedCard";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
 import DotIndicator from "./DotIndicator";
@@ -51,7 +52,7 @@ export function StaticChoice({
               {title}
             </CardTitle>
             <CardDescription className="text-xs line-clamp-4 mb-0 p-[1px] break-all">
-              {description}
+              {removeEditorTags(description)}
             </CardDescription>
           </CardContent>
         </div>

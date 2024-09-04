@@ -2,10 +2,12 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { type Editor } from "@toast-ui/react-editor";
 import { DynamicEditor } from "@/components/common/editor/DynamicEditor";
+import FieldErrorMessage from "../form/FieldErrorMessage";
 
 interface PageContentProps {
   initialValue: string;
   onChange: (content: string) => void;
+  errMsg?: string;
 }
 interface EditorInstance {
   getHTML: () => string;
@@ -15,6 +17,7 @@ interface EditorInstance {
 export default function PageContentEditor({
   initialValue,
   onChange,
+  errMsg,
 }: PageContentProps) {
   const ref = useRef<Editor>(null);
 
@@ -39,15 +42,24 @@ export default function PageContentEditor({
   }, [onChange]);
 
   return (
-    <DynamicEditor
-      forwardedRef={ref}
-      initialValue={initialValue}
-      onChange={handleChange}
-      placeholder="페이지의 내용을 입력하세요"
-      height="400px"
-      initialEditType="wysiwyg"
-      hideModeSwitch
-      toolbarItems={[["heading", "bold", "italic", "strike", "hr", "quote"]]}
-    />
+    <>
+      <div className={`${errMsg && "rounded-sm border border-red-500"}`}>
+        <DynamicEditor
+          forwardedRef={ref}
+          initialValue={initialValue}
+          onChange={handleChange}
+          placeholder="페이지의 내용을 입력하세요"
+          height="400px"
+          initialEditType="wysiwyg"
+          hideModeSwitch
+          toolbarItems={[
+            ["heading", "bold", "italic", "strike", "hr", "quote"],
+          ]}
+        />
+      </div>
+      <div className="flex justify-end mt-1">
+        {errMsg && <FieldErrorMessage message={errMsg} />}
+      </div>
+    </>
   );
 }

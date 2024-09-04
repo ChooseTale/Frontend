@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import type { useForm } from "react-hook-form";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import ThemedInputField from "@themed/ThemedInputField";
 import type { PageType } from "@/interface/customType";
+import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import MaxLengthText, {
   setMaxLengthOptions,
 } from "@/components/common/form/MaxLengthText";
-import PageContentEditor from "../../../common/editor/DescriptionEditor";
+import PageContentEditor from "@/components/common/editor/DescriptionEditor";
 
 const MAX_LENGTH = {
   abridgement: 50,
@@ -35,6 +37,16 @@ export default function GameEditFields({
     });
   };
 
+  useEffect(() => {
+    register("description", {
+      required: "페이지 내용을 입력해주세요",
+      maxLength: {
+        value: MAX_LENGTH.description,
+        message: `페이지 내용을 ${formatNumberWithCommas(MAX_LENGTH.description)}자 내로 입력해주세요`,
+      },
+    });
+  }, [register]);
+
   return (
     <>
       <ThemedInputField
@@ -56,12 +68,11 @@ export default function GameEditFields({
       </p>
 
       <MaxLengthText {...descriptionMaxLengthOptions} className="top-4" />
-      <div className="border">
-        <PageContentEditor
-          initialValue={watch("description")}
-          onChange={handleEditorChange}
-        />
-      </div>
+      <PageContentEditor
+        initialValue={watch("description")}
+        onChange={handleEditorChange}
+        errMsg={errors.description?.message}
+      />
       {errors.description && (
         <p className="text-red-500 text-sm">{errors.description?.message}</p>
       )}

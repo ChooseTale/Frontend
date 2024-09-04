@@ -5,13 +5,18 @@ import ThemedInputField from "@themed/ThemedInputField";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
 import PageContentEditor from "@/components/common/editor/DescriptionEditor";
 
-type GameFieldsProps = UseFormReturn<CreateGameReqDto>;
+interface GameFieldsProps extends UseFormReturn<CreateGameReqDto> {
+  emptyInitialValue: string;
+}
 const MAX_LENGTH = {
   title: 30,
   pageOneContent: 2000,
 } as const;
 
-export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
+export default function GameCreateFields({
+  emptyInitialValue,
+  ...useFormProps
+}: GameFieldsProps) {
   const {
     register,
     formState: { errors },
@@ -34,8 +39,6 @@ export default function GameCreateFields({ ...useFormProps }: GameFieldsProps) {
       shouldDirty: true,
     });
   };
-
-  const emptyInitialValue = "<p></p>";
 
   return (
     <>
