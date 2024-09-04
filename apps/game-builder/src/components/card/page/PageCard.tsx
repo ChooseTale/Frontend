@@ -13,6 +13,7 @@ import {
 } from "@repo/ui/components/ui/Card.tsx";
 import type { PageType } from "@/interface/customType";
 import type useGameData from "@/hooks/useGameData";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import robotIcon from "@asset/icon/robot-solid.svg";
@@ -59,7 +60,7 @@ export default function PageCard({
               )}
             </CardTitle>
             <CardDescription className="text-xs line-clamp-4 mb-0 break-all">
-              {description}
+              {removeEditorTags(description)}
             </CardDescription>
           </CardContent>
         </div>
