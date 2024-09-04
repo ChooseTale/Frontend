@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import type { useForm } from "react-hook-form";
 import { InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ThemedInputField from "@themed/ThemedInputField";
-import ThemedTextareaField from "@themed/ThemedTextareaField";
 import ThemedSwitch from "@themed/ThemedSwitch";
 import type { GameInfo } from "@/interface/customType";
 import { formatNumberWithCommas } from "@/utils/formatNumberWithCommas";
@@ -10,6 +10,7 @@ import MaxLengthText, {
 } from "@/components/common/form/MaxLengthText";
 import TextWithCounts from "@/components/common/text/TextWithCounts";
 import DateDisplay from "@/components/common/text/DateDisplay";
+import PageContentEditor from "@/components/common/editor/DescriptionEditor";
 import Thumbnails from "./Thumbnails";
 import GenresSelect from "./GenresSelect";
 
@@ -27,6 +28,7 @@ export default function GameConfirmFields({
     watch,
     getValues,
     control,
+    setValue,
   } = useFormProps;
 
   const titleContentLen = watch("title").length || 0;
@@ -42,6 +44,23 @@ export default function GameConfirmFields({
     MAX_LENGTH.description,
     20
   );
+
+  const handleEditorChange = (content: string) => {
+    setValue("description", content, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
+
+  useEffect(() => {
+    register("description", {
+      required: "페이지 내용을 입력해주세요",
+      maxLength: {
+        value: MAX_LENGTH.description,
+        message: `페이지 내용을 ${formatNumberWithCommas(MAX_LENGTH.description)}자 내로 입력해주세요`,
+      },
+    });
+  }, [register]);
 
   return (
     <>
@@ -65,21 +84,15 @@ export default function GameConfirmFields({
 
       <GenresSelect name="genre" labelText="게임 장르" control={control} />
 
-      <MaxLengthText {...descriptionMaxLengthOptions} className="top-6" />
-      <ThemedTextareaField
-        labelText="게임 소개"
-        placeholder={`게임을 소개해주세요 (${formatNumberWithCommas(MAX_LENGTH.description)}자 내)`}
-        rows={6}
-        {...register("description", {
-          required: "내용을 입력해주세요",
-          maxLength: {
-            value: MAX_LENGTH.description,
-            message: `게임 소개를 ${formatNumberWithCommas(MAX_LENGTH.description)}자 내로 입력해주세요`,
-          },
-        })}
-        autoComplete="off"
-        errMsg={errors.description?.message ?? ""}
-      />
+      <MaxLengthText {...descriptionMaxLengthOptions} className="top-0" />
+      <div>
+        <PageContentEditor
+          initialValue={watch("description") || "<p></p>"}
+          onChange={handleEditorChange}
+          errMsg={errors.description?.message}
+          height="20vh"
+        />
+      </div>
 
       <div className="flex flex-col sm:!flex-row gap-2">
         <div className="flex gap-2 items-center">

@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { CreateGameReqDto } from "@choosetale/nestia-type/lib/structures/CreateGameReqDto";
 import ThemedInputField from "@themed/ThemedInputField";
@@ -40,6 +41,16 @@ export default function GameCreateFields({
     });
   };
 
+  useEffect(() => {
+    register("pageOneContent", {
+      required: "페이지 내용을 입력해주세요",
+      maxLength: {
+        value: MAX_LENGTH.pageOneContent,
+        message: `페이지 내용을 ${formatNumberWithCommas(MAX_LENGTH.pageOneContent)}자 내로 입력해주세요`,
+      },
+    });
+  }, [register]);
+
   return (
     <>
       <div>
@@ -68,7 +79,7 @@ export default function GameCreateFields({
 
       <div>
         <p
-          className={`relative h-0 top-6 px-1 text-xs text-right ${
+          className={`relative h-0 px-1 text-xs text-right ${
             lessThan20LeftForPageContent ? "text-red-500 border-red-500" : ""
           }`}
         >
@@ -79,6 +90,7 @@ export default function GameCreateFields({
       <PageContentEditor
         initialValue={emptyInitialValue}
         onChange={handleEditorChange}
+        errMsg={errors.pageOneContent?.message}
       />
     </>
   );

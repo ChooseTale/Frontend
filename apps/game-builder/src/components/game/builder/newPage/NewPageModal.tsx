@@ -99,14 +99,14 @@ export default function NewPageModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="h-screen sm:h-auto">
         <DialogHeader>
           <DialogTitle>새 페이지</DialogTitle>
           <DialogDescription />
         </DialogHeader>
         <form className="space-y-4">
           <div>
-            <MaxLengthText {...contentMaxLengthOptions} className="top-0" />
+            <MaxLengthText {...contentMaxLengthOptions} className="-top-5" />
             <PageContentEditor
               initialValue={emptyInitialValue}
               onChange={handleEditorChange}

@@ -67,7 +67,7 @@ export default function GameEditDraw({
 
           <GameEditFields {...useFormProps} />
 
-          <EndingPageSwitch control={control} />
+          {page.depth > 1 && <EndingPageSwitch control={control} />}
 
           <DrawerFooter className="flex flex-col !px-0 mb-6">
             <ThemedButton className="w-full is-success" type="submit">

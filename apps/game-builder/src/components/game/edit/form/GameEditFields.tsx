@@ -30,6 +30,8 @@ export default function GameEditFields({
     MAX_LENGTH.description,
     20
   );
+
+  const emptyInitialValue = "<p></p>";
   const handleEditorChange = (content: string) => {
     setValue("description", content, {
       shouldValidate: true,
@@ -67,9 +69,9 @@ export default function GameEditFields({
         요약은 플레이어에게 보이지 않습니다.
       </p>
 
-      <MaxLengthText {...descriptionMaxLengthOptions} className="top-4" />
+      <MaxLengthText {...descriptionMaxLengthOptions} className="-top-1" />
       <PageContentEditor
-        initialValue={watch("description")}
+        initialValue={watch("description") || emptyInitialValue}
         onChange={handleEditorChange}
         errMsg={errors.description?.message}
       />

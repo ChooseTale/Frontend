@@ -34,9 +34,9 @@ export default function UnLinkedPages({
               key={page.id}
             >
               <p className="w-full text-xs line-clamp-1">
-                {page.abridgement
-                  ? page.abridgement
-                  : removeEditorTags(page.description)}
+                {removeEditorTags(
+                  page.abridgement ? page.abridgement : page.description
+                )}
               </p>
             </div>
 

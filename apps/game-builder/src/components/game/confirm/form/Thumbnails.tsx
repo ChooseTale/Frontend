@@ -74,11 +74,7 @@ export default function Thumbnails({
           {/* AI 이미지 생성 요청 */}
           <ThemedIconButton
             onClick={() => handleGenerate(gameId)}
-            className={
-              isGenerating
-                ? "animate-bounce"
-                : "hover:-translate-y-2 transition-transform"
-            }
+            className={isGenerating ? "animate-bounce" : ""}
           >
             <Image
               className="h-5 w-5 m-1 -translate-y-[2px]"
