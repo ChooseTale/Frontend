@@ -1,4 +1,4 @@
-import { LockClosedIcon, TrashIcon } from "@radix-ui/react-icons";
+import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import {
   CardContent,
   CardDescription,
@@ -61,7 +61,7 @@ export function StaticChoice({
             onClick={editChoice}
             className="!absolute top-1 right-1 min-w-6 p-0 min-h-0 px-2 py-[2px]"
           >
-            <LockClosedIcon className="h-4 w-4" />
+            <Pencil2Icon className="h-4 w-4" />
           </ThemedIconButton>
           <ThemedIconButton onClick={removeChoice}>
             <TrashIcon className="h-7 w-7 m-[2px]" />

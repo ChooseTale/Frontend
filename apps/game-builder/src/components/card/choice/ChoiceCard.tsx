@@ -2,10 +2,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
-  CheckIcon,
   Cross2Icon,
   Link2Icon,
-  LockOpen2Icon,
+  Pencil2Icon,
   PlusCircledIcon,
   TrashIcon,
 } from "@radix-ui/react-icons";
@@ -138,22 +137,12 @@ export default function ChoiceCard({
         </div>
 
         <CardFooter className="flex flex-col justify-end items-center p-0 pr-4 py-4 gap-2">
-          {isSavedChoice && (
-            <ThemedIconButton
-              type="submit"
-              className="!absolute top-1 right-1 min-w-6 p-0 min-h-0 px-2 py-[2px]"
-            >
-              <LockOpen2Icon className="h-4 w-4" />
-            </ThemedIconButton>
-          )}
-          {!isSavedChoice && (
-            <ThemedIconButton
-              type="submit"
-              className="!absolute top-1 right-1 min-w-6 p-0 min-h-0 px-2 py-[2px]"
-            >
-              <CheckIcon className="h-6 w-6" />
-            </ThemedIconButton>
-          )}
+          <ThemedIconButton
+            type="submit"
+            className="!absolute top-1 right-1 min-w-6 p-0 min-h-0 px-2 py-[2px]"
+          >
+            <Pencil2Icon className="h-4 w-4" />
+          </ThemedIconButton>
           {isSavedChoice && (
             <ThemedIconButton onClick={handleCancel}>
               <Cross2Icon className="h-6 w-6" />
