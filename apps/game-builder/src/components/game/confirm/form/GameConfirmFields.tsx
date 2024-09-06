@@ -85,7 +85,7 @@ export default function GameConfirmFields({
       <GenresSelect name="genre" labelText="게임 장르" control={control} />
 
       <MaxLengthText {...descriptionMaxLengthOptions} className="top-0" />
-      <div>
+      <div className="h-[20vh] bg-gray-100">
         <PageContentEditor
           initialValue={watch("description") || "<p></p>"}
           onChange={handleEditorChange}

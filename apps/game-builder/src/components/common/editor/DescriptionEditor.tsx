@@ -18,9 +18,11 @@ export default function PageContentEditor({
   initialValue,
   onChange,
   errMsg,
+  height: heightProp,
   ...props
 }: PageContentProps) {
   const ref = useRef<Editor>(null);
+  const height = heightProp ? heightProp : "40vh";
 
   useEffect(() => {
     if (!ref.current) return;
@@ -44,13 +46,16 @@ export default function PageContentEditor({
 
   return (
     <div id="editor">
-      <div className={`${errMsg && "rounded-sm border border-red-500"}`}>
+      <div
+        className={`bg-gray-100 ${errMsg && "border rounded-sm border-red-500"}`}
+        style={{ minHeight: height }}
+      >
         <DynamicEditor
           forwardedRef={ref}
           initialValue={initialValue}
           onChange={handleChange}
           placeholder="페이지의 내용을 입력하세요"
-          height="40vh"
+          height={height}
           initialEditType="wysiwyg"
           hideModeSwitch
           toolbarItems={[
