@@ -11,7 +11,7 @@
       "@store/*": ["./src/store/*"],
       "@themed/*": ["./src/components/theme/ui/*"],
       "@asset/*": ["./src/asset/*"],
-      "@repo/ui/*": ["../../packages/ui/src/*"]
+      "@repo/ui/*": ["./src/packages/ui/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
