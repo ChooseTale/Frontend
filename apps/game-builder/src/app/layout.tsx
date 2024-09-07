@@ -2,6 +2,7 @@ import "./styles.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/packages/ui/components/ui/Toaster";
 import MobileWrapper from "@repo/ui/components/MobileWrapper.tsx";
 import CSSThemeProvider from "@/components/theme/ThemeProvider";
 import Progress from "@/components/common/Progress";
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`overflow-hidden ${inter.className}`}>
+        <Toaster />
         <MobileWrapper>
           <CSSThemeProvider>
             <div className="h-[calc(100vh-80px)] flex flex-col">

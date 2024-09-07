@@ -1,9 +1,13 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameInfo } from "@/interface/customType";
 import DateDisplay from "@/components/common/text/DateDisplay";
 import { DynamicViewer } from "@/components/common/viewer/DynamicViewer";
+import { Button } from "@/packages/ui/components/ui/Button";
+import { toast } from "@/packages/ui/components/hooks/UseToast";
 
 export default function DetailGame({
   gameInfoData,
@@ -12,6 +16,13 @@ export default function DetailGame({
   gameInfoData: GameInfo;
   gameId: number;
 }) {
+  const handleCopy = () => {
+    toast({
+      title: "Ctrl + V",
+      description: "게임 링크가 클립보드에 복사되었습니다.",
+    });
+  };
+
   return (
     <section className="relative px-4 ">
       <header className="flex items-end gap-3 mt-4 mb-4">
@@ -47,6 +58,18 @@ export default function DetailGame({
         <p>페이지 수: {gameInfoData.counts.pages}</p>
         <p>선택지 수: {gameInfoData.counts.choices}</p>
         <p>엔딩 수: {gameInfoData.counts.ending}</p>
+
+        <div className="my-6 flex flex-col gap-4">
+          <Link href={`/play/${gameId}`} className="w-full">
+            <Button className="w-full">게임으로</Button>
+          </Link>
+          <CopyToClipboard
+            text={`${window.location.origin}/play/${gameId}`}
+            onCopy={handleCopy}
+          >
+            <Button variant="outline">링크 복사</Button>
+          </CopyToClipboard>
+        </div>
       </div>
     </section>
   );
