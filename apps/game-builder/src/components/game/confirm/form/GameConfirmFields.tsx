@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import type { useForm } from "react-hook-form";
 import { InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ThemedInputField from "@themed/ThemedInputField";
@@ -13,6 +13,8 @@ import DateDisplay from "@/components/common/text/DateDisplay";
 import PageContentEditor from "@/components/common/editor/DescriptionEditor";
 import Thumbnails from "./Thumbnails";
 import GenresSelect from "./GenresSelect";
+import useSpellCheck from "@/hooks/useSpellCheck";
+import { debounce } from "@/utils/debounce";
 
 const MAX_LENGTH = {
   title: 50,
@@ -30,6 +32,18 @@ export default function GameConfirmFields({
     control,
     setValue,
   } = useFormProps;
+
+  const gameId = getValues("id");
+  const { spellCheck } = useSpellCheck({ gameId });
+
+  const spellCheckHandler = useMemo(
+    () =>
+      debounce(async (text: string) => {
+        const { text: checkedText } = await spellCheck(text);
+        setValue("description", checkedText);
+      }, 1000),
+    [spellCheck, setValue]
+  );
 
   const titleContentLen = watch("title").length || 0;
   const titleMaxLengthOptions = setMaxLengthOptions(
@@ -50,6 +64,8 @@ export default function GameConfirmFields({
       shouldValidate: true,
       shouldDirty: true,
     });
+    console.log("content", content);
+    // spellCheckHandler(content);
   };
 
   useEffect(() => {
