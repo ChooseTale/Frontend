@@ -79,3 +79,25 @@ export interface NewChoice {
 export enum MaxChoiceLengthEnum {
   DEFAULT = 4,
 }
+
+export interface GameIntro {
+  game: {
+    id: number;
+    title: string;
+    description: string;
+    genre: string;
+    thumbnailUrl: string;
+    producer: {
+      userId: number;
+      nickname: string;
+      profileImageUrl: string;
+    };
+  };
+  enrichData: {
+    lastUpdatedAt: string;
+    totalPlayCount: number;
+    expectPlayTime: number;
+    completedEnding: number;
+    totalEnding: number;
+  };
+}
