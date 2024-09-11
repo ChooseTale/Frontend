@@ -104,7 +104,25 @@ export interface GameIntro {
 
 export interface GamePlay {
   playId: number;
-  page: {
+  page?: {
     id: number;
   };
+}
+
+export interface ApiChoice extends NewChoice {
+  id: number;
+}
+
+export interface ApiPage {
+  id: number;
+  description: string;
+  tempDescription: string;
+  choices: ApiChoice[];
+  isEnding: boolean;
+}
+
+export interface GamePlayPage {
+  playId: number;
+  gameIntroData: GameIntro;
+  page: ApiPage[];
 }

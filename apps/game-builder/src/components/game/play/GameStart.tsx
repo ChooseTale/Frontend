@@ -6,6 +6,7 @@ import {
   postGameFirstStart,
 } from "@/actions/game-play/postGameStart";
 import { type GamePlay } from "@/interface/customType";
+import PlayPage from "./PlayPage";
 
 export default function GameStart({ gameId }: { gameId: number }) {
   const [gamePlayResponse, setGamePlayResponse] = useState<GamePlay | null>(
@@ -45,14 +46,13 @@ export default function GameStart({ gameId }: { gameId: number }) {
     notFound();
   }
 
-  const playId = gamePlayResponse.playId;
-  const pageId = gamePlayResponse.page?.id;
+  // FIXME: api에서 받은 값으로 변경할 것
+  // const pageId = gamePlayResponse.page?.id;
+  const pageId = 1;
 
   return (
-    <section className="relative my-24 text-center">
-      playId: {playId}
-      <br />
-      pageId: {pageId}
+    <section className="relative">
+      {pageId !== undefined && <PlayPage gameId={gameId} pageId={pageId} />}
     </section>
   );
 }

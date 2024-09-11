@@ -21,7 +21,7 @@ export default function GameIntro({
   const gameData = gameIntroData.game;
   const subData = gameIntroData.enrichData;
   // FIXME: api에서 받은 값으로 변경할 것
-  const isFirstStart = false;
+  const isFirstStart = gameIntroData.enrichData;
 
   const handleRestartClick = () => {
     if (confirm("게임을 처음부터 시작하시겠습니까?")) {
