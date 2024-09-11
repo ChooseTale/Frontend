@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ClockIcon, InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameIntro as GameIntroType } from "@/interface/customType";
@@ -16,8 +17,17 @@ export default function GameIntro({
   gameIntroData: GameIntroType;
   gameId: number;
 }) {
+  const router = useRouter();
   const gameData = gameIntroData.game;
   const subData = gameIntroData.enrichData;
+  // FIXME: api에서 받은 값으로 변경할 것
+  const isFirstStart = false;
+
+  const handleRestartClick = () => {
+    if (confirm("게임을 처음부터 시작하시겠습니까?")) {
+      router.push(`/play/${gameId}?play=first-start`);
+    }
+  };
 
   return (
     <section className="pt-10 text-center">
@@ -69,14 +79,27 @@ export default function GameIntro({
           </div>
         </div>
         <div className="xs:mx-6 sm:mx-12 my-6 flex flex-col gap-4">
-          <Link href={`/play/${gameId}`} className="w-full">
-            <Button className="w-full">이어하기</Button>
-          </Link>
-          <Link href={`/play/${gameId}`} className="w-full">
-            <Button className="w-full" variant="outline">
-              새로 하기
-            </Button>
-          </Link>
+          <div className="text-xs">마지막 플레이한 페이지 요약</div>
+          {!isFirstStart ? (
+            <>
+              <Link href={`/play/${gameId}?play=continue`} className="w-full">
+                <Button className="w-full">이어하기</Button>
+              </Link>
+              <Button
+                className="w-full"
+                variant="outline"
+                onClick={handleRestartClick}
+              >
+                새로 하기
+              </Button>
+            </>
+          ) : (
+            <Link href={`/play/${gameId}?play=first-start`} className="w-full">
+              <Button className="w-full" variant="outline">
+                게임 시작
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </section>

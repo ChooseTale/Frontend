@@ -101,3 +101,10 @@ export interface GameIntro {
     totalEnding: number;
   };
 }
+
+export interface GamePlay {
+  playId: number;
+  page: {
+    id: number;
+  };
+}
