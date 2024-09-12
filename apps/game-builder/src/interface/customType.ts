@@ -126,3 +126,23 @@ export interface GamePlayPage {
   gameIntroData: GameIntro;
   page: ApiPage[];
 }
+
+export interface ChosenPage {
+  id: number;
+  abridgement: string;
+  choices: [
+    {
+      id: number;
+      title: string;
+      percentage: number;
+    },
+  ];
+}
+
+export interface GameResult {
+  endingPage: {
+    id: number;
+    abridgement: string;
+  };
+  chosenPages: ChosenPage[];
+}

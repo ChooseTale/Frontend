@@ -60,11 +60,11 @@ export default function DetailGame({
         <p>엔딩 수: {gameInfoData.counts.ending}</p>
 
         <div className="my-6 flex flex-col gap-4">
-          <Link href={`/play/${gameId}`} className="w-full">
+          <Link href={`/game/${gameId}/intro`} className="w-full">
             <Button className="w-full">게임으로</Button>
           </Link>
           <CopyToClipboard
-            text={`${window.location.origin}/play/${gameId}`}
+            text={`${window.location.origin}/game/${gameId}/intro`}
             onCopy={handleCopy}
           >
             <Button variant="outline">링크 복사</Button>

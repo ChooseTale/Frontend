@@ -25,7 +25,7 @@ export default function GameIntro({
 
   const handleRestartClick = () => {
     if (confirm("게임을 처음부터 시작하시겠습니까?")) {
-      router.push(`/play/${gameId}?play=first-start`);
+      router.push(`/game/${gameId}/play/?play=first`);
     }
   };
 
@@ -82,7 +82,10 @@ export default function GameIntro({
           <div className="text-xs">마지막 플레이한 페이지 요약</div>
           {!isFirstStart ? (
             <>
-              <Link href={`/play/${gameId}?play=continue`} className="w-full">
+              <Link
+                href={`gameId/${gameId}/play/${gameId}?play=continue`}
+                className="w-full"
+              >
                 <Button className="w-full">이어하기</Button>
               </Link>
               <Button
@@ -94,7 +97,10 @@ export default function GameIntro({
               </Button>
             </>
           ) : (
-            <Link href={`/play/${gameId}?play=first-start`} className="w-full">
+            <Link
+              href={`gameId/${gameId}/play/${gameId}?play=first-start`}
+              className="w-full"
+            >
               <Button className="w-full" variant="outline">
                 게임 시작
               </Button>
