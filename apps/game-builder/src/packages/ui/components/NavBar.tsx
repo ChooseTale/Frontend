@@ -32,7 +32,7 @@ export default function NavBar() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/game/create">
+            <Link href="/game/1/intro">
               <AllSidesIcon
                 height={24}
                 width={24}

@@ -23,13 +23,13 @@ export default function LandingButtonBox() {
           <p className="text-lg">게임 만들기</p>
         </ThemedButton>
       </Link>
-      <Link href="/game-play/start?gameId=1">
+      <Link href="/game/1/intro">
         <ThemedButton
           variant="ghost"
           className="w-full h-auto border border-b-2 border-black gap-2"
         >
           <AllSidesIcon />
-          <p className="text-lg">게임 시작</p>
+          <p className="text-lg">게임1 시작</p>
         </ThemedButton>
       </Link>
     </>
