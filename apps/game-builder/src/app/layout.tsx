@@ -10,7 +10,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ChooseTale",
-  description: "게임 만들기",
+  description:
+    "ChooseTale은 텍스트 기반의 게임을 만들고 공유할 수 있어요. AI와 함께 새로운 이야기를 만들어보세요!",
 };
 
 export default function RootLayout({
@@ -24,7 +25,7 @@ export default function RootLayout({
         <Toaster />
         <MobileWrapper>
           <CSSThemeProvider>
-            <div className="h-[calc(100vh-80px)] flex flex-col">
+            <div className="h-full flex flex-col">
               <div className="flex-1 overflow-y-scroll">
                 <div className="w-full h-full flex flex-col">{children}</div>
               </div>
