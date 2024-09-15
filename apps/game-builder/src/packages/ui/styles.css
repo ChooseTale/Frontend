@@ -84,3 +84,33 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* 터치스크린이 있을 때 */
+@media (pointer: coarse) {
+  .mobile-layout {
+    width: 100vw;
+    height: 100%;
+  }
+}
+
+/* 터치스크린이 없고, 768px 이상일 때 */
+@media (pointer: fine) and (min-width: 768px) {
+  .mobile-layout {
+    width: 30rem;
+    height: 90%;
+    margin: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    @apply shadow-lg rounded-lg;
+  }
+}
+
+/* 가로 화면 전환 방지 */
+@media (orientation: landscape) {
+  .mobile-layout {
+    display: none;
+  }
+  .non-mobile-layout {
+    display: flex;
+  }
+}
