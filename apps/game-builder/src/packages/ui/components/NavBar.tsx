@@ -1,7 +1,9 @@
 "use client";
-import { HomeIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { Link } from "@radix-ui/react-navigation-menu";
+import { AllSidesIcon, HomeIcon } from "@radix-ui/react-icons";
+import penIcon from "@asset/icon/pen.png";
 import { NavigationMenu, NavigationMenuItem } from "./ui/NavigationMenu";
+import Image from "next/image";
 
 export default function NavBar() {
   return (
@@ -20,7 +22,18 @@ export default function NavBar() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/game/create">
-              <Pencil2Icon
+              <Image
+                src={penIcon}
+                width={24}
+                height={24}
+                className="m-3 w-5 h-5 lg:w-7 lg:h-7 grow-0 shirnk-0 filter invert"
+                alt="choice"
+              />
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/game/create">
+              <AllSidesIcon
                 height={24}
                 width={24}
                 color="white"
