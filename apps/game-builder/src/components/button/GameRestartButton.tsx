@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "@/packages/ui/components/ui/Button";
 import { useRouter } from "next/navigation";
+import { Button } from "@/packages/ui/components/ui/Button";
 
 export default function GameRestartButton({ gameId }: { gameId: number }) {
   const router = useRouter();

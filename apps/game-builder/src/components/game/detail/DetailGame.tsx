@@ -2,13 +2,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameInfo } from "@/interface/customType";
 import DateDisplay from "@/components/common/text/DateDisplay";
 import { DynamicViewer } from "@/components/common/viewer/DynamicViewer";
 import { Button } from "@/packages/ui/components/ui/Button";
 import { toast } from "@/packages/ui/components/hooks/UseToast";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
 
 export default function DetailGame({
   gameInfoData,

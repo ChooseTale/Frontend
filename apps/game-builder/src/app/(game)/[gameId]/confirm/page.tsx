@@ -4,7 +4,7 @@ import LocaleProvider from "@/components/LocaleProvider";
 import TopNav from "@/components/common/partial/TopNav";
 import ConfirmGame from "@/components/game/confirm/ConfirmGame";
 import { getGameInfoById } from "@/actions/game/getGame";
-import { GameParams } from "../page";
+import { type GameParams } from "../page";
 
 export default async function Page({ params }: { params: GameParams }) {
   const { gameId, locale } = params;

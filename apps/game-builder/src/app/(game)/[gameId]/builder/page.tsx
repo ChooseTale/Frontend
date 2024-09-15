@@ -3,7 +3,7 @@ import { getGameAllById } from "@/actions/game/getGame";
 import GameBuilder from "@/components/game/builder/GameBuilder";
 import TopNav from "@/components/common/partial/TopNav";
 import { NextButton } from "@/components/button/NextButton";
-import { GameParams } from "../page";
+import { type GameParams } from "../page";
 
 export default async function Page({ params }: { params: GameParams }) {
   const { gameId } = params;

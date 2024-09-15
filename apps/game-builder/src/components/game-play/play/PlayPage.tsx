@@ -41,7 +41,7 @@ export default function PlayPage({
   }, [playId, currentPageId]);
 
   if (loading) {
-    return <></>;
+    return null;
   }
 
   if (!gamePlayResponse) notFound();

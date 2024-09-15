@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { notFound, useSearchParams } from "next/navigation";
 import { postGameContinue } from "@/actions/game-play/postGameStart";
 import { type GamePlayParams } from "@/app/(game-play)/game-play/[playId]/page";
-import { type GamePlay } from "@/interface/customType";
+import { type GamePlay as GamePlayType } from "@/interface/customType";
 import PlayPage from "./PlayPage";
 
 export default function GamePlay({ playId }: GamePlayParams) {
-  const [gamePlayResponse, setGamePlayResponse] = useState<GamePlay | null>(
+  const [gamePlayResponse, setGamePlayResponse] = useState<GamePlayType | null>(
     null
   );
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ export default function GamePlay({ playId }: GamePlayParams) {
   }, [gameId]);
 
   if (loading) {
-    return <></>;
+    return null;
   }
 
   if (!gamePlayResponse || gameId === null) {

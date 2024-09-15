@@ -11,6 +11,7 @@ import {
 import { CardContent, CardFooter } from "@repo/ui/components/ui/Card";
 import type { ChoiceType, LinkedPage } from "@/interface/customType";
 import type useGameData from "@/hooks/useGameData";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
 import ThemedInputField from "@/components/theme/ui/ThemedInputField";
@@ -18,7 +19,6 @@ import ThemedTextareaField from "@/components/theme/ui/ThemedTextareaField";
 import NewPage from "@/components/game/builder/newPage/NewPage";
 import DotIndicator from "./DotIndicator";
 import { StaticChoice } from "./StaticChoice";
-import { removeEditorTags } from "@/utils/removeEditorTags";
 
 interface PageCardProps {
   choice: ChoiceType;

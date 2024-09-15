@@ -24,10 +24,9 @@ export default function GameStart() {
         router.push(`/game-play/${playId}?gameId=${gameId}`);
       } catch (error) {
         notFound();
-      } finally {
       }
     }
-  }, [gameId]);
+  }, [gameId, router]);
 
   return null;
 }

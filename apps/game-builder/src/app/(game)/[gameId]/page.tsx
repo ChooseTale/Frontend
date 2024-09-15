@@ -5,7 +5,7 @@ import BackgroundWapper from "@/components/common/BackgroundWapper";
 
 export interface GameParams {
   gameId: string;
-  locale: "ko" | "en";
+  locale?: "ko" | "en";
 }
 
 export default async function Page({ params }: { params: GameParams }) {

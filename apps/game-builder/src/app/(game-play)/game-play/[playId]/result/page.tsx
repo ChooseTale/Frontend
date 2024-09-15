@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import BackgroundWapper from "@/components/common/BackgroundWapper";
 import { getGameResult } from "@/actions/game-play/getGameResult";
 import GameResult from "@/components/game-play/result/GameResult";
-import { GamePlayParams } from "../page";
+import { type GamePlayParams } from "../page";
 
 export default async function Page({ params }: { params: GamePlayParams }) {
   const { playId } = params;
