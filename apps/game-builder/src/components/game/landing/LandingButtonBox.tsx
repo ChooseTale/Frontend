@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AllSidesIcon } from "@radix-ui/react-icons";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import penIcon from "@asset/icon/pen.png";
+import TypingText from "@/components/common/text/TypingText";
 
 export default function LandingButtonBox() {
   return (
@@ -17,10 +18,10 @@ export default function LandingButtonBox() {
             src={penIcon}
             width={16}
             height={16}
-            className="w-4 h-4 grow-0 shirnk-0"
+            className="w-4 h-4 grow-0 shrink-0"
             alt="choice"
           />
-          <p className="text-lg">게임 만들기</p>
+          <TypingText text="게임 만들기" initialDelay={0.2} />
         </ThemedButton>
       </Link>
       <Link href="/game/1/intro">
@@ -29,7 +30,7 @@ export default function LandingButtonBox() {
           className="w-full h-auto border border-b-2 border-black gap-2"
         >
           <AllSidesIcon />
-          <p className="text-lg">게임1 시작</p>
+          <TypingText text="게임1 시작" initialDelay={0.75} />
         </ThemedButton>
       </Link>
     </>
