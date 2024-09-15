@@ -56,7 +56,7 @@ export default function GameBuilderContent({
   const handleFixChoice = async (pageId: number, choice: ChoiceType) => {
     const payload: NewChoice = {
       parentPageId: choice.fromPageId,
-      childPageId: choice.toPageId,
+      childPageId: choice.toPageId ?? -1,
       title: choice.title,
       description: choice.description,
     };
@@ -155,7 +155,7 @@ export default function GameBuilderContent({
                             handleDeleteChoice(page.id, choice)
                           }
                           availablePages={availablePages}
-                          linkedPage={getLinkedPage(choice.toPageId)}
+                          linkedPage={getLinkedPage(choice.toPageId ?? -1)}
                           addPageData={addPageData}
                         />
                       );

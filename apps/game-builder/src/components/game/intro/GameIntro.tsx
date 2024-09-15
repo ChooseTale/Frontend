@@ -19,14 +19,16 @@ export default function GameIntro({
 }) {
   const gameData = gameIntroData.game;
   const subData = gameIntroData.enrichData;
-  // FIXME: api에서 받은 값으로 변경할 것
-  const playId = 1;
+  const playData = gameIntroData.play;
+
+  const playId = playData.id;
 
   return (
     <section className="pt-10 text-center">
       <div className="flex flex-col gap-1">
         <div className="xs:mx-6 sm:mx-12 mb-4">
           <AspectRatio ratio={9 / 9} className="mb-2">
+            {/* FIXME: 실제 데이터 받아오면 교체 */}
             {/* <Image
               className="w-full h-full bg-blue-100 rounded-xl"
               src={gameData.thumbnailUrl}
@@ -72,14 +74,17 @@ export default function GameIntro({
           </div>
         </div>
         <div className="xs:mx-6 sm:mx-12 my-6 flex flex-col gap-4">
-          <div className="text-xs">마지막 플레이한 페이지 요약</div>
           {playId === undefined ? (
+            <GameStartButton gameId={gameId} />
+          ) : (
             <>
-              <GameContinueButton gameId={gameId} playId={playId} />
+              <GameContinueButton
+                gameId={gameId}
+                playId={playId}
+                lastPageAbridgement={playData.page.abridgement}
+              />
               <GameRestartButton gameId={gameId} />
             </>
-          ) : (
-            <GameStartButton gameId={gameId} />
           )}
         </div>
       </div>

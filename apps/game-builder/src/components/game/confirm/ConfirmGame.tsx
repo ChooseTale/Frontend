@@ -37,7 +37,7 @@ export default function ConfirmGame({
     const res = await updateGame(payload, gameId);
 
     if (res.success) {
-      router.push(`/detail/${gameId}`);
+      router.push(`/game/${gameId}/intro`);
     } else {
       alert(res.error);
     }

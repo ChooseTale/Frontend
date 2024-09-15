@@ -93,12 +93,20 @@ export interface GameIntro {
       profileImageUrl: string;
     };
   };
+  firstPage: { id: number };
   enrichData: {
     lastUpdatedAt: string;
     totalPlayCount: number;
     expectPlayTime: number;
     completedEnding: number;
     totalEnding: number;
+  };
+  play: {
+    id: number;
+    page: {
+      id: number;
+      abridgement: string;
+    };
   };
 }
 

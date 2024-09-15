@@ -5,7 +5,7 @@ export default function GameStartButton({ gameId }: { gameId: number }) {
   const router = useRouter();
 
   const handleRestartClick = () => {
-    router.push(`/game/${gameId}/play/?play=first`);
+    router.push(`/game-play/start?gameId=${gameId}`);
   };
 
   return (

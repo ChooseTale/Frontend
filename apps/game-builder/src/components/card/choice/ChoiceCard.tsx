@@ -18,6 +18,7 @@ import ThemedTextareaField from "@/components/theme/ui/ThemedTextareaField";
 import NewPage from "@/components/game/builder/newPage/NewPage";
 import DotIndicator from "./DotIndicator";
 import { StaticChoice } from "./StaticChoice";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 
 interface PageCardProps {
   choice: ChoiceType;
@@ -129,14 +130,15 @@ export default function ChoiceCard({
               <select
                 {...register("toPageId", { required: true })}
                 className={`p-2 shadow-sm border rounded-sm text-xs w-full ${errors.toPageId ? "border-red-500" : ""} ${watch("toPageId") ? "bg-gray-100" : ""}`}
-                value={watch("toPageId")}
+                value={watch("toPageId") || -1}
               >
                 <option value="-1">연결할 페이지를 선택하세요</option>
                 {availablePages
                   .filter((page) => page.pageId !== choice.fromPageId)
                   .map((page) => (
                     <option key={page.pageId} value={page.pageId}>
-                      {page.content.slice(0, 50)} : {page.pageId}
+                      {removeEditorTags(page.content.slice(0, 50))} (
+                      {page.pageId})
                     </option>
                   ))}
               </select>

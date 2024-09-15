@@ -9,9 +9,11 @@ import { postGamePlayChoice } from "@/actions/game-play/postGamePlayChoice";
 
 export default function PlayPage({
   gameId,
+  playId,
   pageId,
 }: {
   gameId: number;
+  playId: number;
   pageId: number;
 }) {
   const [currentPageId, setCurrentPageId] = useState(pageId);
@@ -25,7 +27,7 @@ export default function PlayPage({
     async function startGame() {
       setLoading(true);
       try {
-        const response = await getGamePlayPage(gameId, currentPageId);
+        const response = await getGamePlayPage(playId, currentPageId);
 
         response.success && setGamePlayResponse(response.gamePlayPage);
       } catch (error) {
@@ -36,11 +38,12 @@ export default function PlayPage({
     }
 
     startGame();
-  }, [gameId, currentPageId]);
+  }, [playId, currentPageId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <></>;
   }
+
   if (!gamePlayResponse) notFound();
   const page = gamePlayResponse?.page[0];
 
@@ -63,7 +66,7 @@ export default function PlayPage({
 
   return (
     <>
-      <div className="pt-6 pb-8">
+      <div className="pt-6 pb-8 min-h-24">
         <DynamicViewer
           initialEditType="markdown"
           previewStyle="vertical"
@@ -77,7 +80,7 @@ export default function PlayPage({
         <ul
           className={`flex flex-col gap-4 ${choiceSending ? "animate-false" : ""}`}
         >
-          {page.choices.map((choice, index) => (
+          {page.choices.map((choice) => (
             <ol className="flex gap-1 hover:font-bold" key={choice.id}>
               <Image
                 src={penIcon}

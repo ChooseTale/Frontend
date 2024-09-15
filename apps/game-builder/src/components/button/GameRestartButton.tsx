@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/packages/ui/components/ui/Button";
 import { useRouter } from "next/navigation";
 
@@ -6,7 +7,7 @@ export default function GameRestartButton({ gameId }: { gameId: number }) {
 
   const handleRestartClick = () => {
     if (confirm("게임을 처음부터 시작하시겠습니까?")) {
-      router.push(`/game/${gameId}/play/?play=first`);
+      router.push(`/game-play/start?gameId=${gameId}`);
     }
   };
 

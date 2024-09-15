@@ -31,7 +31,7 @@ export default function CreateGame() {
       const gameId = res.gameInitData.id;
       if (!gameId) throw new Error("게임 생성 실패");
 
-      router.push(`/game/builder/${gameId}`);
+      router.push(`/game/${gameId}/builder/`);
       setCreatedGame(res.gameInitData as ExtendsCreateGameResDto);
     } catch (err) {
       if (err instanceof Error) {

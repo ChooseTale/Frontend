@@ -1,13 +1,12 @@
-"use client";
-import Link from "next/link";
-import ThemedButton from "@/components/theme/ui/ThemedButton";
+import BackgroundWapper from "@/components/common/BackgroundWapper";
+import Landing from "@/components/game/landing/Landing";
 
 export default function Page(): JSX.Element {
   return (
-    <main className="flex-1 flex items-center justify-center">
-      <Link href="/game/create">
-        <ThemedButton>Game Builder</ThemedButton>
-      </Link>
-    </main>
+    <BackgroundWapper>
+      <main className="h-full flex-1 flex items-center justify-center">
+        <Landing />
+      </main>
+    </BackgroundWapper>
   );
 }

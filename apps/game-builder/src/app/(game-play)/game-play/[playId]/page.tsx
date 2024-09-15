@@ -1,17 +1,16 @@
-import GameStart from "@/components/game/play/GameStart";
+import GamePlay from "@/components/game-play/play/GamePlay";
 import BackgroundWapper from "@/components/common/BackgroundWapper";
 
 export interface GamePlayParams {
-  gameId: string;
   playId: string;
 }
 
 export default function Page({ params }: { params: GamePlayParams }) {
-  const { gameId } = params;
+  const { playId } = params;
 
   return (
     <BackgroundWapper>
-      <GameStart gameId={Number(gameId)} />
+      <GamePlay playId={playId} />
     </BackgroundWapper>
   );
 }

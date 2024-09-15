@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/packages/ui/components/ui/Toaster";
 import MobileWrapper from "@repo/ui/components/MobileWrapper.tsx";
 import CSSThemeProvider from "@/components/theme/ThemeProvider";
-import Progress from "@/components/common/Progress";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,10 +26,7 @@ export default function RootLayout({
           <CSSThemeProvider>
             <div className="h-[calc(100vh-80px)] flex flex-col">
               <div className="flex-1 overflow-y-scroll">
-                <div className="w-full h-full flex flex-col">
-                  <Progress />
-                  {children}
-                </div>
+                <div className="w-full h-full flex flex-col">{children}</div>
               </div>
             </div>
           </CSSThemeProvider>

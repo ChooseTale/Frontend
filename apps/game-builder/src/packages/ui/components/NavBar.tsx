@@ -8,7 +8,7 @@ export default function NavBar() {
     <div className="w-full h-20 shrink-0 bg-black">
       <NavigationMenu className="w-full h-full max-w-none px-10">
         <ul className="w-full h-full flex justify-between items-center !mb-0">
-          <NavigationMenuItem className="">
+          <NavigationMenuItem>
             <Link href="/">
               <HomeIcon height={24} width={24} color="white" className="m-2" />
             </Link>
@@ -23,11 +23,6 @@ export default function NavBar() {
               />
             </Link>
           </NavigationMenuItem>
-          {/* <NavigationMenuItem>
-          <Link href="/user">
-            <PersonIcon height={24} width={24} color="white" className="m-2" />
-          </Link>
-        </NavigationMenuItem> */}
         </ul>
       </NavigationMenu>
     </div>
