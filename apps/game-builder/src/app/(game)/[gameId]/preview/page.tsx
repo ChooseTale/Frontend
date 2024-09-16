@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: GameParams }) {
     <BackgroundWapper>
       <DetailGame
         gameInfoData={gameInfoResponse.gameInfo}
-        playId={Number(gameId)}
+        gameId={Number(gameId)}
       />
     </BackgroundWapper>
   );

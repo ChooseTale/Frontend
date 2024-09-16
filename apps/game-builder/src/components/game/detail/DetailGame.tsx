@@ -6,16 +6,16 @@ import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameInfo } from "@/interface/customType";
 import DateDisplay from "@/components/common/text/DateDisplay";
-import { DynamicViewer } from "@/components/common/viewer/DynamicViewer";
 import { Button } from "@/packages/ui/components/ui/Button";
 import { toast } from "@/packages/ui/components/hooks/UseToast";
+import HtmlViewer from "@/components/common/viewer/animate/HtmlViewer";
 
 export default function DetailGame({
   gameInfoData,
-  playId,
+  gameId,
 }: {
   gameInfoData: GameInfo;
-  playId: number;
+  gameId: number;
 }) {
   const handleCopy = () => {
     toast({
@@ -39,17 +39,16 @@ export default function DetailGame({
             height={200}
           />
         </AspectRatio>
-        <h3>No: {playId}</h3>
+        <h3>No: {gameId}</h3>
         <p>게임 제목: {gameInfoData.title}</p>
         <p>게임 장르: {gameInfoData.genre}</p>
 
         <div>
           게임 설명:
-          <DynamicViewer
-            initialEditType="markdown"
-            previewStyle="vertical"
-            height="600px"
-            initialValue={gameInfoData.description}
+          <HtmlViewer
+            htmlContent={gameInfoData.description}
+            speed="fast"
+            hasTypingCursor={false}
           />
         </div>
         <p>비공개 여부: {gameInfoData.isPrivate ? "비공개" : "공개"}</p>
@@ -61,11 +60,11 @@ export default function DetailGame({
         <p>엔딩 수: {gameInfoData.counts.ending}</p>
 
         <div className="my-6 flex flex-col gap-4">
-          <Link href={`/game-play/${playId}/intro`} className="w-full">
+          <Link href={`/game/${gameId}/intro`} className="w-full">
             <Button className="w-full">게임으로</Button>
           </Link>
           <CopyToClipboard
-            text={`${window.location.origin}/game-play/${playId}/intro`}
+            text={`${window.location.origin}/game-play/${gameId}/intro`}
             onCopy={handleCopy}
           >
             <Button variant="outline">
