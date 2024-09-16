@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { notFound, useSearchParams } from "next/navigation";
 import { type GamePlayParams } from "@/app/(game-play)/game-play/[playId]/page";
 import { type GameIntro as GameIntroType } from "@/interface/customType";
-import PlayPage from "./PlayPage";
 import { getGameIntro } from "@/actions/game-play/getIntro";
+import PlayPage from "./PlayPage";
 
 export default function GameIntro({ playId }: GamePlayParams) {
   const [gameIntroResponse, setGameIntroResponse] =

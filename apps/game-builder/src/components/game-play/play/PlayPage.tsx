@@ -5,6 +5,7 @@ import { getGamePlayPage } from "@/actions/game-play/getGamePlayPage";
 import { postGamePlayChoice } from "@/actions/game-play/postGamePlayChoice";
 import TypingHtml from "@/components/common/text/TypingHtml";
 import PlayChoices from "./PlayChoices";
+import EndingPageButtonBox from "./EndingPageButtonBox";
 
 export default function PlayPage({
   gameId,
@@ -21,12 +22,13 @@ export default function PlayPage({
   );
   const [loading, setLoading] = useState(true);
   const [choiceSending, setChoiceSending] = useState(false);
+  const isEnding = gamePlayResponse?.page?.isEnding;
 
   useEffect(() => {
     async function startGame() {
       setLoading(true);
       try {
-        const response = await getGamePlayPage(playId, currentPageId);
+        const response = await getGamePlayPage(gameId, currentPageId);
 
         response.success && setGamePlayResponse(response.gamePlayPage);
       } catch (error) {
@@ -37,14 +39,15 @@ export default function PlayPage({
     }
 
     startGame();
-  }, [playId, currentPageId]);
+  }, [playId, currentPageId, gameId]);
 
   if (loading) {
     return null;
   }
 
   if (!gamePlayResponse) notFound();
-  const page = gamePlayResponse?.page[0];
+  const page = gamePlayResponse?.page;
+  if (!page) notFound();
 
   const handleChoiceClick = async (choiceId: number) => {
     if (choiceSending) return;
@@ -66,15 +69,24 @@ export default function PlayPage({
   return (
     <>
       <div className="pt-6 pb-8 min-h-24">
+        {isEnding ? (
+          <h1 className="text-2xl font-bold text-center mb-8">이야기의 끝</h1>
+        ) : (
+          ""
+        )}
         <TypingHtml htmlContent={page.description} speed="fast" />
       </div>
 
-      <PlayChoices
-        choiceSending={choiceSending}
-        choices={page.choices}
-        handleChoiceClick={handleChoiceClick}
-        pageLength={page.description.length}
-      />
+      {!isEnding && (
+        <PlayChoices
+          choiceSending={choiceSending}
+          choices={page.choices}
+          handleChoiceClick={handleChoiceClick}
+          pageLength={page.description.length}
+        />
+      )}
+
+      {isEnding ? <EndingPageButtonBox gameId={gameId} playId={playId} /> : ""}
     </>
   );
 }

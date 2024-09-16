@@ -30,7 +30,7 @@ export default function PlayChoices({
       >
         {choices.map((choice, index) => (
           <motion.li
-            className="flex gap-1 hover:font-bold"
+            className="flex gap-1 hover:underline"
             key={choice.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

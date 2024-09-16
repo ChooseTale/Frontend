@@ -4,12 +4,13 @@ import { ClockIcon, InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameIntro as GameIntroType } from "@/interface/customType";
 import DateDisplay from "@/components/common/text/DateDisplay";
-import { DynamicViewer } from "@/components/common/viewer/DynamicViewer";
 import TextWithCounts from "@/components/common/text/TextWithCounts";
 import TextWithNumberRange from "@/components/common/text/TextWithCountsRange";
 import GameRestartButton from "@/components/button/GameRestartButton";
 import GameContinueButton from "@/components/button/GameContinueButton";
 import GameStartButton from "@/components/button/GameStartButton";
+import TypingHtml from "@/components/common/text/TypingHtml";
+import TypingTextWithCursor from "@/components/common/text/TypingTextWithCursor";
 
 export default function GameIntro({
   gameIntroData,
@@ -39,14 +40,11 @@ export default function GameIntro({
             )}
           </AspectRatio>
         </div>
-        <h1 className="text-2xl font-bold">{gameData.title}</h1>
+        <h1 className="text-2xl font-bold">
+          <TypingTextWithCursor text={gameData.title} />
+        </h1>
         <div className="my-10">
-          <DynamicViewer
-            initialEditType="markdown"
-            previewStyle="vertical"
-            height="600px"
-            initialValue={gameData.description}
-          />
+          <TypingHtml htmlContent={gameData.description} initialDelay={1.5} />
         </div>
 
         <div className="xs:mx-6 sm:mx-12 flex flex-col gap-1 flex-1 items-end min-w-[230px]">
