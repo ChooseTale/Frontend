@@ -9,7 +9,11 @@ export default function GameStartButton({ gameId }: { gameId: number }) {
   };
 
   return (
-    <Button className="w-full" variant="outline" onClick={handleRestartClick}>
+    <Button
+      className="w-full h-auto border border-b-2 border-black text-lg"
+      variant="ghost"
+      onClick={handleRestartClick}
+    >
       게임 시작
     </Button>
   );
