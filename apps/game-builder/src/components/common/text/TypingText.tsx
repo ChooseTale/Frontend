@@ -13,6 +13,7 @@ export default function TypingText({
   text,
   initialDelay = 0,
   speed = "normal",
+  className = "",
 }: TypingTextProps) {
   const typingSpeed = {
     slow: 0.1,
@@ -34,6 +35,7 @@ export default function TypingText({
             delay: currentDelay + index * currentSpeed,
             duration: 0.001,
           }}
+          className={className}
         >
           {char}
         </motion.span>

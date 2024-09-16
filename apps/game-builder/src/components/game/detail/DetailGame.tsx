@@ -5,10 +5,10 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameInfo } from "@/interface/customType";
-import DateDisplay from "@/components/common/text/DateDisplay";
 import { Button } from "@/packages/ui/components/ui/Button";
 import { toast } from "@/packages/ui/components/hooks/UseToast";
-import HtmlViewer from "@/components/common/viewer/animate/HtmlViewer";
+import DateDisplay from "@/components/common/text/DateDisplay";
+import TypingHtml from "@/components/common/text/TypingHtml";
 
 export default function DetailGame({
   gameInfoData,
@@ -45,11 +45,7 @@ export default function DetailGame({
 
         <div>
           게임 설명:
-          <HtmlViewer
-            htmlContent={gameInfoData.description}
-            speed="fast"
-            hasTypingCursor={false}
-          />
+          <TypingHtml htmlContent={gameInfoData.description} speed="fast" />
         </div>
         <p>비공개 여부: {gameInfoData.isPrivate ? "비공개" : "공개"}</p>
         <p>
