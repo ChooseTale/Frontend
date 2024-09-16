@@ -1,15 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { notFound, useSearchParams } from "next/navigation";
-import { postGameContinue } from "@/actions/game-play/postGameStart";
 import { type GamePlayParams } from "@/app/(game-play)/game-play/[playId]/page";
-import { type GamePlay as GamePlayType } from "@/interface/customType";
+import { type GameIntro as GameIntroType } from "@/interface/customType";
 import PlayPage from "./PlayPage";
+import { getGameIntro } from "@/actions/game-play/getIntro";
 
-export default function GamePlay({ playId }: GamePlayParams) {
-  const [gamePlayResponse, setGamePlayResponse] = useState<GamePlayType | null>(
-    null
-  );
+export default function GameIntro({ playId }: GamePlayParams) {
+  const [gameIntroResponse, setGameIntroResponse] =
+    useState<GameIntroType | null>(null);
   const [loading, setLoading] = useState(true);
 
   const searchParams = useSearchParams();
@@ -21,10 +20,10 @@ export default function GamePlay({ playId }: GamePlayParams) {
     async function startGame() {
       setLoading(true);
       try {
-        const response = await postGameContinue(Number(gameId));
+        const response = await getGameIntro(Number(gameId));
         if (!response.success) throw new Error(response.error.message);
 
-        setGamePlayResponse(response.gamePlay);
+        setGameIntroResponse(response.intro);
       } catch (error) {
         notFound();
       } finally {
@@ -37,14 +36,11 @@ export default function GamePlay({ playId }: GamePlayParams) {
     return null;
   }
 
-  if (!gamePlayResponse || gameId === null) {
+  if (!gameIntroResponse || gameId === null) {
     notFound();
   }
 
-  // FIXME: 실제 데이터 받아오면 교체
-  // const pageId = gamePlayResponse.page?.id;
-  const pageId = 1;
-
+  const pageId = gameIntroResponse.play?.page.id;
   return (
     <section className="relative">
       {pageId !== undefined ? (

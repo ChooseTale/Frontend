@@ -9,12 +9,12 @@ interface ApiSuccessResponse extends SuccessResponse {
 }
 
 export const postGamePlayChoice = async (
-  gameId: number,
+  playId: number,
   choiceId: number
 ): Promise<ApiResponse<ApiSuccessResponse>> => {
   try {
     const response = await fetch(
-      `${API_URL}/game-play/play/${gameId}/choice/${choiceId}`,
+      `${API_URL}/game-play/play/${playId}/choice/${choiceId}`,
       {
         method: "POST",
         headers: {

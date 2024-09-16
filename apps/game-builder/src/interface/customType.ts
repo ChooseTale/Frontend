@@ -132,7 +132,7 @@ export interface ApiPage {
 export interface GamePlayPage {
   playId: number;
   gameIntroData: GameIntro;
-  page: ApiPage[];
+  page: ApiPage;
 }
 
 export interface ChosenPage {

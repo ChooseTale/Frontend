@@ -28,24 +28,3 @@ export const postGameFirstStart = async (
     return { success: false, error: error as HttpError };
   }
 };
-
-export const postGameContinue = async (
-  gameId: number
-): Promise<ApiResponse<ApiSuccessResponse>> => {
-  try {
-    const response = await fetch(
-      `${API_URL}/game-play/intro/${gameId}/continue`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const gamePlay = (await response.json()) as GamePlay;
-    return { success: true, gamePlay };
-  } catch (error) {
-    return { success: false, error: error as HttpError };
-  }
-};
