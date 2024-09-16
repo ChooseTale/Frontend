@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { GamePlayPage } from "@/interface/customType";
 import { getGamePlayPage } from "@/actions/game-play/getGamePlayPage";
-import penIcon from "@asset/icon/pen.png";
-import { DynamicViewer } from "@/components/common/viewer/DynamicViewer";
 import { postGamePlayChoice } from "@/actions/game-play/postGamePlayChoice";
+import TypingHtml from "@/components/common/text/TypingHtml";
+import PlayChoices from "./PlayChoices";
 
 export default function PlayPage({
   gameId,
@@ -67,39 +66,15 @@ export default function PlayPage({
   return (
     <>
       <div className="pt-6 pb-8 min-h-24">
-        <DynamicViewer
-          initialEditType="markdown"
-          previewStyle="vertical"
-          height="600px"
-          initialValue={page.description}
-        />
+        <TypingHtml htmlContent={page.description} speed="fast" />
       </div>
 
-      <div>
-        <div className="flex justify-center my-8">~~~</div>
-        <ul
-          className={`flex flex-col gap-4 ${choiceSending ? "animate-false" : ""}`}
-        >
-          {page.choices.map((choice) => (
-            <ol className="flex gap-1 hover:font-bold" key={choice.id}>
-              <Image
-                src={penIcon}
-                width={16}
-                height={16}
-                className="mt-1 w-4 h-4 grow-0 shirnk-0"
-                alt="choice"
-              />
-              <button
-                type="button"
-                className="text-left"
-                onClick={() => handleChoiceClick(choice.id)}
-              >
-                {choice.description}
-              </button>
-            </ol>
-          ))}
-        </ul>
-      </div>
+      <PlayChoices
+        choiceSending={choiceSending}
+        choices={page.choices}
+        handleChoiceClick={handleChoiceClick}
+        pageLength={page.description.length}
+      />
     </>
   );
 }
