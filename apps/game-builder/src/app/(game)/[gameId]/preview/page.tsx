@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import BackgroundWapper from "@/components/common/BackgroundWapper";
 import DetailGame from "@/components/game/detail/DetailGame";
 import { getGameInfoById } from "@/actions/game/getGame";
 import { type GameParams } from "../page";
@@ -13,11 +12,9 @@ export default async function Page({ params }: { params: GameParams }) {
   }
 
   return (
-    <BackgroundWapper>
-      <DetailGame
-        gameInfoData={gameInfoResponse.gameInfo}
-        gameId={Number(gameId)}
-      />
-    </BackgroundWapper>
+    <DetailGame
+      gameInfoData={gameInfoResponse.gameInfo}
+      gameId={Number(gameId)}
+    />
   );
 }
