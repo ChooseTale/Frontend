@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 body {
+  overflow: hidden;
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,

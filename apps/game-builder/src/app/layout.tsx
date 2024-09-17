@@ -22,7 +22,7 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="ko">
-      <body className={`overflow-hidden ${inter.className}`}>
+      <body className={inter.className}>
         <Toaster />
         <CSSThemeProvider>
           <MobileWrapper>

@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 export interface TypingTextProps {
@@ -15,6 +16,8 @@ export default function TypingText({
   speed = "normal",
   className = "",
 }: TypingTextProps) {
+  const [skip, setSkip] = useState(false);
+
   const typingSpeed = {
     slow: 0.1,
     normal: 0.05,
@@ -25,21 +28,25 @@ export default function TypingText({
 
   return (
     <>
-      {text.split("").map((char, index) => (
-        <motion.span
-          // eslint-disable-next-line react/no-array-index-key -- Using index as key because content has no unique identifier
-          key={char + index}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: currentDelay + index * currentSpeed,
-            duration: 0.001,
-          }}
-          className={className}
-        >
-          {char}
-        </motion.span>
-      ))}
+      {skip
+        ? text
+        : text.split("").map((char, index) => (
+            <motion.span
+              // eslint-disable-next-line react/no-array-index-key -- Using index as key because content has no unique identifier
+              key={char + index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                delay: skip ? 0 : currentDelay + index * currentSpeed,
+                duration: 0.001,
+              }}
+              className={className}
+              onClick={() => setSkip(true)}
+              onTouchStart={() => setSkip(true)}
+            >
+              {char}
+            </motion.span>
+          ))}
     </>
   );
 }
