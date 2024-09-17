@@ -9,7 +9,7 @@ interface ErrorPageProps {
 
 function ErrorPage({ statusCode }: ErrorPageProps) {
   return (
-    <div className="flex flex-col items-center justify-center flex-1 bg-gray-50 text-gray-900 p-4">
+    <div className="h-full flex flex-col items-center justify-center flex-1 text-gray-900 p-4">
       <div className="text-center">
         <h1 className="text-6xl font-bold text-gray-800 mb-4">Error</h1>
         <h2 className="text-2xl font-semibold mb-4">
@@ -22,8 +22,18 @@ function ErrorPage({ statusCode }: ErrorPageProps) {
           잠시 후 다시 시도해 주세요.
         </p>
         <div className="flex gap-2 justify-center">
-          <LinkedButton to=".." buttonText="뒤로 가기" variant="outline" />
-          <LinkedButton to="/" buttonText="메인으로" />
+          <LinkedButton
+            to=".."
+            buttonText="뒤로 가기"
+            variant="ghost"
+            className="w-full h-auto border border-b-2 border-black gap-2"
+          />
+          <LinkedButton
+            to="/"
+            buttonText="메인으로"
+            variant="ghost"
+            className="w-full h-auto border border-b-2 border-black gap-2"
+          />
         </div>
       </div>
     </div>
