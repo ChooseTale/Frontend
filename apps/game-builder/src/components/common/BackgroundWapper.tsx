@@ -8,19 +8,17 @@ export default function BackgroundWapper({
   children: ReactNode;
 }) {
   return (
-    <div className="relative w-full flex-1 px-12 pt-4 pb-10">
+    <div className="relative w-full h-full">
       <Image
-        className="absolute w-full h-[calc(100%+4px)] -top-1 left-0 drag-none select-none pointer-events-none"
         src={texture.src}
-        blurDataURL={texture.blurDataURL}
-        placeholder="blur"
-        alt=""
-        width={400}
-        height={900}
-        quality={75}
+        sizes="100vw"
+        alt="Background Texture"
+        layout="fill"
+        style={{ objectFit: "cover" }}
         priority
+        quality={75}
       />
-      <div className="relative h-full">{children}</div>
+      <div className="relative w-full h-full z-10">{children}</div>
     </div>
   );
 }
