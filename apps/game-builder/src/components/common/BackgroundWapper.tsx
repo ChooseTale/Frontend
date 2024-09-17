@@ -13,12 +13,14 @@ export default function BackgroundWapper({
         src={texture.src}
         sizes="100vw"
         alt="Background Texture"
-        layout="fill"
+        fill
         style={{ objectFit: "cover" }}
         priority
         quality={75}
       />
-      <div className="relative w-full h-full z-10">{children}</div>
+      <div className="relative w-full h-full z-10 overflow-y-auto">
+        {children}
+      </div>
     </div>
   );
 }

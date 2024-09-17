@@ -30,13 +30,22 @@ export default function PlayChoices({
         />
       ) : (
         <>
-          <div className="flex justify-end">
+          <motion.div
+            className="flex justify-end relative h-0"
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 0, y: -5 }}
+            transition={{
+              duration: 0.2,
+              delay: initialDelay + 1 + 0.2 * choices.length,
+            }}
+          >
             <TextAlignTopIcon
               onClick={() => setSkip(true)}
               onTouchStart={() => setSkip(true)}
               className="cursor-pointer"
             />
-          </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -54,7 +63,7 @@ export default function PlayChoices({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.3,
-                    delay: initialDelay + 1 + 0.25 * index,
+                    delay: initialDelay + 1 + 0.2 * index,
                   }}
                 >
                   <Image
