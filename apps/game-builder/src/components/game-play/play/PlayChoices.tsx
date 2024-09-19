@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import type { ApiChoice } from "@/interface/customType";
 import { TextAlignTopIcon } from "@radix-ui/react-icons";
+import type { ApiChoice } from "@/interface/customType";
 import penIcon from "@asset/icon/pen.png";
 
 interface PlayPageProps {

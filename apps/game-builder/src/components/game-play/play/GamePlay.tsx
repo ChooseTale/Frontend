@@ -4,6 +4,7 @@ import { notFound, useSearchParams } from "next/navigation";
 import { type GamePlayParams } from "@/app/(game-play)/game-play/[playId]/page";
 import { type GameIntro as GameIntroType } from "@/interface/customType";
 import { getGameIntro } from "@/actions/game-play/getIntro";
+import PlayInfo from "../info/PlayInfo";
 import PlayPage from "./PlayPage";
 
 export default function GameIntro({ playId }: GamePlayParams) {
@@ -44,11 +45,14 @@ export default function GameIntro({ playId }: GamePlayParams) {
   return (
     <section className="relative">
       {pageId !== undefined ? (
-        <PlayPage
-          gameId={Number(gameId)}
-          playId={Number(playId)}
-          pageId={pageId}
-        />
+        <>
+          <PlayInfo gameIntro={gameIntroResponse} />
+          <PlayPage
+            gameId={Number(gameId)}
+            playId={Number(playId)}
+            pageId={pageId}
+          />
+        </>
       ) : (
         <>게임 페이지가 존재하지 않습니다</>
       )}

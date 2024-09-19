@@ -6,6 +6,8 @@ import { Toaster } from "@/packages/ui/components/ui/Toaster";
 import MobileWrapper from "@repo/ui/components/MobileWrapper.tsx";
 import CSSThemeProvider from "@/components/theme/ThemeProvider";
 import BackgroundWapper from "@/components/common/BackgroundWapper";
+import LocaleProvider from "@/components/LocaleProvider";
+import { getDictionary } from "./[lang]/dictionaries";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,20 +17,27 @@ export const metadata: Metadata = {
     "ChooseTale은 텍스트 기반의 게임을 만들고 공유할 수 있어요. AI와 함께 새로운 이야기를 만들어보세요!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
+}) {
+  const defaultLocale = "ko";
+  const dict = await getDictionary(defaultLocale);
+
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <Toaster />
-        <CSSThemeProvider>
-          <MobileWrapper>
-            <BackgroundWapper>{children}</BackgroundWapper>
-          </MobileWrapper>
-        </CSSThemeProvider>
+        <LocaleProvider dict={dict}>
+          <>
+            <Toaster />
+            <CSSThemeProvider>
+              <MobileWrapper>
+                <BackgroundWapper>{children}</BackgroundWapper>
+              </MobileWrapper>
+            </CSSThemeProvider>
+          </>
+        </LocaleProvider>
       </body>
     </html>
   );

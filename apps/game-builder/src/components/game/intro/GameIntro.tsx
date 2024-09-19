@@ -1,16 +1,13 @@
 "use client";
 import Image from "next/image";
-import { ClockIcon, InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio";
 import type { GameIntro as GameIntroType } from "@/interface/customType";
-import DateDisplay from "@/components/common/text/DateDisplay";
-import TextWithCounts from "@/components/common/text/TextWithCounts";
-import TextWithNumberRange from "@/components/common/text/TextWithCountsRange";
 import GameRestartButton from "@/components/button/GameRestartButton";
 import GameContinueButton from "@/components/button/GameContinueButton";
 import GameStartButton from "@/components/button/GameStartButton";
 import TypingHtml from "@/components/common/text/TypingHtml";
 import TypingTextWithCursor from "@/components/common/text/TypingTextWithCursor";
+import GameEnrich from "@/components/game/GameEnrich";
 
 export default function GameIntro({
   gameIntroData,
@@ -48,28 +45,7 @@ export default function GameIntro({
         </div>
 
         <div className="xs:mx-6 sm:mx-12 flex flex-col gap-1 flex-1 items-end min-w-[230px]">
-          <div className="text-xs flex items-center gap-2" title="작성 날짜">
-            <Pencil1Icon color="#28c362" />
-            <DateDisplay date={subData.lastUpdatedAt} />
-          </div>
-
-          <div className="text-xs flex items-center gap-2" title="작성 날짜">
-            <ClockIcon color="#28c362" />
-            예상 게임 시간: {subData.expectPlayTime}분
-          </div>
-
-          <div className="flex gap-2 flex-wrap" title="게임 상세">
-            <InfoCircledIcon color="#28c362" />
-            <TextWithCounts
-              text="플레이 횟수"
-              counts={subData.totalPlayCount}
-            />
-            <TextWithNumberRange
-              text="엔딩"
-              value={subData.completedEnding}
-              max={subData.totalEnding}
-            />
-          </div>
+          <GameEnrich enrich={subData} />
         </div>
         <div className="xs:mx-6 sm:mx-12 my-6 flex flex-col gap-3">
           {playId === undefined ? (

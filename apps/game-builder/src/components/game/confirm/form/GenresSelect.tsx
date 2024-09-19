@@ -12,7 +12,7 @@ import {
 import type { GameInfo } from "@/interface/customType";
 import { GENRES } from "@/constants/genres";
 import ThemedLabel from "@/components/theme/ui/ThemedLabel";
-import { useTranslation } from "@/hooks/useTransition";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface GenresSelectProps extends InputProps {
   labelText: string;
