@@ -65,9 +65,6 @@ export default function GameEditFields({
         autoComplete="off"
         errMsg={errors.abridgement?.message ?? ""}
       />
-      <p className="text-xs text-right text-gray-400 h-0 -translate-y-2">
-        요약은 플레이어에게 보이지 않습니다.
-      </p>
 
       <MaxLengthText {...descriptionMaxLengthOptions} className="-top-1" />
       <PageContentEditor
