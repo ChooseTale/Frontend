@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: GamePlayParams }) {
     notFound();
   }
 
-  const lastPage = gameInfoResponse.result.chosenPages[0];
+  const lastPage = gameInfoResponse.result.choosenPages[0];
 
   return (
     <section className="my-10">

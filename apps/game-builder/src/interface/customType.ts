@@ -135,7 +135,7 @@ export interface GamePlayPage {
   page: ApiPage;
 }
 
-export interface ChosenPage {
+export interface ChoosenPage {
   id: number;
   abridgement: string;
   choices: [
@@ -152,5 +152,5 @@ export interface GameResult {
     id: number;
     abridgement: string;
   };
-  chosenPages: ChosenPage[];
+  choosenPages: ChoosenPage[];
 }

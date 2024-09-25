@@ -1,7 +1,7 @@
 "use client";
-import { type ChosenPage } from "@/interface/customType";
+import { type ChoosenPage } from "@/interface/customType";
 
-export default function GameResult({ page }: { page: ChosenPage }) {
+export default function GameResult({ page }: { page: ChoosenPage }) {
   return (
     <ul>
       {page.choices.map((choice) => (
