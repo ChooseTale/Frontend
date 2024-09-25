@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getGameResult } from "@/actions/game-play/getGameResult";
-import GameResult from "@/components/game-play/result/GameResult";
+import GamePlayChoosenPages from "@/components/game-play/result/GamePlayChoosenPages";
 import { type GamePlayParams } from "../page";
 
 export default async function Page({ params }: { params: GamePlayParams }) {
@@ -15,10 +15,11 @@ export default async function Page({ params }: { params: GamePlayParams }) {
 
   return (
     <section className="my-10">
+      <p>엔딩</p>
       <h1 className="text-2xl mb-4">
-        엔딩: {gameInfoResponse.result.endingPage.abridgement}
+        {gameInfoResponse.result.endingPage.abridgement}
       </h1>
-      {lastPage && <GameResult page={lastPage} />}
+      {lastPage && <GamePlayChoosenPages page={lastPage} />}
     </section>
   );
 }
