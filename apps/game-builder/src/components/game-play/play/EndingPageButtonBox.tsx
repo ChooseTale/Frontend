@@ -18,7 +18,7 @@ export default function EndingPageButtonBox({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <GameResultButton playId={playId} />
+      <GameResultButton playId={playId} gameId={gameId} />
       <GameRestartButton gameId={gameId} />
     </motion.div>
   );
