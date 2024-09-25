@@ -28,7 +28,7 @@ export default async function Page({
     notFound();
   }
 
-  const lastPage = gameInfoResponse.result.choosenPages[0];
+  const choosenPages = gameInfoResponse.result.choosenPages;
   const gameEnrich = gameIntroResponse.intro.enrichData;
   const gamePlayResult: Partial<GameIntro["enrichData"]> = {
     totalEnding: gameEnrich.totalEnding,
@@ -38,12 +38,17 @@ export default async function Page({
 
   return (
     <section className="my-10">
-      <p>엔딩</p>
-      <h1 className="text-2xl mb-4">
+      <p className="mb-2">엔딩</p>
+      <h1 className="text-2xl mb-6">
         {gameInfoResponse.result.endingPage.abridgement}
       </h1>
 
-      {lastPage && <GamePlayChoosenPages page={lastPage} />}
+      <hr className="border-black my-4 pointer-none" />
+      <h2 className="text-md mb-1">선택한 페이지:</h2>
+      {choosenPages.map((page) => (
+        <GamePlayChoosenPages key={page.id} page={page} />
+      ))}
+      <hr className="border-black my-4 pointer-none" />
 
       <GameEnrich enrich={gamePlayResult} />
       <div className="mt-10 mb-4 flex flex-col gap-3">
