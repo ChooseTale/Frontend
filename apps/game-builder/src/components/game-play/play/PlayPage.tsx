@@ -53,7 +53,7 @@ export default function PlayPage({
     if (choiceSending) return;
     setChoiceSending(true);
     try {
-      const response = await postGamePlayChoice(gameId, choiceId);
+      const response = await postGamePlayChoice(playId, choiceId);
       if (!response.success) {
         throw new Error(response.error.message);
       }
