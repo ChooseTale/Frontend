@@ -54,7 +54,7 @@ export default function PageCard({
               className={`mb-2 !text-[16px] break-all ${showChoiceButtons ? "" : "pr-6"}`}
             >
               {abridgement !== "" ? (
-                abridgement
+                removeEditorTags(abridgement)
               ) : (
                 <span className="opacity-20">요약이 없습니다</span>
               )}

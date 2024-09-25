@@ -15,6 +15,7 @@ import ThemedButton from "@/components/theme/ui/ThemedButton";
 import GameEditFields from "@/components/game/edit/form/GameEditFields";
 import type { PageType } from "@/interface/customType";
 import type useGameData from "@/hooks/useGameData";
+import { removeEditorTags } from "@/utils/removeEditorTags";
 import GameEditDrawTriggerButton from "./GameEditDrawTriggerButton";
 import EndingPageSwitch from "./form/EndingPageSwitch";
 
@@ -34,7 +35,12 @@ export default function GameEditDraw({
   updatePage,
 }: GameEditDrawProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const useFormProps = useForm({ defaultValues: page });
+  const useFormProps = useForm({
+    defaultValues: {
+      ...page,
+      abridgement: removeEditorTags(page.abridgement),
+    },
+  });
   const { handleSubmit, reset, control } = useFormProps;
 
   const onSubmit: SubmitHandler<PageType> = (fieldValues) => {

@@ -18,7 +18,6 @@ export default function CreateGame() {
 
   const emptyInitialValue = "<p></p>";
   const onSubmit: SubmitHandler<CreateGameReqDto> = async (data) => {
-    const res = await createGame(data);
     if (data.pageOneContent === emptyInitialValue) {
       useFormProps.setError("pageOneContent", {
         type: "required",
@@ -27,6 +26,8 @@ export default function CreateGame() {
     }
 
     try {
+      const res = await createGame(data);
+
       if (!res.success) throw new Error("게임 생성 실패");
       const gameId = res.gameInitData.id;
       if (!gameId) throw new Error("게임 생성 실패");
