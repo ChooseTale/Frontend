@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { type GameIntro } from "@/interface/customType";

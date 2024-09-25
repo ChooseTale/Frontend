@@ -14,6 +14,7 @@ export default function GamePlayChoosenPages({ page }: { page: ChoosenPage }) {
           </li>
         ))}
       </ul>
+      <hr className="border-black my-4 pointer-none" />
     </>
   );
 }
