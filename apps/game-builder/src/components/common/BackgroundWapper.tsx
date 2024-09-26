@@ -11,7 +11,7 @@ export default function BackgroundWapper({
     <div className="relative w-full h-full">
       <Image
         src={texture.src}
-        sizes="100vw"
+        sizes="(max-width: 640px) 100vw, 640px"
         alt="Background Texture"
         fill
         style={{ objectFit: "cover" }}

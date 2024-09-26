@@ -38,7 +38,6 @@ export default function NewPageModal({
   };
   const {
     register,
-    watch,
     reset,
     formState: { errors },
     control,
@@ -73,6 +72,8 @@ export default function NewPageModal({
   };
 
   const contentControl = useWatch({ control, name: "content" });
+  const isEnding = useWatch({ control, name: "isEnding" });
+
   const contentMaxLengthOptions = setMaxLengthOptions(
     contentControl.length,
     MAX_LENGTH.content,
@@ -116,9 +117,7 @@ export default function NewPageModal({
           <DialogFooter className="flex flex-col gap-2">
             <div className="my-2 flex gap-2 items-center flex-1">
               <ThemedSwitch name="isEnding" control={control} />
-              <p
-                className={`mb-0 text-xs ${watch("isEnding") ? "" : "opacity-50"}`}
-              >
+              <p className={`mb-0 text-xs ${isEnding ? "" : "opacity-50"}`}>
                 엔딩 페이지
               </p>
             </div>
