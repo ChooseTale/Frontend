@@ -19,7 +19,7 @@ export default function GameIntro({
   const gameData = gameIntroData.game;
   const subData = gameIntroData.enrichData;
   const playData = gameIntroData.play;
-  const playId = playData.id;
+  const playId = playData?.id;
 
   return (
     <section className="pt-10 text-center">
