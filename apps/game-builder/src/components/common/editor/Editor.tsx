@@ -37,10 +37,6 @@ export default function Editor({
   };
 
   return (
-    <ToastUiEditor
-      {...props}
-      onChange={handleOnChange}
-      ref={props.forwardedRef}
-    />
+    <ToastUiEditor {...props} onChange={handleOnChange} ref={forwardedRef} />
   );
 }
