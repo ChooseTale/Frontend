@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { notFound } from "next/navigation";
 import TypingHtml from "@/components/common/text/TypingHtml";
 import useGamePlay from "@/hooks/useGamePlay";
 import PlayChoices from "./PlayChoices";
@@ -14,36 +12,11 @@ export default function PlayPage({
   playId: number;
   pageId: number;
 }) {
-  const [loading, setLoading] = useState(true);
-
-  const {
-    page,
-    currentPageId,
-    choiceSending,
-    isEnding,
-    getCurrentPage,
-    getEndingPage,
-    selectChoice,
-  } = useGamePlay({
+  const { page, choiceSending, isEnding, loading, selectChoice } = useGamePlay({
     pageId,
     playId,
+    gameId,
   });
-
-  useEffect(() => {
-    async function gamePlay() {
-      setLoading(true);
-      try {
-        const success = await getCurrentPage({ gameId, currentPageId });
-        !success && getEndingPage({ playId });
-      } catch (error) {
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    gamePlay();
-  }, [currentPageId, gameId, getCurrentPage, getEndingPage, playId]);
 
   if (loading || (loading && !page)) {
     return null;
