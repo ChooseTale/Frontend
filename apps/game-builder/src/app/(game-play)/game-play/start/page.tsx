@@ -1,10 +1,21 @@
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import GameStart from "@/components/game-play/start/GameStart";
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { gameId: string };
+}) {
+  const { gameId } = searchParams;
+
+  if (!gameId) {
+    notFound();
+  }
+
   return (
     <Suspense>
-      <GameStart />
+      <GameStart gameId={Number(gameId)} />
     </Suspense>
   );
 }
