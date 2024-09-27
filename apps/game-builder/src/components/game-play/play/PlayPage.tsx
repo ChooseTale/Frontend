@@ -17,37 +17,47 @@ export default function PlayPage({
   pageId: number;
 }) {
   const [currentPageId, setCurrentPageId] = useState(pageId);
-  const [gamePlayResponse, setGamePlayResponse] = useState<GamePlayPage | null>(
-    null
-  );
+  const [page, setPage] = useState<GamePlayPage["page"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [choiceSending, setChoiceSending] = useState(false);
-  const isEnding = gamePlayResponse?.page?.isEnding;
 
   useEffect(() => {
-    async function startGame() {
+    const getCurrentGame = async (props: {
+      gameId: number;
+      currentPageId: number;
+    }) => {
+      try {
+        const response = await getGamePlayPage(
+          props.gameId,
+          props.currentPageId
+        );
+        if (!response.success) {
+          throw new Error(response.error.message);
+        }
+        response.success && setPage(response.gamePlayPage.page);
+      } catch (error) {
+        throw new Error("게임을 불러오는 중 오류가 발생했습니다.");
+      }
+    };
+
+    function startGame() {
       setLoading(true);
       try {
-        const response = await getGamePlayPage(gameId, currentPageId);
-
-        response.success && setGamePlayResponse(response.gamePlayPage);
+        getCurrentGame({ gameId, currentPageId });
       } catch (error) {
-        return notFound();
+        notFound();
       } finally {
         setLoading(false);
       }
     }
 
     startGame();
-  }, [playId, currentPageId, gameId]);
+  }, [currentPageId, gameId]);
 
-  if (loading) {
+  if (loading || !page) {
     return null;
   }
-
-  if (!gamePlayResponse) notFound();
-  const page = gamePlayResponse?.page;
-  if (!page) notFound();
+  if (!loading && !page) notFound();
 
   const handleChoiceClick = async (choiceId: number) => {
     if (choiceSending) return;
@@ -66,27 +76,32 @@ export default function PlayPage({
     }
   };
 
+  const isEnding = page.isEnding;
+
+  if (isEnding) {
+    return (
+      <>
+        <div className="pt-6 pb-8 min-h-24">
+          <h1 className="text-2xl font-bold text-center mb-8">이야기의 끝</h1>
+          <TypingHtml htmlContent={page.description} speed="fast" />
+        </div>{" "}
+        <EndingPageButtonBox gameId={gameId} playId={playId} />
+      </>
+    );
+  }
+
   return (
     <>
       <div className="pt-6 pb-8 min-h-24">
-        {isEnding ? (
-          <h1 className="text-2xl font-bold text-center mb-8">이야기의 끝</h1>
-        ) : (
-          ""
-        )}
         <TypingHtml htmlContent={page.description} speed="fast" />
       </div>
 
-      {!isEnding && (
-        <PlayChoices
-          choiceSending={choiceSending}
-          choices={page.choices}
-          handleChoiceClick={handleChoiceClick}
-          pageLength={page.description.length}
-        />
-      )}
-
-      {isEnding ? <EndingPageButtonBox gameId={gameId} playId={playId} /> : ""}
+      <PlayChoices
+        choiceSending={choiceSending}
+        choices={page.choices}
+        handleChoiceClick={handleChoiceClick}
+        pageLength={page.description.length}
+      />
     </>
   );
 }

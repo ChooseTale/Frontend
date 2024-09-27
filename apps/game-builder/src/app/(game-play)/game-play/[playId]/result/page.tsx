@@ -1,19 +1,13 @@
 import { notFound } from "next/navigation";
 import { getGameResult } from "@/actions/game-play/getGameResult";
 import { getGameIntro } from "@/actions/game-play/getIntro";
-import { GameIntro } from "@/interface/customType";
+import { type GameIntro } from "@/interface/customType";
 import GamePlayChoosenPages from "@/components/game-play/result/GamePlayChoosenPages";
 import GameRestartButton from "@/components/button/GameRestartButton";
 import GameEnrich from "@/components/game/GameEnrich";
-import { type GamePlaySearchParams, type GamePlayParams } from "../page";
+import { type GamePageParams } from "../page";
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: GamePlayParams;
-  searchParams: GamePlaySearchParams;
-}) {
+export default async function Page({ params, searchParams }: GamePageParams) {
   const { playId } = params;
   const { gameId } = searchParams;
   const gameInfoResponse = await getGameResult(Number(playId));
