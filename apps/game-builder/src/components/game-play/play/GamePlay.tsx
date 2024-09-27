@@ -1,57 +1,22 @@
 "use client";
-import { useEffect, useState } from "react";
-import { notFound, useSearchParams } from "next/navigation";
-import { type GamePlayParams } from "@/app/(game-play)/game-play/[playId]/page";
 import { type GameIntro as GameIntroType } from "@/interface/customType";
-import { getGameIntro } from "@/actions/game-play/getIntro";
 import PlayInfo from "../info/PlayInfo";
 import PlayPage from "./PlayPage";
 
-export default function GameIntro({ playId }: GamePlayParams) {
-  const [gameIntroResponse, setGameIntroResponse] =
-    useState<GameIntroType | null>(null);
-  const [loading, setLoading] = useState(true);
+interface GamePlayProps {
+  playId: number;
+  gameId: number;
+  gameIntro: GameIntroType;
+}
 
-  const searchParams = useSearchParams();
-  const gameId = searchParams.get("gameId");
-
-  useEffect(() => {
-    startGame();
-
-    async function startGame() {
-      setLoading(true);
-      try {
-        const response = await getGameIntro(Number(gameId));
-        if (!response.success) throw new Error(response.error.message);
-
-        setGameIntroResponse(response.intro);
-      } catch (error) {
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    }
-  }, [gameId]);
-
-  if (loading) {
-    return null;
-  }
-
-  if (!gameIntroResponse || gameId === null) {
-    notFound();
-  }
-
-  const pageId = gameIntroResponse.play?.page.id;
+export default function GamePlay({ playId, gameId, gameIntro }: GamePlayProps) {
+  const pageId = undefined;
   return (
     <section className="relative">
       {pageId !== undefined ? (
         <>
-          <PlayInfo gameIntro={gameIntroResponse} />
-          <PlayPage
-            gameId={Number(gameId)}
-            playId={Number(playId)}
-            pageId={pageId}
-          />
+          <PlayInfo gameIntro={gameIntro} />
+          <PlayPage gameId={gameId} playId={playId} pageId={pageId} />
         </>
       ) : (
         <>게임 페이지가 존재하지 않습니다</>
