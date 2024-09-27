@@ -47,7 +47,9 @@ export default function useGamePlay({ pageId, playId }: UseGamePlayProps) {
       response.success &&
         setPage({
           id: response.result.endingPage.id,
-          description: response.result.endingPage.abridgement,
+          description:
+            response.result.endingPage.description ??
+            response.result.endingPage.abridgement,
           tempDescription: "",
           choices: [],
           isEnding: true,

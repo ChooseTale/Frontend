@@ -151,6 +151,7 @@ export interface GameResult {
   endingPage: {
     id: number;
     abridgement: string;
+    description: string;
   };
   choosenPages: ChoosenPage[];
 }
