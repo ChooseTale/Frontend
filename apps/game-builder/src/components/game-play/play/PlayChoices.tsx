@@ -3,19 +3,20 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { TextAlignTopIcon } from "@radix-ui/react-icons";
 import type { ApiChoice } from "@/interface/customType";
+import type useGamePlay from "@/hooks/useGamePlay";
 import penIcon from "@asset/icon/pen.png";
 
 interface PlayPageProps {
   choiceSending: boolean;
   choices: ApiChoice[];
-  handleChoiceClick: (choiceId: number) => void;
+  selectChoice: ReturnType<typeof useGamePlay>["selectChoice"];
   pageLength: number;
 }
 
 export default function PlayChoices({
   choiceSending,
   choices,
-  handleChoiceClick,
+  selectChoice,
   pageLength,
 }: PlayPageProps) {
   const [skip, setSkip] = useState(false);
@@ -24,10 +25,7 @@ export default function PlayChoices({
   return (
     <>
       {skip ? (
-        <StaticChoices
-          choices={choices}
-          handleChoiceClick={handleChoiceClick}
-        />
+        <StaticChoices choices={choices} selectChoice={selectChoice} />
       ) : (
         <>
           <motion.div
@@ -76,7 +74,7 @@ export default function PlayChoices({
                   <button
                     type="button"
                     className="text-left"
-                    onClick={() => handleChoiceClick(choice.id)}
+                    onClick={() => selectChoice({ choiceId: choice.id })}
                   >
                     {choice.description}
                   </button>
@@ -92,10 +90,10 @@ export default function PlayChoices({
 
 function StaticChoices({
   choices,
-  handleChoiceClick,
+  selectChoice,
 }: {
   choices: ApiChoice[];
-  handleChoiceClick: (choiceId: number) => void;
+  selectChoice: ReturnType<typeof useGamePlay>["selectChoice"];
 }) {
   return (
     <>
@@ -113,7 +111,7 @@ function StaticChoices({
             <button
               type="button"
               className="text-left"
-              onClick={() => handleChoiceClick(choice.id)}
+              onClick={() => selectChoice({ choiceId: choice.id })}
             >
               {choice.description}
             </button>

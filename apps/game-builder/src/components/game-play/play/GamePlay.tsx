@@ -15,7 +15,7 @@ export default function GamePlay({ playId, gameId, gameIntro }: GamePlayProps) {
   const pageId = gameIntro.play?.page?.id;
 
   if (!pageId) {
-    return router.push(`/game-play/start?gameId=${gameId}`);
+    router.push(`/game-play/start?gameId=${gameId}`);
   }
 
   return (
