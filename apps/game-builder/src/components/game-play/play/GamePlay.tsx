@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { type GameIntro as GameIntroType } from "@/interface/customType";
 import PlayInfo from "../info/PlayInfo";
 import PlayPage from "./PlayPage";
@@ -10,7 +11,12 @@ interface GamePlayProps {
 }
 
 export default function GamePlay({ playId, gameId, gameIntro }: GamePlayProps) {
+  const router = useRouter();
   const pageId = gameIntro.play?.page?.id;
+
+  if (!pageId) {
+    return router.push(`/game-play/start?gameId=${gameId}`);
+  }
 
   return (
     <section className="relative">
