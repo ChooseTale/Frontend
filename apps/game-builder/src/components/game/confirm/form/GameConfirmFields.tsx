@@ -96,7 +96,7 @@ export default function GameConfirmFields({
         />
       </div>
 
-      <div className="flex flex-col sm:!flex-row gap-2">
+      <div className="flex flex-col sm:!flex-row gap-2 pt-2">
         <div className="flex gap-2 items-center">
           <p className="mb-0 text-xs">게임을 비공개로 올릴까요?</p>
           <ThemedSwitch name="isPrivate" control={control} />

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import type { UpdateGameReqDto } from "@choosetale/nestia-type/lib/structures/UpdateGameReqDto";
 import type { GameInfo } from "@/interface/customType";
 import { updateGame } from "@/actions/game/updateGame";
+import { isValueEmpty } from "@/components/common/editor/contant";
 import NextButton from "@components/button/SubmitButton";
 import GameConfirmFields from "@/components/game/confirm/form/GameConfirmFields";
 
@@ -22,11 +23,20 @@ export default function ConfirmGame({
       thumbnailImageId: gameInfoData.thumbnails[0]?.id ?? -1,
     },
   });
-  const { handleSubmit, watch } = useFormProps;
+  const { handleSubmit, watch, setError } = useFormProps;
 
   const onSubmit: SubmitHandler<GameInfo> = async (fieldValues) => {
     const { title, description, genre, isPrivate, thumbnailImageId } =
       fieldValues;
+
+    if (isValueEmpty(description)) {
+      setError("description", {
+        type: "required",
+        message: "페이지 내용을 입력해주세요",
+      });
+      return;
+    }
+
     const payload: UpdateGameReqDto = {
       title,
       description,

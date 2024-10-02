@@ -33,8 +33,7 @@ export default function Editor({
 
   const handleOnChange = () => {
     const content = getWysiwygContent();
-    const cleanedContent = content.trim() === emptyInitialValue ? "" : content;
-    onChange && onChange(cleanedContent);
+    onChange && onChange(content);
   };
 
   return (

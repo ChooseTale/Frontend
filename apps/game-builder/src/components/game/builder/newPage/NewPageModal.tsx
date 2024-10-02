@@ -16,7 +16,10 @@ import MaxLengthText, {
   setMaxLengthOptions,
 } from "@/components/common/form/MaxLengthText";
 import PageContentEditor from "@/components/common/editor/PageContentEditor";
-import { emptyInitialValue } from "@/components/common/editor/contant";
+import {
+  emptyInitialValue,
+  isValueEmpty,
+} from "@/components/common/editor/contant";
 
 interface NewPageModalProps extends ReturnType<typeof useForm<NewPage>> {
   handleNewPage: (newPageData: { content: string; isEnding: boolean }) => void;
@@ -53,7 +56,7 @@ export default function NewPageModal({
   const handleButtonClick = async () => {
     const isValid = await trigger();
     const { content } = getValues();
-    if (emptyInitialValue === content) {
+    if (isValueEmpty(content)) {
       setError("content", {
         type: "required",
         message: "페이지 내용을 입력해주세요",
