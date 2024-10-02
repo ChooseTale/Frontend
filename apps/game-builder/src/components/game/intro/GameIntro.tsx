@@ -33,6 +33,7 @@ export default function GameIntro({
                 alt="game thumbnail"
                 width={300}
                 height={200}
+                style={{ objectFit: "cover" }}
               />
             )}
           </AspectRatio>

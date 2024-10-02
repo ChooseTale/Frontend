@@ -131,6 +131,7 @@ function CarouselItemWithOnError({
             fill
             priority={idx <= 1}
             sizes="(max-width: 600px) 80vw, 400px"
+            style={{ objectFit: "cover" }}
           />
         </div>
         {isError && (

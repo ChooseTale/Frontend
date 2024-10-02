@@ -37,6 +37,7 @@ export default function DetailGame({
             alt="game thumbnail"
             width={300}
             height={200}
+            style={{ objectFit: "cover" }}
           />
         </AspectRatio>
         <h3>No: {gameId}</h3>
