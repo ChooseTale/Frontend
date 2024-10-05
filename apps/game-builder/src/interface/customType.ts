@@ -155,3 +155,36 @@ export interface GameResult {
   };
   choosenPages: ChoosenPage[];
 }
+
+export interface GameListGame {
+  game: {
+    id: number;
+    title: string;
+    thumbnail: {
+      id: number;
+      url: string;
+    };
+    genre: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  publisher: {
+    userId: number;
+    nickname: string;
+    profileImage: {
+      url: string;
+    };
+  };
+  enrichData: {
+    totalEndingCount: number;
+    totalRechedEndingPlayCount: number;
+    expectPlayTime: number;
+    me: {
+      isExistReachedEndingPlay: boolean;
+      reachedEndingPlayCount: number;
+      isExistContinuePlay: boolean;
+    };
+  };
+}
+
+export type GameList = GameListGame[];
