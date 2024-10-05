@@ -1,5 +1,6 @@
 {
   "genre": {
+    "ALL": "All",
     "FANTASY": "Fantasy",
     "SCI_FI": "Science Fiction",
     "HORROR": "Horror",

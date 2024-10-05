@@ -1,6 +1,6 @@
-import { forwardRef } from "react";
 import type { Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
+import { type Genres } from "@choosetale/nestia-type/lib/structures/Genres";
 import type { InputProps } from "@repo/ui/components/ui/Input.jsx";
 import {
   Select,
@@ -9,50 +9,56 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/Select.tsx";
-import type { GameInfo } from "@/interface/customType";
 import { GENRES } from "@/constants/genres";
-import ThemedLabel from "@/components/theme/ui/ThemedLabel";
+import type { GameInfo } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
+import ThemedLabel from "@/components/theme/ui/ThemedLabel";
 
 interface GenresSelectProps extends InputProps {
   labelText: string;
-  name: keyof GameInfo;
-  control: Control<GameInfo>;
+  name: keyof Partial<GameInfo>;
+  control: Control<Partial<GameInfo>>;
+  hasSelectAll?: boolean;
 }
 
-const GenresSelect = forwardRef<HTMLSelectElement, GenresSelectProps>(
-  ({ labelText, name, control, ...props }) => {
-    const { t } = useTranslation();
+export default function GenresSelect({
+  labelText,
+  name,
+  control,
+  hasSelectAll = false,
+  ...props
+}: GenresSelectProps) {
+  const { t } = useTranslation();
+  let genres: (Genres | "ALL")[] = GENRES;
 
-    return (
-      <div className="flex flex-col gap-2">
-        <ThemedLabel labelText={labelText} />
-        <Controller
-          name={name}
-          control={control}
-          render={({ field }) => (
-            <Select
-              onValueChange={field.onChange}
-              value={field.value ? String(field.value) : ""}
-            >
-              <SelectTrigger className="!text-xs !w-full bg-white">
-                <SelectValue placeholder={props.value} />
-              </SelectTrigger>
-              <SelectContent>
-                {GENRES.map((genre) => (
-                  <SelectItem key={genre} value={genre}>
-                    {t(`genre.${genre}`)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-      </div>
-    );
+  if (hasSelectAll) {
+    genres = ["ALL", ...genres];
   }
-);
 
-GenresSelect.displayName = "GenresSelect";
-
-export default GenresSelect;
+  return (
+    <div className="flex flex-col gap-2">
+      <ThemedLabel labelText={labelText} />
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <Select
+            onValueChange={field.onChange}
+            value={field.value ? String(field.value).toLocaleUpperCase() : ""}
+          >
+            <SelectTrigger className="!text-xs !w-full bg-white">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent id={props.id}>
+              {genres.map((genre) => (
+                <SelectItem key={genre} value={genre}>
+                  {t(`genre.${genre}`)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      />
+    </div>
+  );
+}

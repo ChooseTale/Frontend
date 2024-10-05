@@ -1,23 +1,20 @@
 import { Suspense } from "react";
 import { getGameList } from "@/actions/list/getGameList";
+import {
+  formatGameListSearchParams,
+  type GameListSearchParams,
+} from "@/utils/formatGameListSearchParams";
 import GameList from "@/components/game-list/GameList";
 
+export const dynamic = "force-dynamic";
+
 export interface GameListParams {
-  searchParams: {
-    page: string;
-    genre: string;
-    sort: string;
-  };
+  searchParams: GameListSearchParams;
 }
 
 export default async function Page({ searchParams }: GameListParams) {
-  const params = {
-    page: Number(searchParams.page) || 1,
-    limit: 10,
-    genre: searchParams.genre,
-    sort: searchParams.sort || "desc",
-  };
-  const response = await getGameList(params);
+  const formattedParams = formatGameListSearchParams(searchParams);
+  const response = await getGameList(formattedParams);
 
   if (!response.success) {
     throw new Error("Failed to fetch game list");
@@ -25,7 +22,7 @@ export default async function Page({ searchParams }: GameListParams) {
 
   return (
     <Suspense fallback={null}>
-      <GameList gameList={response.gameList} />
+      <GameList firstList={response.gameList} />
     </Suspense>
   );
 }

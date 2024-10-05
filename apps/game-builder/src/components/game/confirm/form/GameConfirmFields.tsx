@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useWatch, type useForm } from "react-hook-form";
+import { useWatch, type useForm, type Control } from "react-hook-form";
 import { InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ThemedInputField from "@themed/ThemedInputField";
 import ThemedSwitch from "@themed/ThemedSwitch";
@@ -84,7 +84,11 @@ export default function GameConfirmFields({
 
       <Thumbnails {...useFormProps} />
 
-      <GenresSelect name="genre" labelText="게임 장르" control={control} />
+      <GenresSelect
+        name="genre"
+        labelText="게임 장르"
+        control={control as Control<Partial<GameInfo>>}
+      />
 
       <MaxLengthText {...descriptionMaxLengthOptions} className="top-0" />
       <div className="h-[20vh] bg-gray-100">

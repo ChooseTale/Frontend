@@ -1,5 +1,6 @@
 {
   "genre": {
+    "ALL": "전체",
     "FANTASY": "판타지",
     "SCI_FI": "공상 과학",
     "HORROR": "공포",
