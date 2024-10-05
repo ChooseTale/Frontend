@@ -8,7 +8,6 @@ import {
   formatGameListSearchParams,
 } from "@/utils/formatGameListSearchParams";
 import GameListCard from "./GameListCard";
-import GameListFilters from "./GameListFilters";
 
 export default function GameList({ firstList }: { firstList: GameListType }) {
   const searchParams = useSearchParams();
@@ -51,7 +50,6 @@ export default function GameList({ firstList }: { firstList: GameListType }) {
 
   return (
     <>
-      <GameListFilters searchParams={searchParams.toString()} />
       {gameList.map((e) => (
         <GameListCard gameData={e} key={e.game.id} />
       ))}

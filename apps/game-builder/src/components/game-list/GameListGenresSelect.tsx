@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";

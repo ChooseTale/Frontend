@@ -5,6 +5,7 @@ import {
   type GameListSearchParams,
 } from "@/utils/formatGameListSearchParams";
 import GameList from "@/components/game-list/GameList";
+import GameListFilters from "@/components/game-list/GameListFilters";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,7 @@ export default async function Page({ searchParams }: GameListParams) {
 
   return (
     <Suspense fallback={null}>
+      <GameListFilters searchParams={searchParams.toString()} />
       <GameList firstList={response.gameList} />
     </Suspense>
   );
