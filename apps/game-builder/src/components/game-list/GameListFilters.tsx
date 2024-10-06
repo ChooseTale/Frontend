@@ -1,8 +1,9 @@
+import { type FormattedSearchParams } from "@/utils/formatGameListSearchParams";
 import GameListGenresSelect from "./GameListGenresSelect";
 import GameListSort from "./GameListSort";
 
 interface FilterComponentProps {
-  searchParams: string;
+  searchParams: FormattedSearchParams;
 }
 
 export default function GameListFilters({

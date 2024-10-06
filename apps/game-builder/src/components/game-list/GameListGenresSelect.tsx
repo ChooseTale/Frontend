@@ -1,25 +1,22 @@
 "use client";
 import { useCallback, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
-import { type Genres } from "@choosetale/nestia-type/lib/structures/Genres";
+import { type FormattedSearchParams } from "@/utils/formatGameListSearchParams";
 import { type GameInfo } from "@/interface/customType";
 import GenresSelect from "../game/confirm/form/GenresSelect";
 
-interface GameListGenresSelectProps {
-  searchParams: string;
+interface GameListSelectProps {
+  searchParams: FormattedSearchParams;
 }
-
-const createParams = (paramsString: string) =>
-  new URLSearchParams(paramsString);
 
 export default function GameListGenresSelect({
   searchParams,
-}: GameListGenresSelectProps) {
+}: GameListSelectProps) {
   const router = useRouter();
-  const params = createParams(searchParams);
+  const params = useSearchParams();
 
-  const defaultValues = { genre: (params.get("genre") as Genres) || "all" };
+  const defaultValues = { genre: searchParams.genre };
   const { control } = useForm<Partial<GameInfo>>({
     defaultValues,
   });
@@ -27,17 +24,12 @@ export default function GameListGenresSelect({
 
   const handleFilterChange = useCallback(
     (newGenre: string) => {
-      const updatedParams = createParams(searchParams);
-      const newGenreLowerCase = newGenre.toLowerCase();
+      const updatedParams = new URLSearchParams(params);
+      updatedParams.set("genre", newGenre);
 
-      if (newGenreLowerCase === "all") {
-        updatedParams.delete("genre");
-      } else {
-        updatedParams.set("genre", newGenreLowerCase);
-      }
       router.push(`?${updatedParams.toString()}`);
     },
-    [searchParams, router]
+    [router, params]
   );
 
   useEffect(() => {

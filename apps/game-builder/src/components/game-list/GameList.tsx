@@ -19,6 +19,7 @@ export default function GameList({ firstList }: { firstList: GameListType }) {
     const params = Object.fromEntries(
       searchParams
     ) as unknown as GameListSearchParams;
+
     return formatGameListSearchParams(params);
   }, [searchParams]);
 

@@ -1,7 +1,8 @@
 "use server";
 import type { HttpError } from "@choosetale/nestia-type";
+import type { Genres } from "@choosetale/nestia-type/lib/structures/Genres";
 import { API_URL } from "@/config/config";
-import type { GameList } from "@/interface/customType";
+import type { GameList, SortType } from "@/interface/customType";
 import type { ApiResponse, SuccessResponse } from "../action";
 
 interface ApiSuccessResponse extends SuccessResponse {
@@ -16,8 +17,8 @@ export const getGameList = async ({
 }: {
   page: number;
   limit: number;
-  genre: string;
-  sort: string;
+  genre: Genres;
+  sort: SortType;
 }): Promise<ApiResponse<ApiSuccessResponse>> => {
   const url = `${API_URL}/game-play/list?page=${page}&limit=${limit}&genre=${genre}&sort=${sort}`;
 

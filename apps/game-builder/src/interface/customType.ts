@@ -188,3 +188,5 @@ export interface GameListGame {
 }
 
 export type GameList = GameListGame[];
+
+export type SortType = "POPULAR" | "LATEST";
