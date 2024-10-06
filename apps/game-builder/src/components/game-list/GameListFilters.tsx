@@ -10,7 +10,7 @@ export default function GameListFilters({
   searchParams,
 }: FilterComponentProps) {
   return (
-    <div className="flex items-center gap-4 justify-end">
+    <div className="flex-1 flex items-center gap-4 justify-end">
       <GameListGenresSelect searchParams={searchParams} />
       <GameListSort searchParams={searchParams} />
     </div>

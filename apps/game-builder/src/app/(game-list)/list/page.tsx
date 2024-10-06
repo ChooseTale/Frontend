@@ -26,8 +26,12 @@ export default async function Page({ searchParams }: GameListParams) {
 
   return (
     <Suspense fallback={null}>
-      <GameListFilters searchParams={formattedSearchParams} />
-      <GameList firstList={response.gameList} />
+      <div className="h-full flex flex-col">
+        <GameListFilters searchParams={formattedSearchParams} />
+        <div className="py-5 h-[calc(100vh-140px)] overflow-y-scroll">
+          <GameList firstList={response.gameList} />
+        </div>
+      </div>
     </Suspense>
   );
 }
