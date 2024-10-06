@@ -11,12 +11,12 @@ interface ApiSuccessResponse extends SuccessResponse {
 
 export const getGameList = async ({
   page,
-  limit,
+  limit = 4,
   genre,
   sort,
 }: {
   page: number;
-  limit: number;
+  limit?: number;
   genre: Genres;
   sort: SortType;
 }): Promise<ApiResponse<ApiSuccessResponse>> => {
@@ -32,6 +32,7 @@ export const getGameList = async ({
     });
 
     const data = (await response.json()) as GameList;
+
     return { success: true, gameList: data };
   } catch (error) {
     return { success: false, error: error as HttpError };

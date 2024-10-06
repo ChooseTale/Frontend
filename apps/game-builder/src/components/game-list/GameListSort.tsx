@@ -20,6 +20,10 @@ export default function GameListSort({ searchParams }: GameListSelectProps) {
   };
 
   const sortId = "sortSelect";
+  const sorts: { value: SortType; option: string }[] = [
+    { value: "LATEST", option: "최신 순" },
+    { value: "POPULAR", option: "인기 순" },
+  ];
 
   return (
     <>
@@ -29,8 +33,11 @@ export default function GameListSort({ searchParams }: GameListSelectProps) {
         value={params.get("sort") || defaultSort}
         onChange={(e) => handleSortChange(e.target.value as SortType)}
       >
-        <option value="LASTEST">최신 순</option>
-        <option value="POPULAR">인기 순</option>
+        {sorts.map(({ value, option }) => (
+          <option key={value} value={value}>
+            {option}
+          </option>
+        ))}
       </select>
     </>
   );

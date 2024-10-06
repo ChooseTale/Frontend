@@ -15,7 +15,10 @@ export interface GameListParams {
 
 export default async function Page({ searchParams }: GameListParams) {
   const formattedSearchParams = formatGameListSearchParams(searchParams);
-  const response = await getGameList(formattedSearchParams);
+  const response = await getGameList({
+    ...formattedSearchParams,
+    page: 1,
+  });
 
   if (!response.success) {
     throw new Error("Failed to fetch game list");
