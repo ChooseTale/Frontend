@@ -29,6 +29,13 @@ export default function GameList({ firstList }: { firstList: GameListType }) {
     hasMore,
   });
 
+  const searchParamsString = searchParams.toString();
+  useEffect(() => {
+    setGameList(firstList);
+    setPage(1);
+    setHasMore(true);
+  }, [searchParamsString, firstList]);
+
   const formattedSearchParams = useMemo(() => {
     const params = Object.fromEntries(
       searchParams
