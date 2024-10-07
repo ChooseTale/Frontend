@@ -43,9 +43,9 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
         )}
       </AspectRatio>
 
-      <div className="h-24 flex flex-col justify-between">
+      <div className="min-h-24 flex flex-col justify-between gap-2">
         <div>
-          <p className="headline !leading-7">{title}</p>
+          <p className="headline my-1 break-keep">{title}</p>
           <p className="caption">{t(`genre.${genre}`)}</p>
         </div>
         <div className="flex items-center gap-1">
