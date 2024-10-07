@@ -11,7 +11,7 @@ interface ApiSuccessResponse extends SuccessResponse {
 
 export const getGameList = async ({
   page,
-  limit = 4,
+  limit = 6,
   genre,
   sort,
 }: {
