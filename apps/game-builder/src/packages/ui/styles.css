@@ -2,25 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  overflow: hidden;
-  -ms-overflow-style: none;
-}
 ::-webkit-scrollbar {
   display: none;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    overflow: hidden;
+    -ms-overflow-style: none;
+
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
+
+    @apply bg-background text-foreground;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -84,12 +89,17 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer utilities {
+  .headline {
+    @apply text-headline leading-140 tracking-tight font-pretendard;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .body {
+    @apply text-body leading-140 tracking-tight font-pretendard;
+  }
+
+  .caption {
+    @apply text-caption leading-140 tracking-tight font-pretendard;
   }
 }
 
