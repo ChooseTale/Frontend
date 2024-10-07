@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { AllSidesIcon } from "@radix-ui/react-icons";
-import penIcon from "@asset/icon/pen.png";
+import penIcon from "@asset/icons/pen.png";
 import ThemedButton from "@/components/theme/ui/ThemedButton";
 import TypingTextWithCursor from "@/components/common/text/TypingTextWithCursor";
 

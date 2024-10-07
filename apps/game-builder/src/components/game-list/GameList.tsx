@@ -79,9 +79,13 @@ export default function GameList({ firstList }: { firstList: GameListType }) {
     return <p>{error}</p>;
   }
 
+  if (!loading && gameList.length === 0) {
+    return <div className="text-center">해당되는 게임이 없습니다</div>;
+  }
+
   return (
     <div>
-      <div className="grid grid-cols-2 mx-[20px] gap-x-2 gap-y-6">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-6">
         {gameList?.map((e) => <GameListCard gameData={e} key={e.game.id} />)}
       </div>
       <div ref={observerRef} style={{ height: "1px" }} />

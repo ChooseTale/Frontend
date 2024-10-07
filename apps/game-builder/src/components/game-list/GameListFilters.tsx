@@ -1,6 +1,8 @@
+"use client";
 import { type FormattedSearchParams } from "@/utils/formatGameListSearchParams";
-import GameListGenresSelect from "./GameListGenresSelect";
+import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
 import GameListSort from "./GameListSort";
+import GenresFilterDraw from "./GenresFilterDraw";
 
 interface FilterComponentProps {
   searchParams: FormattedSearchParams;
@@ -9,10 +11,26 @@ interface FilterComponentProps {
 export default function GameListFilters({
   searchParams,
 }: FilterComponentProps) {
+  const { updateSearchParams } = useUpdateSearchParams();
+
+  const handleGenreChange = (newGenre: string) => {
+    updateSearchParams("genre", newGenre);
+  };
+
+  const handleSortChange = (newSort: string) => {
+    updateSearchParams("sort", newSort);
+  };
+
   return (
-    <div className="flex-1 flex items-center gap-4 justify-end">
-      <GameListGenresSelect searchParams={searchParams} />
-      <GameListSort searchParams={searchParams} />
-    </div>
+    <>
+      <GenresFilterDraw
+        searchParams={searchParams}
+        handleGenreChange={handleGenreChange}
+      />
+      <GameListSort
+        searchParams={searchParams}
+        handleSortChange={handleSortChange}
+      />
+    </>
   );
 }

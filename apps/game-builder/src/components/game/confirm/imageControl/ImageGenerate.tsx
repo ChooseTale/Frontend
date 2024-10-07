@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import robotIcon from "@asset/icon/robot-solid.svg";
+import robotIcon from "@asset/icons/robot-solid.svg";
 import ThemedIconButton from "@/components/theme/ui/ThemedIconButton";
 
 interface ImageGenerateProps {

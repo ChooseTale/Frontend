@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { TextAlignTopIcon } from "@radix-ui/react-icons";
 import type { ApiChoice } from "@/interface/customType";
 import type useGamePlay from "@/hooks/useGamePlay";
-import penIcon from "@asset/icon/pen.png";
+import penIcon from "@asset/icons/pen.png";
 
 interface PlayPageProps {
   choiceSending: boolean;

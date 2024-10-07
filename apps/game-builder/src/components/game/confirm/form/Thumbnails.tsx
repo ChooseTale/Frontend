@@ -7,7 +7,7 @@ import ThemedIconButton from "@themed/ThemedIconButton";
 import ThemedLabel from "@themed/ThemedLabel";
 import ThemedCard from "@themed/ThemedCard";
 import { type GameInfo } from "@/interface/customType";
-import robotIcon from "@asset/icon/robot-solid.svg";
+import robotIcon from "@asset/icons/robot-solid.svg";
 import useThumbnails from "@/hooks/useThumbnail";
 
 export default function Thumbnails({

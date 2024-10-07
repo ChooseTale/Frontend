@@ -1,9 +1,9 @@
 "use client";
+import Image from "next/image";
 import { Link } from "@radix-ui/react-navigation-menu";
 import { AllSidesIcon, HomeIcon } from "@radix-ui/react-icons";
-import penIcon from "@asset/icon/pen.png";
+import { penIcon } from "@asset/icons";
 import { NavigationMenu, NavigationMenuItem } from "./ui/NavigationMenu";
-import Image from "next/image";
 
 export default function NavBar() {
   return (

@@ -90,6 +90,10 @@
 }
 
 @layer utilities {
+  .content-center {
+    @apply flex items-center justify-center;
+  }
+
   .headline {
     @apply text-headline leading-140 tracking-tight font-pretendard;
   }
@@ -100,6 +104,28 @@
 
   .caption {
     @apply text-caption leading-140 tracking-tight font-pretendard;
+  }
+
+  .ct-button {
+    @apply content-center rounded-md;
+  }
+
+  .ct-fill,
+  .ct-fill:hover {
+    @apply !bg-green-500 !text-black;
+  }
+
+  .ct-unable,
+  .ct-unable:hover {
+    @apply !bg-grey-700 !text-white;
+  }
+
+  .ct-outline {
+    @apply border !border-grey-800 !text-body;
+  }
+
+  .ct-outline.selected {
+    @apply !border-green-500 !text-green-400;
   }
 }
 

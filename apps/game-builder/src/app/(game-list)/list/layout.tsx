@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
-import TopNav from "@/components/common/partial/TopNav";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="h-full w-full bg-white overflow-y-auto">
-      <TopNav title="ChooseYourTale" />
+    <div className="h-full w-full bg-white overflow-y-auto  bg-background-dark text-font-dark">
+      <div className="h-24" />
       {children}
     </div>
   );

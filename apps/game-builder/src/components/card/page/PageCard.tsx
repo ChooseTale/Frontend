@@ -16,7 +16,7 @@ import type useGameData from "@/hooks/useGameData";
 import { removeEditorTags } from "@/utils/removeEditorTags";
 import ThemedCard from "@themed/ThemedCard";
 import ThemedIconButton from "@themed/ThemedIconButton";
-import robotIcon from "@asset/icon/robot-solid.svg";
+import robotIcon from "@asset/icons/robot-solid.svg";
 import GameEditDraw from "@/components/game/edit/GameEditDraw";
 import DateDisplayRelative from "@/components/common/text/DateDisplayRelative";
 import DotIndicator from "./DotIndicator";

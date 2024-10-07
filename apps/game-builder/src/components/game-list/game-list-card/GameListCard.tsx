@@ -29,7 +29,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
         <Image
           src={src}
           alt={`thumbnail image ${thumbnail?.id}`}
-          className="rounded-md object-cover border select-none"
+          className="rounded-md object-cover select-none"
           onError={handleError}
           fill
           sizes="(max-width: 600px) 80vw, 400px"
@@ -46,7 +46,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
       <div className="min-h-24 flex flex-col justify-between gap-2">
         <div>
           <p className="headline my-1 break-keep">{title}</p>
-          <p className="caption">{t(`genre.${genre}`)}</p>
+          <p className="caption text-grey-200">{t(`genre.${genre}`)}</p>
         </div>
         <div className="flex items-center gap-1">
           {totalRechedEndingPlayCount !== 0 ? (
@@ -54,7 +54,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
               <ProfileIcons
                 profileIcons={Array(totalRechedEndingPlayCount).fill("")}
               />
-              <p className="caption">
+              <p className="caption mt-1">
                 {totalRechedEndingPlayCount}명이 엔딩을 봤어요
               </p>
             </>
