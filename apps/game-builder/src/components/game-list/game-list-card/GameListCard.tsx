@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Image from "next/image";
 import { ImageIcon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@/packages/ui/components/ui/AspectRatio";
 import { type GameListGame } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
+import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
 import PlayerImages from "./PlayerImages";
 
 export default function GameListCard({ gameData }: { gameData: GameListGame }) {
@@ -13,13 +14,10 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
   const totalRechedEndingPlayCount =
     gameData.enrichData.totalRechedEndingPlayCount;
 
-  const [src, setSrc] = useState(thumbnail?.url);
   const [isError, setIsError] = useState(false);
-  const placeholderSrc =
-    "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80";
 
-  const handleError = () => {
-    setSrc(placeholderSrc);
+  const handleError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+    getPlaceholderImageOnError(e);
     setIsError(true);
   };
 
@@ -27,7 +25,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
     <div>
       <AspectRatio ratio={1 / 1} className="mb-2">
         <Image
-          src={src}
+          src={thumbnail?.url}
           alt={`thumbnail image ${thumbnail?.id}`}
           className="rounded-md object-cover select-none"
           onError={handleError}

@@ -1,18 +1,11 @@
 import Image from "next/image";
+import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
 
 export default function PlayerImages({
   profileIcons,
 }: {
   profileIcons: string[];
 }) {
-  const placeholderSrc =
-    "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80";
-
-  const onError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = e.target as HTMLImageElement;
-    target.src = placeholderSrc;
-  };
-
   return (
     <div>
       <ul className="flex mr-2">
@@ -25,7 +18,7 @@ export default function PlayerImages({
                 fill
                 sizes="10px"
                 style={{ objectFit: "cover" }}
-                onError={onError}
+                onError={getPlaceholderImageOnError}
               />
             </div>
           </li>
