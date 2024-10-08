@@ -45,6 +45,18 @@ export default function LandingButtonBox() {
           </div>
         </ThemedButton>
       </Link>
+      <Link href="/list">
+        <ThemedButton
+          variant="ghost"
+          className="w-full h-auto border border-b-2 border-black gap-2"
+        >
+          <TypingTextWithCursor
+            text="게임 목록"
+            initialDelay={1}
+            fontSize="lg"
+          />
+        </ThemedButton>
+      </Link>
     </>
   );
 }
