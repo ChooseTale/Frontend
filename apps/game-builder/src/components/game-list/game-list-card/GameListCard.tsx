@@ -4,7 +4,7 @@ import { ImageIcon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@/packages/ui/components/ui/AspectRatio";
 import { type GameListGame } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
-import ProfileIcons from "./ProfileIcons";
+import PlayerImages from "./PlayerImages";
 
 export default function GameListCard({ gameData }: { gameData: GameListGame }) {
   const { t } = useTranslation();
@@ -51,7 +51,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
         <div className="flex items-center gap-1">
           {totalRechedEndingPlayCount !== 0 ? (
             <>
-              <ProfileIcons
+              <PlayerImages
                 profileIcons={Array(totalRechedEndingPlayCount).fill("")}
               />
               <p className="caption mt-1">

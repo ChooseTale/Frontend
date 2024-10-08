@@ -167,6 +167,13 @@ export interface GameListGame {
     genre: string;
     createdAt: string;
     updatedAt: string;
+    player: {
+      userId: number;
+      nickname: string;
+      profileImage: {
+        url: string;
+      };
+    }[];
   };
   publisher: {
     userId: number;

@@ -6,6 +6,7 @@ export default function Page(): JSX.Element {
     <BackgroundWapper>
       <main className="h-full flex-1 flex items-center justify-center">
         <Landing />
+        <div />
       </main>
     </BackgroundWapper>
   );
