@@ -1,22 +1,28 @@
-import { SyntheticEvent, useState } from "react";
+import { type SyntheticEvent, useState } from "react";
 import Image from "next/image";
 import { ImageIcon } from "@radix-ui/react-icons";
 import { AspectRatio } from "@/packages/ui/components/ui/AspectRatio";
 import { type GameListGame } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
-import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
+import {
+  getPlaceholderImageOnError,
+  placeholderSrc,
+} from "@/utils/getPlaceholderImageOnError";
 import PlayerImages from "./PlayerImages";
 
 export default function GameListCard({ gameData }: { gameData: GameListGame }) {
   const { t } = useTranslation();
+  const [isError, setIsError] = useState(false);
+
   const game = gameData.game;
+  if (!game) return null;
+
   const { thumbnail, title, genre } = game;
   const totalRechedEndingPlayCount =
     gameData.enrichData.totalRechedEndingPlayCount;
 
-  const [isError, setIsError] = useState(false);
-
-  const handleError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
+    if (isError) return;
     getPlaceholderImageOnError(e);
     setIsError(true);
   };
@@ -25,7 +31,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
     <div>
       <AspectRatio ratio={1 / 1} className="mb-2">
         <Image
-          src={thumbnail?.url}
+          src={thumbnail?.url ?? placeholderSrc}
           alt={`thumbnail image ${thumbnail?.id}`}
           className="rounded-md object-cover select-none"
           onError={handleError}
@@ -33,7 +39,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
           sizes="(max-width: 600px) 80vw, 400px"
           style={{ objectFit: "cover" }}
         />
-        {isError && (
+        {(isError || !thumbnail?.url) && (
           <div className="absolute w-full h-full rounded-md border border-red-500 flex justify-center items-center">
             <ImageIcon className="w-10 h-10" color="#aaaaaa" />
             <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
