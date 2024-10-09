@@ -8,6 +8,7 @@ import {
   getPlaceholderImageOnError,
   placeholderSrc,
 } from "@/utils/getPlaceholderImageOnError";
+import CompleteBadge from "../CompleteBadge";
 import PlayerImages from "./PlayerImages";
 
 export default function GameListCard({ gameData }: { gameData: GameListGame }) {
@@ -46,6 +47,11 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
           <div className="absolute w-full h-full rounded-md border border-red-500 flex justify-center items-center">
             <ImageIcon className="w-10 h-10" color="#aaaaaa" />
             <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
+          </div>
+        )}
+        {gameData.enrichData.me.reachedEndingPlayCount && (
+          <div className="absolute top-2 right-2 z-10">
+            <CompleteBadge />
           </div>
         )}
       </AspectRatio>

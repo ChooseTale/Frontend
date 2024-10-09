@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import { getGameAllById } from "@/actions/game/getGame";
 import GameBuilder from "@/app/(game)/[gameId]/builder/_components/GameBuilder";
 import TopNav from "@/components/common/partial/TopNav";
-import { type GameParams } from "../page";
 import { NextButton } from "@/components/common/button/NextButton";
+import { type GameParams } from "../page";
 
 export default async function Page({ params }: { params: GameParams }) {
   const { gameId } = params;

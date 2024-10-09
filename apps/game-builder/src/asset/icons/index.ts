@@ -4,6 +4,7 @@ import penIcon from "./pen.png";
 import robotSolidIcon from "./robot-solid.svg";
 import slidersIcon from "./sliders.svg";
 import slidersActiveIcon from "./sliders-active.svg";
+import completeBadgeIcon from "./complete-badge.svg";
 
 export {
   xIcon,
@@ -12,4 +13,5 @@ export {
   robotSolidIcon,
   slidersIcon,
   slidersActiveIcon,
+  completeBadgeIcon,
 };

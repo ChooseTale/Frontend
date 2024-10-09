@@ -15,6 +15,7 @@ import { xIcon } from "@/asset/icons";
 import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
 import GameContinueButton from "@/app/(game-list)/list/_components/GameContinueButton";
 import GameStartButton from "@/app/(game-list)/list/_components/GameStartButton";
+import CompleteBadge from "../CompleteBadge";
 import PlayerImages from "../game-list-card/PlayerImages";
 import GameIntroBadge from "./GameIntroBadge";
 
@@ -122,7 +123,17 @@ export default function GameIntroModal({
 
         <div className="relative pb-[100%]" />
 
-        <div className="flex items-center justify-between h-10 px-[1px] -mt-[6rem]">
+        <div className="relative flex items-center justify-between h-10 px-[1px] -mt-[6rem]">
+          {gameData.enrichData.me.reachedEndingPlayCount && (
+            <div className="flex items-center gap-2 absolute -top-8">
+              <CompleteBadge className="w-[1.875rem] h-[1.875rem]" />
+
+              <span className="body text-[#42F584]">
+                {gameData.enrichData.me.reachedEndingPlayCount}개의 엔딩을
+                봤어요
+              </span>
+            </div>
+          )}
           <p className="caption text-grey-100">{t(`genre.${game.genre}`)}</p>{" "}
           <div className="flex items-center gap-1">
             {totalRechedEndingPlayCount !== 0 && (
