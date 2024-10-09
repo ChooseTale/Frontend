@@ -26,11 +26,11 @@ export default async function Page({ searchParams }: GameListParams) {
 
   return (
     <Suspense fallback={null}>
-      <div className="h-full flex flex-col mx-5">
-        <div className="flex justify-between items-center">
+      <div className="h-[calc(100vh-8rem)] flex flex-col mx-5 pt-4">
+        <div className="flex justify-between items-center pb-4">
           <GameListFilters searchParams={formattedSearchParams} />
         </div>
-        <div className="py-5 h-[calc(100vh-140px)] overflow-y-scroll">
+        <div className="h-[calc(100vh-12rem)] overflow-y-scroll bg-red-500">
           <GameList firstList={response.gameList} />
         </div>
       </div>
