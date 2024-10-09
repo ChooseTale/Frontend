@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getGameIntro } from "@/actions/game-play/getIntro";
-import GamePlay from "@/components/game-play/play/GamePlay";
+import GamePlay from "./_components/GamePlay";
 
 export interface GamePageParams {
   params: {

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getGameInfoById } from "@/actions/game/getGame";
-import DetailGame from "@/components/game/detail/DetailGame";
+import DetailGame from "@/components/temp/detail/DetailGame";
 
 export interface GameParams {
   gameId: string;

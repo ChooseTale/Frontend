@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import DetailGame from "@/components/game/detail/DetailGame";
+import DetailGame from "@/components/temp/detail/DetailGame";
 import { getGameInfoById } from "@/actions/game/getGame";
 import { type GameParams } from "../page";
 

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getGameIntro } from "@/actions/game-play/getIntro";
-import GameIntro from "@/components/game/intro/GameIntro";
+import GameIntro from "@/app/(game)/[gameId]/preview/_components/GameIntro";
 import { type GameParams } from "../page";
 
 export default async function Page({ params }: { params: GameParams }) {

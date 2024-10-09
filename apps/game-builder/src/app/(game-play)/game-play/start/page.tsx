@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import GameStart from "@/components/game-play/start/GameStart";
+import GameStart from "./_components/GameStart";
 
 export default function Page({
   searchParams,

@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import TopNav from "@/components/common/partial/TopNav";
-import ConfirmGame from "@/components/game/confirm/ConfirmGame";
 import { getGameInfoById } from "@/actions/game/getGame";
 import { type GameParams } from "../page";
+import ConfirmGame from "./_components/ConfirmGame";
 
 export default async function Page({ params }: { params: GameParams }) {
   const { gameId } = params;

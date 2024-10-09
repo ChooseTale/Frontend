@@ -1,6 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
-import BackButton from "@/components/button/BackButton";
+import BackButton from "@/components/common/button/BackButton";
 
 export default function TopNav({
   title,

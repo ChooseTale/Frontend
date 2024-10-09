@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import { getGameResult } from "@/actions/game-play/getGameResult";
 import { getGameIntro } from "@/actions/game-play/getIntro";
 import { type GameIntro } from "@/interface/customType";
-import GamePlayChoosenPages from "@/components/game-play/result/GamePlayChoosenPages";
-import GameRestartButton from "@/components/button/GameRestartButton";
-import GameEnrich from "@/components/game/GameEnrich";
+import GameRestartButton from "@components/common/button/GameRestartButton";
+import GameEnrich from "@/components/common/game/GameEnrich";
 import { type GamePageParams } from "../page";
+import GamePlayChoosenPages from "./_components/GamePlayChoosenPages";
 
 export default async function Page({ params, searchParams }: GamePageParams) {
   const { playId } = params;
