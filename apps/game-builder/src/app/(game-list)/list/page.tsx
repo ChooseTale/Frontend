@@ -30,7 +30,7 @@ export default async function Page({ searchParams }: GameListParams) {
         <div className="flex justify-between items-center pb-4">
           <GameListFilters searchParams={formattedSearchParams} />
         </div>
-        <div className="h-[calc(100vh-12rem)] overflow-y-scroll bg-red-500">
+        <div className="h-[calc(100vh-12rem)] overflow-y-scroll">
           <GameList firstList={response.gameList} />
         </div>
       </div>
