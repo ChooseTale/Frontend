@@ -7,7 +7,7 @@ export default function Button({
   unable = false,
   className = "",
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   buttonText: string;
   isPlaying?: boolean;
   unable?: boolean;
@@ -16,7 +16,7 @@ export default function Button({
   return (
     <ButtonUi
       className={`flex-1 h-full rounded-lg ${isPlaying || unable ? "ct-unable" : "ct-fill"} ${className}`}
-      onClick={onClick}
+      onClick={onClick && onClick}
     >
       <span className="text-headline text-white">{buttonText}</span>
     </ButtonUi>

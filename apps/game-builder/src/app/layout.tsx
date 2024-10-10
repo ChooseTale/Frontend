@@ -3,7 +3,6 @@ import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/packages/ui/components/ui/Toaster";
-import MobileWrapper from "@repo/ui/components/MobileWrapper.tsx";
 import CSSThemeProvider from "@/components/theme/ThemeProvider";
 import LocaleProvider from "@/components/LocaleProvider";
 import { getDictionary } from "./[lang]/dictionaries";
@@ -30,9 +29,7 @@ export default async function RootLayout({
         <LocaleProvider dict={dict}>
           <>
             <Toaster />
-            <CSSThemeProvider>
-              <MobileWrapper>{children}</MobileWrapper>
-            </CSSThemeProvider>
+            <CSSThemeProvider>{children}</CSSThemeProvider>
           </>
         </LocaleProvider>
       </body>

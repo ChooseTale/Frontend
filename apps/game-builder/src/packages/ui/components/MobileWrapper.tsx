@@ -2,13 +2,16 @@
 import { PropsWithChildren } from "react";
 import NavBar from "./NavBar";
 
-export default function MobileWrapper({ children }: PropsWithChildren) {
+export default function MobileWrapper({
+  children,
+  hasNavBar = true,
+}: PropsWithChildren<{ hasNavBar?: boolean }>) {
   return (
     <div className="w-full h-[calc(100vh-1px)] flex bg-slate-200">
       <UnSupported />
       <div className="mobile-layout max-w-5xl flex flex-col justify-between mx-auto bg-white">
         <div className="flex-1 overflow-y-auto">{children}</div>
-        <NavBar />
+        {hasNavBar && <NavBar />}
       </div>
     </div>
   );

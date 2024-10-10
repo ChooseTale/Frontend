@@ -49,7 +49,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
             <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
           </div>
         )}
-        {gameData.enrichData.me.reachedEndingPlayCount && (
+        {gameData.enrichData.me.reachedEndingPlayCount > 0 && (
           <div className="absolute top-2 right-2 z-10">
             <CompleteBadge />
           </div>
