@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/packages/ui/components/ui/Toaster";
 import CSSThemeProvider from "@/components/theme/ThemeProvider";
 import LocaleProvider from "@/components/LocaleProvider";
+import AuthProvider from "@/components/AuthProvider";
 import { getDictionary } from "./[lang]/dictionaries";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,12 +27,14 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <LocaleProvider dict={dict}>
-          <>
-            <Toaster />
-            <CSSThemeProvider>{children}</CSSThemeProvider>
-          </>
-        </LocaleProvider>
+        <AuthProvider>
+          <LocaleProvider dict={dict}>
+            <>
+              <Toaster />
+              <CSSThemeProvider>{children}</CSSThemeProvider>
+            </>
+          </LocaleProvider>
+        </AuthProvider>
       </body>
     </html>
   );
