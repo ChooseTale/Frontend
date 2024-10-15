@@ -5,7 +5,7 @@ import axios, {
   type AxiosResponse,
 } from "axios";
 import { API_URL } from "@/config/config";
-import { requestInterceptor } from "@/lib/axios/interceptors/request";
+import { requestInterceptor } from "./interceptors/request";
 
 interface NextOptions {
   tags?: string[];

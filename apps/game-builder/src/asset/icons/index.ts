@@ -5,6 +5,7 @@ import robotSolidIcon from "./robot-solid.svg";
 import slidersIcon from "./sliders.svg";
 import slidersActiveIcon from "./sliders-active.svg";
 import completeBadgeIcon from "./complete-badge.svg";
+import socialGoogleButtonIcon from "./social-google.svg";
 
 export {
   xIcon,
@@ -14,4 +15,5 @@ export {
   slidersIcon,
   slidersActiveIcon,
   completeBadgeIcon,
+  socialGoogleButtonIcon,
 };

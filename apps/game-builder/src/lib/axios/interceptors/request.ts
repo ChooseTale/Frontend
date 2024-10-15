@@ -1,5 +1,5 @@
-import initRequestHeader from "@/lib/axios/initRequestHeader";
 import { type InternalAxiosRequestConfig } from "axios";
+import initRequestHeader from "@/lib/axios/initRequestHeader";
 
 export const requestInterceptor = (
   config: InternalAxiosRequestConfig
