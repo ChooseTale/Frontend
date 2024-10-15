@@ -3,7 +3,7 @@ import LinkedButton from "@/components/common/button/LinkedButton";
 
 export default function NotFoundPage() {
   return (
-    <div className="h-full flex flex-col items-center justify-center flex-1 text-gray-900 p-4">
+    <div className="h-[100vh] flex flex-col items-center justify-center flex-1 text-gray-900 p-4">
       <div className="text-center">
         <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
         <h2 className="text-2xl font-semibold mb-4">Page Not Found 🔍</h2>

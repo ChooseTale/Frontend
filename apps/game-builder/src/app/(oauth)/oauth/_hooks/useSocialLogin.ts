@@ -7,10 +7,10 @@ export default function useSocialLogin() {
   const router = useRouter();
   const { data: session } = useSession();
   const sessionWithCookie = session as SessionWhenLoggin;
-  const isDisabled = session !== null || sessionWithCookie?.loggin;
+  const isLoggin = session !== null && sessionWithCookie?.loggin;
 
   const loginHandler = async () => {
-    if (isDisabled) return;
+    if (isLoggin) return;
     await signIn("google");
   };
 
@@ -21,10 +21,15 @@ export default function useSocialLogin() {
   };
 
   useEffect(() => {
-    if (sessionWithCookie?.loggin) {
+    if (isLoggin) {
       router.push("/list");
     }
   }, [sessionWithCookie, router]);
 
-  return { sessionWithCookie, isDisabled, loginHandler, logoutHandler };
+  return {
+    sessionWithCookie,
+    isLoggin,
+    loginHandler,
+    logoutHandler,
+  };
 }

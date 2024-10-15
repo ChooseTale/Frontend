@@ -15,14 +15,15 @@ export interface GameListParams {
 
 export default async function Page({ searchParams }: GameListParams) {
   const formattedSearchParams = formatGameListSearchParams(searchParams);
-  const response = await getGameList({
+  const gameListData = await getGameList({
     ...formattedSearchParams,
     page: 1,
   });
 
-  if (!response.success) {
+  if (!gameListData.data) {
     throw new Error("Failed to fetch game list");
   }
+  const firstGameList = gameListData.data;
 
   return (
     <Suspense fallback={null}>
@@ -31,7 +32,7 @@ export default async function Page({ searchParams }: GameListParams) {
           <GameListFilters searchParams={formattedSearchParams} />
         </div>
         <div className="h-[calc(100vh-12rem)] overflow-y-scroll">
-          <GameList firstList={response.gameList} />
+          <GameList firstList={firstGameList} />
         </div>
       </div>
     </Suspense>
