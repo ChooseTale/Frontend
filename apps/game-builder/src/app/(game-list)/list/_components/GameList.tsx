@@ -55,9 +55,9 @@ export default function GameList({ firstList }: { firstList: GameListType }) {
           page: pageNum,
           limit: LIMIT_AFTER_PAGE_ONE,
         });
-        const responseGameList = response.success && response.gameList;
+        const responseGameList = response.data;
 
-        if (responseGameList && responseGameList.length) {
+        if (responseGameList?.length) {
           setGameList((prevList) => [...prevList, ...responseGameList]);
           if (responseGameList.length < LIMIT_AFTER_PAGE_ONE) {
             setHasMore(false);

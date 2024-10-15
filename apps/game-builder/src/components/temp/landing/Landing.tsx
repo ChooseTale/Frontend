@@ -1,6 +1,5 @@
 import Image from "next/image";
 import logo from "@/asset/logo.png";
-import LandingButtonBox from "./LandingButtonBox";
 
 export default function Landing() {
   return (
@@ -14,10 +13,6 @@ export default function Landing() {
           style={{ objectFit: "contain" }}
         />
         <h1 className="text-xl font-bold mb-6">ChooseTale</h1>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <LandingButtonBox />
       </div>
     </div>
   );

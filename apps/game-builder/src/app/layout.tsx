@@ -7,6 +7,7 @@ import CSSThemeProvider from "@/components/theme/ThemeProvider";
 import LocaleProvider from "@/components/LocaleProvider";
 import SessionProvider from "@/components/SessionProvider";
 import { getDictionary } from "./[lang]/dictionaries";
+import AuthRedirect from "./_components/AuthRedirect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +31,10 @@ export default async function RootLayout({
         <LocaleProvider dict={dict}>
           <CSSThemeProvider>
             <Toaster />
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <AuthRedirect />
+              {children}
+            </SessionProvider>
           </CSSThemeProvider>
         </LocaleProvider>
       </body>

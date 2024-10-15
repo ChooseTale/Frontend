@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import LinkedButton from "@/components/common/button/LinkedButton";
 
 interface ErrorProps {
@@ -9,7 +8,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function ErrorPage({ error, reset }: ErrorProps) {
+export default function ErrorPage({ error }: ErrorProps) {
   const isAuthError = error.message.includes("401");
   const router = useRouter();
   const pathname = usePathname();
@@ -29,9 +28,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
       description: "잠시 후 로그인 페이지로 이동합니다.",
     },
   };
-  const currentError = isAuthError
-    ? ERROR["AUTH_ERROR"]
-    : ERROR["DEFAULT_ERROR"];
+  const currentError = isAuthError ? ERROR.AUTH_ERROR : ERROR.DEFAULT_ERROR;
 
   return (
     <ErrorWrapper

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { type SessionWhenLoggin } from "@/app/api/auth/[...nextauth]/route";
+import { type SessionWhenLoggin } from "@/lib/next-auth/authOptions";
 
 export default function useSocialLogin() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function useSocialLogin() {
     if (isLoggin) {
       router.push("/list");
     }
-  }, [sessionWithCookie, router]);
+  }, [sessionWithCookie, router, isLoggin]);
 
   return {
     sessionWithCookie,
