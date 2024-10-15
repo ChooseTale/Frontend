@@ -81,7 +81,7 @@ export default function GameList({ firstList }: { firstList: GameListType }) {
     return <p>{error}</p>;
   }
 
-  if (!loading && gameList.length === 0) {
+  if (!gameList || (!loading && gameList.length === 0)) {
     return <div className="text-center">해당되는 게임이 없습니다</div>;
   }
 
