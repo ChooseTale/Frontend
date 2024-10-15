@@ -13,7 +13,7 @@ import { type FormattedSearchParams } from "@/utils/formatGameListSearchParams";
 import { GENRES } from "@/constants/genres";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Button } from "@/packages/ui/components/ui/Button";
-import { slidersIcon, xIconGrayscale, slidersActiveIcon } from "@/asset/icons";
+import { slidersIcon, xGrayscaleIcon, slidersActiveIcon } from "@/asset/icons";
 
 interface GameListSelectProps {
   searchParams: FormattedSearchParams;
@@ -93,7 +93,7 @@ export default function GenresFilterDraw({
               onClick={onClose}
               type="button"
             >
-              <Image src={xIconGrayscale} width={24} height={24} alt="choice" />
+              <Image src={xGrayscaleIcon} width={24} height={24} alt="choice" />
             </button>
           </DrawerHeader>
 

@@ -20,8 +20,8 @@ export default function SocialLogin() {
         <Image
           src={socialGoogleButtonIcon}
           alt="Google Login"
-          layout="fill"
-          objectFit="contain"
+          style={{ objectFit: "contain" }}
+          fill
         />
       </button>
     </div>

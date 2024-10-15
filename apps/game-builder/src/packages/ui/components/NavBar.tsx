@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Link } from "@radix-ui/react-navigation-menu";
 import { AllSidesIcon, HomeIcon } from "@radix-ui/react-icons";
-import { penIcon } from "@asset/icons";
+import { taleIcon } from "@asset/icons";
 import { NavigationMenu, NavigationMenuItem } from "./ui/NavigationMenu";
 
 export default function NavBar() {
@@ -23,7 +23,7 @@ export default function NavBar() {
           <NavigationMenuItem>
             <Link href="/game/create">
               <Image
-                src={penIcon}
+                src={taleIcon}
                 width={24}
                 height={24}
                 className="m-3 w-5 h-5 lg:w-7 lg:h-7 grow-0 shirnk-0 filter invert"
