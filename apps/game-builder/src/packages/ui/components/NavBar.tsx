@@ -1,44 +1,54 @@
 "use client";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Link } from "@radix-ui/react-navigation-menu";
-import { AllSidesIcon, HomeIcon } from "@radix-ui/react-icons";
-import { taleIcon } from "@asset/icons";
+import BookOpenIcon from "@asset/icons/book-open.svg";
+import EditIcon from "@asset/icons/edit.svg";
+import UserIcon from "@asset/icons/user.svg";
 import { NavigationMenu, NavigationMenuItem } from "./ui/NavigationMenu";
 
 export default function NavBar() {
+  const pathname = usePathname();
+  const getItemColor = (path: string) =>
+    pathname === path ? "text-green-500" : "text-grey-500";
+  const getIconColor = (path: string) =>
+    pathname === path ? "#22c55e" : "#777777";
+
   return (
-    <div className="w-full h-16 md:h-20 lg:h-24 shrink-0 bg-black">
+    <div className="w-full h-16 md:h-20 lg:h-24 shrink-0 bg-background-dark border-t border-grey-900">
       <NavigationMenu className="w-full h-full max-w-none px-8 md:px-10 lg:px-12">
         <ul className="w-full h-full flex justify-between items-center !mb-0">
-          <NavigationMenuItem>
+          <NavigationMenuItem className="flex-1">
             <Link href="/list">
-              <HomeIcon
-                height={24}
-                width={24}
-                color="white"
-                className="m-2 w-6 h-6 lg:w-8 lg:h-8"
-              />
+              <div className="flex flex-col items-center gap-1">
+                <BookOpenIcon stroke={getIconColor("/list")} />
+                <span className={`${getItemColor("/list")} text-caption`}>
+                  게임
+                </span>
+              </div>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="flex-1">
             <Link href="/game/create">
-              <Image
-                src={taleIcon}
-                width={24}
-                height={24}
-                className="m-3 w-5 h-5 lg:w-7 lg:h-7 grow-0 shirnk-0 filter invert"
-                alt="choice"
-              />
+              <div className="flex flex-col items-center gap-1">
+                <EditIcon stroke={getIconColor("/game/create")} />
+                <span
+                  className={`${getItemColor("/game/create")} text-caption`}
+                >
+                  빌더
+                </span>
+              </div>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="flex-1">
             <Link href="/game/1/intro">
-              <AllSidesIcon
-                height={24}
-                width={24}
-                color="white"
-                className="m-2 w-6 h-6 lg:w-8 lg:h-8"
-              />
+              <div className="flex flex-col items-center gap-1">
+                <UserIcon stroke={getIconColor("/game/1/intro")} />
+                <span
+                  className={`${getItemColor("/game/1/intro")} text-caption`}
+                >
+                  마이
+                </span>
+              </div>
             </Link>
           </NavigationMenuItem>
         </ul>
