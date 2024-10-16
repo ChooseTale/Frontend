@@ -9,7 +9,7 @@ export default function ContinuedGameList({
   continuedGame,
 }: ContinuedGameListProps) {
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-3 !gap-y-10 px-6">
+    <div className="grid grid-cols-2 gap-2 sm:gap-3 !gap-y-10">
       {continuedGame.map((game) => (
         <ContinuedGameCard
           continuedGame={game}
