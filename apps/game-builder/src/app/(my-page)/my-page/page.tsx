@@ -11,7 +11,7 @@ export default async function Page() {
   const user = await me();
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col pt-4">
+    <div className="h-[calc(100vh-4rem)] flex flex-col">
       <TopNav title="마이페이지" hasBackButton page="/my-page" />
       <UserProfile user={user} />
       <ContinuedGame />

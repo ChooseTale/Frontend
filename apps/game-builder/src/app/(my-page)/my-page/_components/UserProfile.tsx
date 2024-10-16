@@ -24,7 +24,7 @@ export default function UserProfile({ user }: UserProfileProps) {
       />
       <Link href="/my-page/profile">
         <div className="flex flex-col gap-1 items-center">
-          <div className="text-title font-semibold flex gap-1 items-center">
+          <div className="text-title1 font-semibold flex gap-1 items-center">
             {user.nickname}
 
             <div className="relative w-0">

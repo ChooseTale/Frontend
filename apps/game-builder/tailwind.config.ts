@@ -40,7 +40,8 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
         "system-yellow": "#ffcc00",
       },
       fontSize: {
-        title: "1.25rem",
+        title1: "1.25rem",
+        title2: "1.125rem",
         headline: "1rem",
         body: "0.875rem",
         caption: "0.75rem",
