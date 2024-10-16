@@ -3,6 +3,7 @@ import { getContinuedGame } from "@/actions/my-page/getContinuedGame";
 import TopNav from "./_components/TopNav";
 import UserProfile from "./_components/UserProfile";
 import ContinuedGame from "./_components/ContinuedGame";
+import FooterButtons from "./_components/Footer";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,7 @@ export default async function Page() {
         continuedGame={[...continuedGame, ...continuedGame, ...continuedGame]}
       />
       <div className="h-3 bg-grey-900 mt-10 mb-3" />
+      <FooterButtons />
     </div>
   );
 }
