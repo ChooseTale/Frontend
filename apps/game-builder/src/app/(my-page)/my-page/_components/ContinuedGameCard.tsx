@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { type ContinuedGame } from "@/interface/customType";
 import Button from "@/components/common/button/Button";
 
@@ -9,6 +10,15 @@ interface ContinuedGameCardProps {
 export default function ContinuedGameCard({
   continuedGame,
 }: ContinuedGameCardProps) {
+  const router = useRouter();
+  const onClick = () => {
+    if (continuedGame.play.id) {
+      router.push(
+        `/game-play/${continuedGame.play.id}?gameId=${continuedGame.game.id}`
+      );
+    }
+  };
+
   return (
     <div className="w-[calc(50%-1.125rem)] h-[15rem] shrink-0 flex flex-col">
       <div className="relative w-full h-[10rem] rounded-md overflow-hidden bg-grey-200">
@@ -42,7 +52,7 @@ export default function ContinuedGameCard({
           </p>
         </div>
         <div className="h-12 flex">
-          <Button onClick={() => null} buttonText="이어하기" />
+          <Button onClick={onClick} buttonText="이어하기" />
         </div>
       </div>
     </div>

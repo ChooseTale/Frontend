@@ -1,13 +1,16 @@
 import Link from "next/link";
-import { type ContinuedGame as ContinuedGameType } from "@/interface/customType";
 import ChevronRightIcon from "@asset/icons/chevron-right.svg";
+import { getContinuedGame } from "@/actions/my-page/getContinuedGame";
 import ContinuedGameCard from "./ContinuedGameCard";
 
-interface ContinuedGameProps {
-  continuedGame: ContinuedGameType[];
-}
+export default async function ContinuedGame() {
+  const continuedGame = await getContinuedGame({
+    page: 1,
+    limit: 8,
+    genre: "ALL",
+    order: "LATEST",
+  });
 
-export default function ContinuedGame({ continuedGame }: ContinuedGameProps) {
   return (
     <div>
       <div className="flex flex-col gap-4">
