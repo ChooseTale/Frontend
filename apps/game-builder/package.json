@@ -32,7 +32,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@choosetale/nestia-type": "0.1.10",
+    "@choosetale/nestia-type": "0.1.13",
     "@nestia/fetcher": "^3.2.6",
     "@next/eslint-plugin-next": "^14.2.3",
     "@radix-ui/react-aspect-ratio": "^1.1.0",

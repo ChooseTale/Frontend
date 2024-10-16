@@ -28,9 +28,9 @@ import userIcon from "./user.svg?url";
 import xCircleIcon from "./x-circle.svg?url";
 import xGrayscaleIcon from "./x-grayscale.svg?url";
 import xIcon from "./x.svg?url";
+import type iconsList from "./generated-icons.json";
 
 /** api/gen-icons-list로 fs의 아이콘 목록 확인 가능 */
-import iconsList from "./generated-icons.json";
 export type TIcon = keyof typeof iconsList;
 
 export {

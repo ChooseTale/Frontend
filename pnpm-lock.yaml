@@ -88,8 +88,8 @@ importers:
         version: 4.5.4(@types/react@18.2.61)(react@18.2.0)
     devDependencies:
       '@choosetale/nestia-type':
-        specifier: 0.1.10
-        version: 0.1.10(typescript@5.3.3)
+        specifier: 0.1.13
+        version: 0.1.13(typescript@5.3.3)
       '@nestia/fetcher':
         specifier: ^3.2.6
         version: 3.2.6(typescript@5.3.3)
@@ -1574,8 +1574,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@choosetale/nestia-type@0.1.10(typescript@5.3.3):
-    resolution: {integrity: sha512-nCJySdf9EVAVgWSnxSsGPJvQFEL8ItnwI3X0KL1SywS1stkGmo6UjowKWFfzoI79hZ/4zoYuh0gsz9SNM6VxTA==, tarball: https://npm.pkg.github.com/download/@ChooseTale/nestia-type/0.1.10/5a3afb96d9f1afb9ee7e59affca53c34b6818f5b}
+  /@choosetale/nestia-type@0.1.13(typescript@5.3.3):
+    resolution: {integrity: sha512-Aza2rvV2tLhHBrmsZs3fzpFWhGSf+Ap6S4/0mZ++eRuDYG54HmtR3v5drC7bYTkUV6hnCTwI+2j06kh4RwPklw==, tarball: https://npm.pkg.github.com/download/@ChooseTale/nestia-type/0.1.13/d45ed164ce830fed4cea718079779ec2a190dac3}
     dependencies:
       '@nestia/fetcher': 3.2.6(typescript@5.3.3)
       typia: 6.3.1(typescript@5.3.3)

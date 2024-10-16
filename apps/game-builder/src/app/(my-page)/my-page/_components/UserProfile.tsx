@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { User } from "@/interface/customType";
+import { type User } from "@/interface/customType";
 import profilePlaceholder from "@asset/images/profile-placeholder.svg?url";
 import ChevronDownIcon from "@asset/icons/chevron-right.svg";
 
