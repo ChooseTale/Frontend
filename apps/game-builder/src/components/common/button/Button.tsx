@@ -15,7 +15,7 @@ export default function Button({
 }) {
   return (
     <ButtonUi
-      className={`flex-1 h-full rounded-lg ${isPlaying || unable ? "ct-unable" : "ct-fill"} ${className}`}
+      className={`flex-1 h-full rounded-md ${isPlaying || unable ? "ct-unable" : "ct-fill"} ${className}`}
       onClick={onClick && onClick}
     >
       <span className="text-headline text-white">{buttonText}</span>

@@ -5,10 +5,12 @@ import Button from "@/components/common/button/Button";
 
 interface ContinuedGameCardProps {
   continuedGame: ContinuedGame;
+  className?: string;
 }
 
 export default function ContinuedGameCard({
   continuedGame,
+  className,
 }: ContinuedGameCardProps) {
   const router = useRouter();
   const onClick = () => {
@@ -20,8 +22,10 @@ export default function ContinuedGameCard({
   };
 
   return (
-    <div className="w-[calc(50%-1.125rem)] h-[15rem] shrink-0 flex flex-col">
-      <div className="relative w-full h-[10rem] rounded-md overflow-hidden bg-grey-200">
+    <div
+      className={`w-[calc(50%-1.125rem)] shrink-0 flex flex-col ${className}`}
+    >
+      <div className="relative w-full pb-[100%] rounded-md overflow-hidden bg-grey-200">
         {/* <ErrorHandlingImage
             src={continuedGame.game.thumbnail.url}
             alt="thumbnail"
@@ -36,7 +40,7 @@ export default function ContinuedGameCard({
                   day: "2-digit",
                 })
                 .replace(/\. /g, ".")
-                .replace(".", "")}
+                .replace(/\.$/, "")}
             </p>
             <p className="text-white text-body line-clamp-2">
               {continuedGame.game.title}
@@ -47,11 +51,11 @@ export default function ContinuedGameCard({
 
       <div className="flex-1 flex flex-col justify-between">
         <div className="flex-1 flex items-center">
-          <p className="text-body text-green-500 truncate text-ellipsis px-[1px]">
+          <p className="text-body text-green-500 truncate text-ellipsis px-[1px] py-1.5">
             {continuedGame.play.page?.abridgement}
           </p>
         </div>
-        <div className="h-12 flex">
+        <div className="h-10 flex">
           <Button onClick={onClick} buttonText="이어하기" />
         </div>
       </div>

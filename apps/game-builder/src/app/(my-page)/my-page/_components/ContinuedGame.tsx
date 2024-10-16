@@ -26,8 +26,8 @@ export default async function ContinuedGame() {
           </Link>
         </div>
 
-        <div className="overflow-x-auto ml-5">
-          <div className="flex gap-4">
+        <div className="overflow-x-auto mx-5">
+          <div className="flex gap-3">
             {continuedGame?.map((data) => (
               <ContinuedGameCard continuedGame={data} key={data.game.id} />
             ))}
