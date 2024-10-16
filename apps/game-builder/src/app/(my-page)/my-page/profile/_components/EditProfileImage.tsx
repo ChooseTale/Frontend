@@ -17,11 +17,12 @@ export default function EditProfileImage({ user }: EditProfileImageProps) {
   const [error, setError] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
     setIsLoading(true);
     setError(null);
 
-    const file = e.target.files?.[0];
-    if (!file) return;
     const newImageUrl = URL.createObjectURL(file);
 
     const formData = new FormData();
@@ -67,7 +68,12 @@ export default function EditProfileImage({ user }: EditProfileImageProps) {
               isLoading ? "animate-pulse" : ""
             } ${error !== null ? "border-2 border-red-500" : ""}`}
           >
-            <Image src={imageUrl} alt="profile" fill />
+            <Image
+              src={imageUrl}
+              alt="profile"
+              fill
+              style={{ objectFit: "cover" }}
+            />
           </div>
           <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1">
             <ChangeImageButtonIcon />
