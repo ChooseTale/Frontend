@@ -73,6 +73,8 @@ export default function EditProfileImage({ user }: EditProfileImageProps) {
               alt="profile"
               fill
               style={{ objectFit: "cover" }}
+              priority
+              sizes="5rem"
             />
           </div>
           <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1">
