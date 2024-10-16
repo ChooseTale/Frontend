@@ -17,8 +17,8 @@ export default function ContinuedGameCard({
             alt="thumbnail"
           /> */}
         <div className="absolute w-full h-full bottom-0 bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent to-60% flex flex-col justify-end">
-          <div className="flex flex-col gap-1 px-2 pb-2">
-            <p className="text-grey-100 text-caption">
+          <div className="flex flex-col gap-0.5 px-2 pb-2">
+            <p className="text-grey-100 text-caption text-thin">
               {new Date(continuedGame.play.createdAt)
                 .toLocaleDateString("ko-KR", {
                   year: "numeric",
@@ -38,7 +38,7 @@ export default function ContinuedGameCard({
       <div className="flex-1 flex flex-col justify-between">
         <div className="flex-1 flex items-center">
           <p className="text-body text-green-500 truncate text-ellipsis px-[1px]">
-            {continuedGame.game.title}sdfdsafdsafsdafdsfdsfsd
+            {continuedGame.play.page?.abridgement}
           </p>
         </div>
         <div className="h-12 flex">
