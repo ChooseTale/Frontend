@@ -40,12 +40,10 @@ export default function NavBar() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex-1">
-            <Link href="/game/1/intro">
+            <Link href="/my-page">
               <div className="flex flex-col items-center gap-1">
-                <UserIcon stroke={getIconColor("/game/1/intro")} />
-                <span
-                  className={`${getItemColor("/game/1/intro")} text-caption`}
-                >
+                <UserIcon stroke={getIconColor("/my-page")} />
+                <span className={`${getItemColor("/my-page")} text-caption`}>
                   마이
                 </span>
               </div>
