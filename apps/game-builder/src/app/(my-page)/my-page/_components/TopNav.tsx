@@ -21,7 +21,7 @@ export default function TopNav({
   const showBackButton = hasBackButton && !isLoot;
 
   return (
-    <div className="relative h-12 flex justify-between items-center px-4">
+    <div className="relative h-12 min-h-12 flex justify-between items-center px-4">
       <div>
         {showBackButton && <BackButton className="invert" />}
         {left}

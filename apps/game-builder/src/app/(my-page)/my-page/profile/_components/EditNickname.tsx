@@ -28,7 +28,6 @@ export default function EditNickname() {
         error={error}
         required
         maxCount={10}
-        autoFocus
       />
 
       <div className="w-full h-[52px] flex">

@@ -9,9 +9,9 @@ import { NavigationMenu, NavigationMenuItem } from "./ui/NavigationMenu";
 export default function NavBar() {
   const pathname = usePathname();
   const getItemColor = (path: string) =>
-    pathname === path ? "text-green-500" : "text-grey-500";
+    pathname.includes(path) ? "text-green-500" : "text-grey-500";
   const getIconColor = (path: string) =>
-    pathname === path ? "#22c55e" : "#777777";
+    pathname.includes(path) ? "#22c55e" : "#777777";
 
   return (
     <div className="w-full h-16 md:h-20 lg:h-24 shrink-0 bg-background-dark border-t border-grey-900">
