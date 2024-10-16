@@ -3,6 +3,7 @@ import arrowRightIcon from "./arrow-right.svg?url";
 import bookOpenIcon from "./book-open.svg?url";
 import cameraIcon from "./camera.svg?url";
 import cameraFillIcon from "./camera_fill.svg?url";
+import changeImageButtonIcon from "./change-image-button.svg?url";
 import chevronDownIcon from "./chevron-down.svg?url";
 import chevronLeftIcon from "./chevron-left.svg?url";
 import chevronRightIcon from "./chevron-right.svg?url";
@@ -39,6 +40,7 @@ export {
   bookOpenIcon,
   cameraIcon,
   cameraFillIcon,
+  changeImageButtonIcon,
   chevronDownIcon,
   chevronLeftIcon,
   chevronRightIcon,

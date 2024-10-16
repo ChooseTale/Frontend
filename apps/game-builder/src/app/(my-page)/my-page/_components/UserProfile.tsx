@@ -18,7 +18,7 @@ export default function UserProfile({ user }: UserProfileProps) {
         alt="profile"
         width={84}
         height={84}
-        className="w-21 h-21 rounded-[1.125rem] bg-gray-300 mb-4"
+        className="w-20 h-20 rounded-[1.125rem] bg-gray-300 mb-4"
         priority
         style={{ objectFit: "cover" }}
       />
