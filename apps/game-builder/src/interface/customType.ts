@@ -197,3 +197,15 @@ export interface GameListGame {
 export type GameList = GameListGame[];
 
 export type SortType = "POPULAR" | "LATEST";
+
+export interface User {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: {
+    url: string;
+  };
+  admin: {
+    isMaster: boolean;
+  };
+}

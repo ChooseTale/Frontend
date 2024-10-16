@@ -66,6 +66,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "image.dongascience.com",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };
