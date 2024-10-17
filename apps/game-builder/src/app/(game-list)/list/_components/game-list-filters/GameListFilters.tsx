@@ -1,15 +1,18 @@
 "use client";
 import { type FormattedSearchParams } from "@/utils/formatGameListSearchParams";
+import type { GameListOption } from "@/interface/customType";
 import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
 import GameListSort from "./GameListSort";
 import GenresFilterDraw from "./GenresFilterDraw";
 
 interface FilterComponentProps {
   searchParams: FormattedSearchParams;
+  option: GameListOption;
 }
 
 export default function GameListFilters({
   searchParams,
+  option,
 }: FilterComponentProps) {
   const { updateSearchParams } = useUpdateSearchParams();
 
@@ -27,10 +30,13 @@ export default function GameListFilters({
         searchParams={searchParams}
         handleGenreChange={handleGenreChange}
       />
-      <GameListSort
-        searchParams={searchParams}
-        handleSortChange={handleSortChange}
-      />
+      {option && (
+        <GameListSort
+          searchParams={searchParams}
+          handleSortChange={handleSortChange}
+          option={option}
+        />
+      )}
     </>
   );
 }

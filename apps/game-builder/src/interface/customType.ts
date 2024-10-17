@@ -198,7 +198,7 @@ export interface GameListGame {
 
 export type GameList = GameListGame[];
 
-export type SortType = "POPULAR" | "LATEST";
+export type SortType = "POPULAR" | "LATEST" | "OLDEST";
 
 export interface User {
   id: number;
@@ -225,4 +225,8 @@ export interface ContinuedGamePlay extends Pick<Play, "id" | "page"> {
 export interface ContinuedGame {
   game: ContinuedGameGame;
   play: ContinuedGamePlay;
+}
+
+export interface GameListOption {
+  sorts: { value: SortType; optionLabel: string }[];
 }

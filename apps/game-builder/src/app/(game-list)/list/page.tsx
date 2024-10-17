@@ -29,7 +29,15 @@ export default async function Page({ searchParams }: GameListParams) {
     <Suspense fallback={null}>
       <div className="h-[calc(100vh-8rem)] flex flex-col mx-5 pt-4">
         <div className="flex justify-between items-center pb-4">
-          <GameListFilters searchParams={formattedSearchParams} />
+          <GameListFilters
+            searchParams={formattedSearchParams}
+            option={{
+              sorts: [
+                { value: "LATEST", optionLabel: "최신순" },
+                { value: "POPULAR", optionLabel: "인기순" },
+              ],
+            }}
+          />
         </div>
         <div className="h-[calc(100vh-12rem)] overflow-y-scroll">
           <GameList firstList={firstGameList} />

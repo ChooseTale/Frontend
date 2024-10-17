@@ -8,7 +8,7 @@ export default async function ContinuedGame() {
     page: 1,
     limit: 8,
     genre: "ALL",
-    order: "LATEST",
+    sort: "LATEST",
   });
 
   return (

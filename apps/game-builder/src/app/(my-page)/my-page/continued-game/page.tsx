@@ -16,8 +16,7 @@ export interface GameListParams {
 export default async function Page({ searchParams }: GameListParams) {
   const formattedSearchParams = formatGameListSearchParams(searchParams);
   const continuedGame = await getContinuedGame({
-    genre: formattedSearchParams.genre,
-    order: formattedSearchParams.sort,
+    ...formattedSearchParams,
     limit: 8,
     page: 1,
   });
@@ -26,7 +25,21 @@ export default async function Page({ searchParams }: GameListParams) {
     <div className="h-full flex flex-col">
       <TopNav title="진행 중인 게임" hasBackButton page="/my-page" />
       <div className="flex justify-between items-center mt-4 mb-5 px-5">
-        <GameListFilters searchParams={formattedSearchParams} />
+        <GameListFilters
+          searchParams={formattedSearchParams}
+          option={{
+            sorts: [
+              {
+                value: "LATEST",
+                optionLabel: "최신순",
+              },
+              {
+                value: "OLDEST",
+                optionLabel: "오래된 순",
+              },
+            ],
+          }}
+        />
       </div>
       <div className="flex-1 overflow-y-scroll pb-20 px-5">
         <ContinuedGameList continuedGame={continuedGame} />
