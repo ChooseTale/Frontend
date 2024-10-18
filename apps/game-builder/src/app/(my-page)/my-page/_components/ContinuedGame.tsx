@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ChevronRightIcon from "@asset/icons/chevron-right.svg";
 import { getContinuedGame } from "@/actions/my-page/getContinuedGame";
-import ContinuedGameCard from "./ContinuedGameCard";
+import ContinuedGameCard from "../continued-game/_components/ContinuedGameCard";
 
 export default async function ContinuedGame() {
   const continuedGame = await getContinuedGame({

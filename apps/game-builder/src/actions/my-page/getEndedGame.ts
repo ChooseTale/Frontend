@@ -1,6 +1,6 @@
 "use server";
 import api from "@/lib/axios/axios";
-import { type ContinuedGame } from "@/interface/customType";
+import { type EndedGame } from "@/interface/customType";
 
 type Group = "game" | "date";
 
@@ -27,5 +27,5 @@ export const getEndedGame = async ({
       order,
     },
   });
-  return response.data as ContinuedGame[];
+  return response.data as EndedGame[];
 };

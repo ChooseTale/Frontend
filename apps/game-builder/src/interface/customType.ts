@@ -227,6 +227,17 @@ export interface ContinuedGame {
   play: ContinuedGamePlay;
 }
 
+export interface EndedGame {
+  game: {
+    id: number;
+    title: string;
+    thumbnail: {
+      url: string;
+    };
+    genre: Genres;
+    reachedEndingAt: string;
+  };
+}
 export interface GameListOption {
   sorts: { value: SortType; optionLabel: string }[];
 }

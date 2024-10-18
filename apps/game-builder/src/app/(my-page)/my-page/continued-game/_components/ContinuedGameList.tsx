@@ -1,5 +1,5 @@
 import { type ContinuedGame } from "@/interface/customType";
-import ContinuedGameCard from "../../_components/ContinuedGameCard";
+import ContinuedGameCard from "./ContinuedGameCard";
 
 interface ContinuedGameListProps {
   continuedGame: ContinuedGame[];

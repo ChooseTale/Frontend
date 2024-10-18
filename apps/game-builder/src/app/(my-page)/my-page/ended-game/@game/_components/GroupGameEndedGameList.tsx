@@ -1,7 +1,7 @@
-import { type ContinuedGame } from "@/interface/customType";
+import { type EndedGame } from "@/interface/customType";
 
 interface EndedGameListProps {
-  endedGame: ContinuedGame[];
+  endedGame: EndedGame[];
 }
 
 export default function GroupGameEndedGameList({
