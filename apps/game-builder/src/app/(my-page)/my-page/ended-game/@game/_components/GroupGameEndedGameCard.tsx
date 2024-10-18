@@ -5,7 +5,6 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { formatDateString } from "@/utils/formatDatestring";
 import { type EndedGameGroupGame } from "@/interface/customType";
 import ChevronDownIcon from "@asset/icons/chevron-down.svg";
-import ChevronUpIcon from "@asset/icons/chevron-up.svg";
 
 interface EndedGameCardProps {
   endedGame: EndedGameGroupGame;
@@ -43,7 +42,11 @@ export default function GroupGameEndedGameCard({
         </div>
 
         <div className="w-6 shrink-0 flex items-center justify-center">
-          <button onClick={() => setIsOpen(!isOpen)} className="outline-none">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="outline-none"
+            type="button"
+          >
             <div
               className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
             >
