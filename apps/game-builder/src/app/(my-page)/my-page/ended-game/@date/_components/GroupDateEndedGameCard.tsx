@@ -1,10 +1,11 @@
 "use client";
-import { type EndedGame } from "@/interface/customType";
+import { type EndedGameGroupDate } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
+import { formatDateString } from "@/utils/formatDatestring";
 import ErrorHandlingImage from "@components/common/image/ImageWithError";
 
 interface EndedGameCardProps {
-  endedGame: EndedGame;
+  endedGame: EndedGameGroupDate;
 }
 
 export default function GroupDateEndedGameCard({
@@ -27,14 +28,7 @@ export default function GroupDateEndedGameCard({
           </p>
         </div>
         <p className="caption text-thin">
-          {new Date(endedGame.game.reachedEndingAt)
-            .toLocaleDateString("ko-KR", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })
-            .replace(/\. /g, ".")
-            .replace(/\.$/, "")}
+          {formatDateString(endedGame.game.reachedEndingAt)}
         </p>
       </div>
     </div>

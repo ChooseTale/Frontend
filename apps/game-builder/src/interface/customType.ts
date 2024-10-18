@@ -227,7 +227,7 @@ export interface ContinuedGame {
   play: ContinuedGamePlay;
 }
 
-export interface EndedGame {
+export interface EndedGameGroupDate {
   game: {
     id: number;
     title: string;
@@ -238,6 +238,22 @@ export interface EndedGame {
     reachedEndingAt: string;
   };
 }
+
+export interface EndedGameGroupGame {
+  game: {
+    id: number;
+    title: string;
+    genre: Genres;
+    totalEndingCount: number;
+    endings: {
+      playId: number;
+      endingNumber: number;
+      abridgement: string;
+      reachedEndingAt: string;
+    }[];
+  };
+}
+
 export interface GameListOption {
   sorts: { value: SortType; optionLabel: string }[];
 }

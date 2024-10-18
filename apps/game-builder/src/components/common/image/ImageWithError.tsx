@@ -1,5 +1,5 @@
 "use client";
-import { type SyntheticEvent, useState } from "react";
+import { type SyntheticEvent, useState, useMemo } from "react";
 import Image from "next/image";
 import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
 
@@ -11,14 +11,17 @@ export default function ErrorHandlingImage({
   alt: string;
 }) {
   const [hasError, setHasError] = useState(false);
-  const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
-    if (hasError) return;
-    setHasError(true);
-    getPlaceholderImageOnError(e);
-  };
 
-  return (
-    <div className="w-full h-full">
+  const handleImageError = useMemo(() => {
+    return (e: SyntheticEvent<HTMLImageElement>) => {
+      if (hasError) return;
+      setHasError(true);
+      getPlaceholderImageOnError(e);
+    };
+  }, [hasError]);
+
+  const MemoizedImage = useMemo(() => {
+    return (
       <Image
         src={src}
         alt={alt}
@@ -27,6 +30,8 @@ export default function ErrorHandlingImage({
         style={{ objectFit: "cover" }}
         onError={handleImageError}
       />
-    </div>
-  );
+    );
+  }, [src, alt, handleImageError]);
+
+  return <div className="w-full h-full">{MemoizedImage}</div>;
 }

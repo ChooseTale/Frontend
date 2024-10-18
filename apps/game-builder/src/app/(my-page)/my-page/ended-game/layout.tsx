@@ -13,7 +13,7 @@ export default function Layout({
   const searchParams = useSearchParams();
 
   return (
-    <div className="flex flex-col">
+    <div className="h-full flex flex-col">
       {children}
       {searchParams.get("group") === "game" ? game : date}
     </div>

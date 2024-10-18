@@ -1,8 +1,8 @@
-import { type EndedGame } from "@/interface/customType";
+import { type EndedGameGroupDate } from "@/interface/customType";
 import GroupDateEndedGameCard from "./GroupDateEndedGameCard";
 
 interface EndedGameListProps {
-  endedGame: EndedGame[];
+  endedGame: EndedGameGroupDate[];
 }
 
 export default function GroupDateEndedGameList({
