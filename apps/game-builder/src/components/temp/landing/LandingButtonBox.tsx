@@ -9,7 +9,7 @@ import TypingTextWithCursor from "@/components/common/text/TypingTextWithCursor"
 export default function LandingButtonBox() {
   return (
     <>
-      <Link href="/game/create">
+      <Link href="/builder/create">
         <ThemedButton
           variant="ghost"
           className="w-full h-auto border border-b-2 border-black gap-2"

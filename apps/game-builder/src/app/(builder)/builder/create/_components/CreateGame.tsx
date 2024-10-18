@@ -8,7 +8,7 @@ import { useGameStore } from "@/store/gameStore";
 import { createGame } from "@/actions/game/createGame";
 import { emptyInitialValue } from "@/components/common/editor/contant";
 import SubmitButton from "@components/common/button/SubmitButton";
-import GameCreateFields from "@/app/(game)/create/_components/GameCreateFields";
+import GameCreateFields from "@/app/(builder)/builder/create/_components/GameCreateFields";
 
 export default function CreateGame() {
   const router = useRouter();
