@@ -17,6 +17,7 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
         "background-dark": "#191919",
         "font-dark": "#f2f2f2",
         black: "#111111",
+        "grey-50": "#efefef",
         "grey-100": "#d2d2d2",
         "grey-200": "#bbbbbb",
         "grey-300": "#a4a4a4",

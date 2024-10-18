@@ -1,7 +1,7 @@
 "use client";
 import { type ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import BackButton from "@/components/common/button/BackButton";
+import RootBackButton from "@/components/common/button/RootBackButton";
 
 export default function TopNav({
   title,
@@ -23,7 +23,9 @@ export default function TopNav({
   return (
     <div className="relative h-12 min-h-12 flex justify-between items-center px-4">
       <div>
-        {showBackButton && <BackButton className="invert" />}
+        {showBackButton && (
+          <RootBackButton rootPath="/my-page" className="invert" />
+        )}
         {left}
       </div>
       <h4 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-title1-md">
