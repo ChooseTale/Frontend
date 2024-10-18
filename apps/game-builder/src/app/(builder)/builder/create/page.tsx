@@ -1,4 +1,4 @@
-import CreateGame from "@/app/(game)/create/_components/CreateGame";
+import CreateGame from "@/app/(builder)/builder/create/_components/CreateGame";
 
 export default function Page() {
   return (

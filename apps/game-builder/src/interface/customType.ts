@@ -257,6 +257,25 @@ export interface EndedGameGroupGame {
   };
 }
 
+export interface GameBuilderGame {
+  games: {
+    id: number;
+    title: string;
+    thumbnail: {
+      url: string;
+    };
+    firstPageAbridgement: string;
+    genre: string;
+    createdAt: string;
+    updatedAt: string;
+    count: {
+      endingCount: number;
+      choiceCount: number;
+      pageCount: number;
+      reachEndingPlayerCount: number | null;
+    };
+  }[];
+}
 export interface GameListOption {
   sorts: { value: SortType; optionLabel: string }[];
 }

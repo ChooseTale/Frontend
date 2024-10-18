@@ -7,7 +7,7 @@ export default function MobileWrapper({
   hasNavBar = true,
 }: PropsWithChildren<{ hasNavBar?: boolean }>) {
   return (
-    <div className="w-full h-[calc(100vh-1px)] flex bg-slate-200">
+    <div className="w-full h-[calc(100vh-0.1px)] flex bg-slate-200">
       <UnSupported />
       <div className="mobile-layout max-w-5xl flex flex-col justify-between mx-auto bg-white">
         <div className="flex-1 overflow-y-auto">{children}</div>
