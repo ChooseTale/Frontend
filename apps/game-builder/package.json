@@ -14,6 +14,7 @@
     "class-variance-authority": "^0.7.0",
     "clipboard": "^2.0.11",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.1.5",
     "framer-motion": "^11.3.2",
     "i18next": "^23.14.0",
