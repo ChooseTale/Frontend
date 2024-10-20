@@ -30,11 +30,11 @@ export default function GroupDateEndedGameCard({
         <div className="h-[88px] flex flex-col justify-between">
           <div>
             <p className="headline line-clamp-2">{endedGame.game.title}</p>
-            <p className="caption text-grey-200 text-thin">
+            <p className="caption text-grey-200 font-normal">
               {t(`genre.${endedGame.game.genre}`)}
             </p>
           </div>
-          <p className="caption text-thin">
+          <p className="caption font-normal">
             {formatDateString(endedGame.game.reachedEndingAt)}
           </p>
         </div>

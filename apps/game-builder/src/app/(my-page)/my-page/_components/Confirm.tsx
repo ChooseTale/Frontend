@@ -27,7 +27,7 @@ export default function ConfirmModal({
       <div className="relative w-full max-w-[340px] mx-10 bg-grey-900 p-5 pt-8 rounded-xl text-center">
         <h2 className="text-title2 font-semibold mb-6">{title}</h2>
         <p
-          className="text-body mb-8 grey-100 font-thin"
+          className="text-body mb-8 grey-100 font-normal"
           dangerouslySetInnerHTML={{ __html: description }}
         />
         <div className="h-12 flex justify-end gap-2">

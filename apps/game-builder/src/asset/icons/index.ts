@@ -26,6 +26,7 @@ import slidersWhiteIcon from "./sliders-white.svg?url";
 import socialGoogleButtonIcon from "./social-google-button.svg?url";
 import taleIcon from "./tale.svg?url";
 import userIcon from "./user.svg?url";
+import usersProfilesIcon from "./users-profiles.svg?url";
 import xCircleIcon from "./x-circle.svg?url";
 import xGrayscaleIcon from "./x-grayscale.svg?url";
 import xIcon from "./x.svg?url";
@@ -63,6 +64,7 @@ export {
   socialGoogleButtonIcon,
   taleIcon,
   userIcon,
+  usersProfilesIcon,
   xCircleIcon,
   xGrayscaleIcon,
   xIcon,

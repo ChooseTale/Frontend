@@ -1,11 +1,13 @@
 import { type GameBuilderGame } from "@/interface/customType";
+import GameBuilderCard from "./GameBuilderCard";
 
 export default function GameBuilderList({
   builderGames,
 }: {
   builderGames: GameBuilderGame;
 }) {
-  if (builderGames.games.length === 0) {
+  const games = builderGames.games;
+  if (games.length === 0) {
     return (
       <div className="absolute left-0 top-0 right-0 bottom-0 flex justify-center items-center">
         <p className="headline text-grey-400 text-center">
@@ -18,9 +20,9 @@ export default function GameBuilderList({
   }
 
   return (
-    <div className="flex flex-col">
-      {builderGames.games.map((game) => (
-        <div key={game.id}>{game.title}</div>
+    <div className="flex flex-col gap-4">
+      {[...games, ...games, ...games].map((game) => (
+        <GameBuilderCard key={game.id} game={game} />
       ))}
     </div>
   );

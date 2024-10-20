@@ -42,7 +42,7 @@ export default function GroupGameEndedGameCard({
           <div className="h-[5.5rem] flex-1 flex flex-col justify-end">
             <div className="h-[3.75rem] pt-2">
               <p className="headline line-clamp-2">{endedGame.game.title}</p>
-              <p className="caption text-grey-200 text-thin">
+              <p className="caption text-grey-200 font-normal">
                 {t(`genre.${endedGame.game.genre}`)}
               </p>
             </div>
@@ -74,14 +74,14 @@ export default function GroupGameEndedGameCard({
                 className="flex px-4 py-5 active:bg-[rgba(255,255,255,0.05)]"
                 key={ending.playId}
               >
-                <p className="w-[4.375rem] text-body text-grey-200 text-thin">
+                <p className="w-[4.375rem] text-body text-grey-200 font-normal">
                   {formatDateString(ending.reachedEndingAt)}
                 </p>
                 <div className="ml-4 flex flex-col">
                   <p className="body text-green-500 font-semibold">
                     {ending.playId}번 엔딩
                   </p>
-                  <p className="body text-grey-100 text-thin">
+                  <p className="body text-grey-100 font-normal">
                     {ending.abridgement}
                   </p>
                 </div>

@@ -24,7 +24,7 @@ export default function FooterButtons() {
   return (
     <div className="flex gap-2 items-center justify-center gap-4 mt-10">
       <button
-        className="text-body text-grey-500 text-thin"
+        className="text-body text-grey-500 font-normal"
         onClick={() => setIsLogoutOpen(true)}
         type="button"
       >
@@ -42,7 +42,7 @@ export default function FooterButtons() {
       <div className="w-[1px] h-[14px] bg-grey-500" />
 
       <button
-        className="text-body text-grey-500 text-thin"
+        className="text-body text-grey-500 font-normal"
         onClick={() => setIsWithdrawalOpen(true)}
         type="button"
       >
