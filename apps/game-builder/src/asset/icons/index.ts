@@ -9,7 +9,6 @@ import chevronLeftIcon from "./chevron-left.svg?url";
 import chevronRightIcon from "./chevron-right.svg?url";
 import chevronUpIcon from "./chevron-up.svg?url";
 import clockIcon from "./clock.svg?url";
-import completeBadgeIcon from "./complete-badge.svg?url";
 import cornerDownRightIcon from "./corner-down-right.svg?url";
 import cpu1Icon from "./cpu-1.svg?url";
 import editIcon from "./edit.svg?url";
@@ -47,7 +46,6 @@ export {
   chevronRightIcon,
   chevronUpIcon,
   clockIcon,
-  completeBadgeIcon,
   cornerDownRightIcon,
   cpu1Icon,
   editIcon,

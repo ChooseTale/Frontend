@@ -1,18 +1,26 @@
 import Image from "next/image";
-import { completeBadgeIcon } from "@/asset/icons";
+import completeBadgeIcon from "@/asset/images/complete-badge.png";
+import completeBadgeAllIcon from "@/asset/images/complete-badge-all.png";
 
 export default function CompleteBadge({
-  isHidden = false,
+  reachedEndingPlayCount,
+  totalEndingCount,
   className = "",
 }: {
-  isHidden?: boolean;
+  reachedEndingPlayCount: number;
+  totalEndingCount: number;
   className?: string;
 }) {
-  if (isHidden) return null;
+  if (reachedEndingPlayCount === 0) return null;
+
+  const isAllCleared = reachedEndingPlayCount === totalEndingCount;
+  if (isAllCleared) {
+    return (
+      <Image src={completeBadgeAllIcon} alt="완료 배지" className={className} />
+    );
+  }
 
   return (
-    <div className={`relative w-[2.4rem] h-[2.4rem] ${className}`}>
-      <Image src={completeBadgeIcon} fill alt="완료 뱃지" />
-    </div>
+    <Image src={completeBadgeIcon} alt="완료 배지" className={className} />
   );
 }

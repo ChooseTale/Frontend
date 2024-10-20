@@ -15,8 +15,8 @@ import { xIcon } from "@/asset/icons";
 import GameContinueButton from "@/app/(game-list)/list/_components/GameContinueButton";
 import GameStartButton from "@/app/(game-list)/list/_components/GameStartButton";
 import ImageWithError from "@/components/common/image/ImageWithError";
-import CompleteBadge from "../CompleteBadge";
 import PlayerImages from "../game-list-card/PlayerImages";
+import CompleteBadge from "../CompleteBadge";
 import GameIntroBadge from "./GameIntroBadge";
 
 export default function GameIntroModal({
@@ -116,7 +116,13 @@ export default function GameIntroModal({
         <div className="relative flex items-center justify-between h-10 px-[1px] -mt-[6rem]">
           {gameData.enrichData.me.reachedEndingPlayCount > 0 && (
             <div className="flex items-center gap-2 absolute -top-10">
-              <CompleteBadge className="w-[1.875rem] h-[1.875rem]" />
+              <CompleteBadge
+                reachedEndingPlayCount={
+                  gameData.enrichData.me.reachedEndingPlayCount
+                }
+                totalEndingCount={totalEndingCount}
+                className="w-[1.875rem] h-[1.875rem]"
+              />
 
               <span className="body text-[#42F584]">
                 {gameData.enrichData.me.reachedEndingPlayCount}개의 엔딩을

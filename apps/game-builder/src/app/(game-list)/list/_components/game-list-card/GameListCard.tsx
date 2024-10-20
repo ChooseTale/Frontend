@@ -12,8 +12,8 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
   if (!game) return null;
 
   const { thumbnail, title, genre } = game;
-  const totalRechedEndingPlayCount =
-    gameData.enrichData.totalRechedEndingPlayCount;
+  const { me, totalRechedEndingPlayCount, totalEndingCount } =
+    gameData.enrichData;
 
   const gamePlayerImageUrls = gameData.game.player
     .map((player) => player.profileImage.url)
@@ -28,11 +28,13 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
           sizes="(max-width: 600px) 80vw, 400px"
           hasErrorDisplay
         />
-        {gameData.enrichData.me.reachedEndingPlayCount > 0 && (
-          <div className="absolute top-2 right-2 z-10">
-            <CompleteBadge />
-          </div>
-        )}
+
+        <div className="absolute top-2 right-2 z-10">
+          <CompleteBadge
+            reachedEndingPlayCount={me.reachedEndingPlayCount}
+            totalEndingCount={totalEndingCount}
+          />
+        </div>
       </AspectRatio>
 
       <div className="min-h-24 flex flex-col justify-between gap-2">
