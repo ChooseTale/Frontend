@@ -1,12 +1,5 @@
-import {
-  type Dispatch,
-  type SetStateAction,
-  type SyntheticEvent,
-  useEffect,
-  useState,
-} from "react";
-import Image from "next/image";
-import { ImageIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
+import { StarFilledIcon } from "@radix-ui/react-icons";
 import {
   Carousel,
   CarouselContent,
@@ -18,10 +11,7 @@ import {
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio.tsx";
 import { useThemeStore } from "@/store/useTheme";
 import { type Thumbnail } from "@/interface/customType";
-import {
-  getPlaceholderImageOnError,
-  placeholderSrc,
-} from "@/utils/getPlaceholderImageOnError";
+import ErrorHandlingImage from "@/components/common/image/ImageWithError";
 
 interface ThemedCarouselProps {
   thumbnails: Thumbnail[];
@@ -119,35 +109,17 @@ function CarouselItemWithOnError({
   isMainThumbnailImageId: boolean;
   onChangeMainThumbnailImageId: (id: number) => void;
 }) {
-  const [isError, setIsError] = useState(false);
-
-  const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
-    if (isError) return;
-    getPlaceholderImageOnError(e);
-    setIsError(true);
-  };
-
   return (
     <CarouselItem className="px-2">
       <AspectRatio ratio={9 / 9}>
         <div className="absolute w-full h-full">
-          <Image
-            src={thumbnail?.url ?? placeholderSrc}
-            alt={`thumbnail image ${thumbnail.id}`}
-            className="rounded-md object-cover border select-none"
-            onError={handleError}
-            fill
+          <ErrorHandlingImage
+            src={thumbnail?.url}
+            alt={`썸네일 이미지 ${thumbnail.id}`}
             priority={idx <= 1}
-            sizes="(max-width: 600px) 80vw, 400px"
-            style={{ objectFit: "cover" }}
+            hasErrorDisplay
           />
         </div>
-        {(isError || !thumbnail?.url) && (
-          <div className="absolute w-full h-full rounded-md border border-red-500 flex justify-center items-center">
-            <ImageIcon className="w-10 h-10" color="#aaaaaa" />
-            <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
-          </div>
-        )}
         <div className="absolute right-0 p-3">
           <button
             onClick={() => onChangeMainThumbnailImageId(thumbnail.id)}

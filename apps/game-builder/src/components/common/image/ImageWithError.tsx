@@ -1,16 +1,25 @@
 "use client";
 import { type SyntheticEvent, useState, useMemo } from "react";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
+import { ImageIcon } from "@radix-ui/react-icons";
 import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
+
+interface ErrorHandlingImageProps extends Omit<ImageProps, "src"> {
+  src: string | null;
+  hasErrorDisplay?: boolean;
+}
 
 export default function ErrorHandlingImage({
   src,
   alt,
-}: {
-  src: string;
-  alt: string;
-}) {
+  sizes = "(max-width: 600px) 80vw, 400px",
+  hasErrorDisplay = false,
+}: ErrorHandlingImageProps) {
   const [hasError, setHasError] = useState(false);
+  let currentSrc = "";
+  if (src && !src.includes("undefined")) {
+    currentSrc = src;
+  }
 
   const handleImageError = useMemo(() => {
     return (e: SyntheticEvent<HTMLImageElement>) => {
@@ -23,15 +32,25 @@ export default function ErrorHandlingImage({
   const MemoizedImage = useMemo(() => {
     return (
       <Image
-        src={src}
+        src={currentSrc}
         alt={alt}
         fill
-        sizes="(max-width: 600px) 80vw, 400px"
+        sizes={sizes}
         style={{ objectFit: "cover" }}
         onError={handleImageError}
       />
     );
-  }, [src, alt, handleImageError]);
+  }, [currentSrc, alt, sizes, handleImageError]);
 
-  return <div className="w-full h-full">{MemoizedImage}</div>;
+  return (
+    <div className="w-full h-full">
+      {MemoizedImage}
+      {(hasError || !currentSrc) && hasErrorDisplay && (
+        <div className="absolute w-full h-full rounded-md border border-red-500 flex justify-center items-center z-10">
+          <ImageIcon className="w-10 h-10" color="#aaaaaa" />
+          <div className="w-[42px] border-b-2 absolute border-[#aaaaaa] -rotate-45" />
+        </div>
+      )}
+    </div>
+  );
 }

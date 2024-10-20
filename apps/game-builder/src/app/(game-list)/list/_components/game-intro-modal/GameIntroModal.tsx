@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   DialogContent,
@@ -12,9 +12,9 @@ import { getGameIntro } from "@/actions/game-play/getIntro";
 import { useTranslation } from "@/hooks/useTranslation";
 import { AspectRatio } from "@/packages/ui/components/ui/AspectRatio";
 import { xIcon } from "@/asset/icons";
-import { getPlaceholderImageOnError } from "@/utils/getPlaceholderImageOnError";
 import GameContinueButton from "@/app/(game-list)/list/_components/GameContinueButton";
 import GameStartButton from "@/app/(game-list)/list/_components/GameStartButton";
+import ErrorHandlingImage from "@/components/common/image/ImageWithError";
 import CompleteBadge from "../CompleteBadge";
 import PlayerImages from "../game-list-card/PlayerImages";
 import GameIntroBadge from "./GameIntroBadge";
@@ -65,13 +65,6 @@ export default function GameIntroModal({
   const lastPageAbridgement = gameIntroData?.play?.page.abridgement;
   const gameDescription = gameIntroData?.game.description;
 
-  const [hasError, setHasError] = useState(false);
-  const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
-    if (hasError) return;
-    setHasError(true);
-    getPlaceholderImageOnError(e);
-  };
-
   if (!gameData) return null;
   if (error) {
     return (
@@ -89,13 +82,10 @@ export default function GameIntroModal({
     >
       <div className="absolute top-0 left-0 w-full">
         <AspectRatio ratio={9 / 9}>
-          <Image
+          <ErrorHandlingImage
             src={gameData.game.thumbnail?.url}
             alt="썸네일 이미지"
-            fill
             sizes="(max-width: 600px) 80vw, 400px"
-            style={{ objectFit: "cover" }}
-            onError={handleImageError}
           />
           <div className="mt-[1px] absolute bg-gradient-to-b from-transparent from-50% to-80% to-grey-900 w-full h-full top-0 left-0" />
         </AspectRatio>
