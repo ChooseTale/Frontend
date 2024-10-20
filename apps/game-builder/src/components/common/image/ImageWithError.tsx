@@ -9,7 +9,7 @@ interface ErrorHandlingImageProps extends Omit<ImageProps, "src"> {
   hasErrorDisplay?: boolean;
 }
 
-export default function ErrorHandlingImage({
+export default function ImageWithError({
   src,
   alt,
   sizes = "(max-width: 600px) 80vw, 400px",

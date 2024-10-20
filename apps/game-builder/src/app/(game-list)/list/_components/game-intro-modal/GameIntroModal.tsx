@@ -14,7 +14,7 @@ import { AspectRatio } from "@/packages/ui/components/ui/AspectRatio";
 import { xIcon } from "@/asset/icons";
 import GameContinueButton from "@/app/(game-list)/list/_components/GameContinueButton";
 import GameStartButton from "@/app/(game-list)/list/_components/GameStartButton";
-import ErrorHandlingImage from "@/components/common/image/ImageWithError";
+import ImageWithError from "@/components/common/image/ImageWithError";
 import CompleteBadge from "../CompleteBadge";
 import PlayerImages from "../game-list-card/PlayerImages";
 import GameIntroBadge from "./GameIntroBadge";
@@ -82,7 +82,7 @@ export default function GameIntroModal({
     >
       <div className="absolute top-0 left-0 w-full">
         <AspectRatio ratio={9 / 9}>
-          <ErrorHandlingImage
+          <ImageWithError
             src={gameData.game.thumbnail?.url}
             alt="썸네일 이미지"
             sizes="(max-width: 600px) 80vw, 400px"

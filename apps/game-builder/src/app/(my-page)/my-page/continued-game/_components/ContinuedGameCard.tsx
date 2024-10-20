@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { type ContinuedGame } from "@/interface/customType";
 import { formatDateString } from "@/utils/formatDatestring";
 import Button from "@/components/common/button/Button";
-import ErrorHandlingImage from "@components/common/image/ImageWithError";
+import ImageWithError from "@components/common/image/ImageWithError";
 
 interface ContinuedGameCardProps {
   continuedGame: ContinuedGame;
@@ -28,7 +28,7 @@ export default function ContinuedGameCard({
       className={`w-[calc(50%-1.125rem)] shrink-0 flex flex-col ${className}`}
     >
       <div className="relative w-full pb-[100%] rounded-md overflow-hidden bg-grey-200">
-        <ErrorHandlingImage
+        <ImageWithError
           src={continuedGame.game.thumbnail.url}
           alt={continuedGame.game.title}
         />

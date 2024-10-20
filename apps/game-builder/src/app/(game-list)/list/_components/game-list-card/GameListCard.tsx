@@ -1,7 +1,7 @@
 import { AspectRatio } from "@/packages/ui/components/ui/AspectRatio";
 import { type GameListGame } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
-import ErrorHandlingImage from "@/components/common/image/ImageWithError";
+import ImageWithError from "@/components/common/image/ImageWithError";
 import CompleteBadge from "../CompleteBadge";
 import PlayerImages from "./PlayerImages";
 
@@ -22,7 +22,7 @@ export default function GameListCard({ gameData }: { gameData: GameListGame }) {
   return (
     <div>
       <AspectRatio ratio={1 / 1} className="mb-2">
-        <ErrorHandlingImage
+        <ImageWithError
           src={thumbnail?.url}
           alt="썸네일 이미지"
           sizes="(max-width: 600px) 80vw, 400px"

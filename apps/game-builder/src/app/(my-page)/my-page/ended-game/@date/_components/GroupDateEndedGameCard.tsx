@@ -3,7 +3,7 @@ import Link from "next/link";
 import { type EndedGameGroupDate } from "@/interface/customType";
 import { useTranslation } from "@/hooks/useTranslation";
 import { formatDateString } from "@/utils/formatDatestring";
-import ErrorHandlingImage from "@components/common/image/ImageWithError";
+import ImageWithError from "@components/common/image/ImageWithError";
 
 interface EndedGameCardProps {
   endedGame: EndedGameGroupDate;
@@ -21,7 +21,7 @@ export default function GroupDateEndedGameCard({
     >
       <div className="flex flex-col gap-2">
         <div className="relative w-full pb-[100%] rounded-md overflow-hidden bg-grey-200">
-          <ErrorHandlingImage
+          <ImageWithError
             src={endedGame.game.thumbnail.url}
             alt={endedGame.game.title}
           />

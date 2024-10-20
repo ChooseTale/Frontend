@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import ErrorHandlingImage from "@/components/common/image/ImageWithError";
+import ImageWithError from "@/components/common/image/ImageWithError";
 import { useTranslation } from "@/hooks/useTranslation";
 import { formatDateString } from "@/utils/formatDatestring";
 import { type GameBuilderGame as GameBuilder } from "@/interface/customType";
@@ -26,7 +26,7 @@ export default function GameBuilderCard({ game }: GameBuilderCardProps) {
           <div className="flex gap-3">
             <div className="w-[3.75rem] shrink-0">
               <div className="relative w-full pb-[100%] rounded-md overflow-hidden bg-grey-200">
-                <ErrorHandlingImage src={game.thumbnail.url} alt={game.title} />
+                <ImageWithError src={game.thumbnail.url} alt={game.title} />
               </div>
             </div>
 

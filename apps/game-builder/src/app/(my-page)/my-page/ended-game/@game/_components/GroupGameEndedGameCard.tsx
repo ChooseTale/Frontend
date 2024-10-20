@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { formatDateString } from "@/utils/formatDatestring";
 import { type EndedGameGroupGame } from "@/interface/customType";
 import ChevronDownIcon from "@asset/icons/chevron-down.svg";
-import ErrorHandlingImage from "@/components/common/image/ImageWithError";
+import ImageWithError from "@/components/common/image/ImageWithError";
 
 interface EndedGameCardProps {
   endedGame: EndedGameGroupGame;
@@ -36,7 +36,7 @@ export default function GroupGameEndedGameCard({
             </p>
           </div>
           <div className="relative w-full pb-[100%] rounded-md overflow-hidden bg-grey-200">
-            <ErrorHandlingImage
+            <ImageWithError
               src={endedGame.game.thumbnail?.url}
               alt={endedGame.game.title}
             />

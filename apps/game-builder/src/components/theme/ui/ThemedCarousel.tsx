@@ -11,7 +11,7 @@ import {
 import { AspectRatio } from "@repo/ui/components/ui/AspectRatio.tsx";
 import { useThemeStore } from "@/store/useTheme";
 import { type Thumbnail } from "@/interface/customType";
-import ErrorHandlingImage from "@/components/common/image/ImageWithError";
+import ImageWithError from "@/components/common/image/ImageWithError";
 
 interface ThemedCarouselProps {
   thumbnails: Thumbnail[];
@@ -113,7 +113,7 @@ function CarouselItemWithOnError({
     <CarouselItem className="px-2">
       <AspectRatio ratio={9 / 9}>
         <div className="absolute w-full h-full">
-          <ErrorHandlingImage
+          <ImageWithError
             src={thumbnail?.url}
             alt={`썸네일 이미지 ${thumbnail.id}`}
             priority={idx <= 1}

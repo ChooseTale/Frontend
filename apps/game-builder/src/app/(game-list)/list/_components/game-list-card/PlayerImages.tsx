@@ -1,4 +1,4 @@
-import ErrorHandlingImage from "@/components/common/image/ImageWithError";
+import ImageWithError from "@/components/common/image/ImageWithError";
 
 export default function PlayerImages({
   gamePlayerImageUrls,
@@ -11,7 +11,7 @@ export default function PlayerImages({
         {gamePlayerImageUrls.slice(0, 3).map((src) => (
           <li key={src} className="w-2">
             <div className="relative bg-gray-200 w-4 h-4 rounded-full overflow-hidden">
-              <ErrorHandlingImage src={src} alt="" sizes="10px" />
+              <ImageWithError src={src} alt="" sizes="10px" />
             </div>
           </li>
         ))}
