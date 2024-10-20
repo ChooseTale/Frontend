@@ -21,7 +21,7 @@ export default function GameBuilderList({
 
   return (
     <div className="flex flex-col gap-4">
-      {[...games, ...games, ...games].map((game) => (
+      {games.map((game) => (
         <GameBuilderCard key={game.id} game={game} />
       ))}
     </div>
