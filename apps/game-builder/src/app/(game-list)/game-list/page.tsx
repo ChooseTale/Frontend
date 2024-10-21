@@ -6,6 +6,7 @@ import {
 } from "@/utils/formatGameListSearchParams";
 import GameListFilters from "@/components/common/game/game-list-filters/GameListFilters";
 import GameList from "./_components/GameList";
+import TextOverlayDiv from "@/components/common/TextOverlayDiv";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +20,6 @@ export default async function Page({ searchParams }: GameListParams) {
     ...formattedSearchParams,
     page: 1,
   });
-
-  if (!gameListData.data) {
-    throw new Error("Failed to fetch game list");
-  }
   const firstGameList = gameListData.data;
 
   return (
@@ -40,7 +37,11 @@ export default async function Page({ searchParams }: GameListParams) {
           />
         </div>
         <div className="h-[calc(100vh-12rem)] overflow-y-scroll">
-          <GameList firstList={firstGameList} />
+          {firstGameList.length ? (
+            <GameList />
+          ) : (
+            <TextOverlayDiv text="게임이 없습니다." />
+          )}
         </div>
       </div>
     </Suspense>
