@@ -22,7 +22,7 @@ export default function FooterButtons() {
   };
 
   return (
-    <div className="flex gap-2 items-center justify-center gap-4 mt-10">
+    <div className="flex gap-2 items-center justify-center gap-4 mt-6 mb-4">
       <button
         className="text-body text-grey-500 font-normal"
         onClick={() => setIsLogoutOpen(true)}
