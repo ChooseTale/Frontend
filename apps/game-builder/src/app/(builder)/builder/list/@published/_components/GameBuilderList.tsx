@@ -1,6 +1,6 @@
 import { type GameBuilderGame } from "@/interface/customType";
-import GameBuilderCard from "./GameBuilderCard";
 import TextOverlayDiv from "@/components/common/TextOverlayDiv";
+import GameBuilderCard from "./GameBuilderCard";
 
 export default function GameBuilderList({
   builderGames,

@@ -3,7 +3,7 @@ import type { Genres } from "@choosetale/nestia-type/lib/structures/Genres";
 import type { GameList, SortType } from "@/interface/customType";
 import api from "@/lib/axios/axios";
 
-export const getGameList = async ({
+export const getGameList = ({
   page,
   limit = 6,
   genre,
@@ -14,6 +14,12 @@ export const getGameList = async ({
   genre: Genres;
   sort: SortType;
 }): Promise<{ data: GameList }> => {
-  const url = `/game-play/list?page=${page}&limit=${limit}&genre=${genre}&sort=${sort}`;
-  return api.get(url);
+  return api.get("/game-play/list", {
+    params: {
+      page,
+      limit,
+      genre,
+      sort,
+    },
+  });
 };
