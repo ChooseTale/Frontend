@@ -8,7 +8,7 @@ import {
   formatGameListSearchParams,
 } from "@/utils/formatGameListSearchParams";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
-import Game from "@/app/(game-list)/list/_components/Game";
+import Game from "@/app/(game-list)/game-list/_components/Game";
 
 export default function GameList({ firstList }: { firstList: GameListType }) {
   const searchParams = useSearchParams();

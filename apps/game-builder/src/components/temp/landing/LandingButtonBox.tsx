@@ -45,7 +45,7 @@ export default function LandingButtonBox() {
           </div>
         </ThemedButton>
       </Link>
-      <Link href="/list">
+      <Link href="/game-list">
         <ThemedButton
           variant="ghost"
           className="w-full h-auto border border-b-2 border-black gap-2"

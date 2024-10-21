@@ -22,7 +22,7 @@ export default function useSocialLogin() {
 
   useEffect(() => {
     if (isLoggin) {
-      router.push("/list");
+      router.push("/game-list");
     }
   }, [sessionWithCookie, router, isLoggin]);
 

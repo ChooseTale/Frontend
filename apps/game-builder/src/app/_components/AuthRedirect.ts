@@ -8,7 +8,7 @@ export default function AuthRedirect() {
   const pathname = usePathname();
 
   if (session.status === "authenticated" && pathname === "/") {
-    router.push("/list");
+    router.push("/game-list");
   } else if (session.status === "unauthenticated" && pathname !== "/oauth") {
     document.cookie =
       "connect.sid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";

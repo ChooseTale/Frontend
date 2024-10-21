@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { GameListGame } from "@/interface/customType";
-import GameIntroModal from "@/app/(game-list)/list/_components/game-intro-modal/GameIntroModal";
+import GameIntroModal from "@/app/(game-list)/game-list/_components/game-intro-modal/GameIntroModal";
 import { Dialog, DialogTrigger } from "@/packages/ui/components/ui/Dialog";
 import GameListCard from "./game-list-card/GameListCard";
 
