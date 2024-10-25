@@ -32,9 +32,9 @@ export default async function RootLayout({
           <AuthRedirect />
           <LocaleProvider dict={dict}>
             <CSSThemeProvider>
-            <Toaster />
+              <Toaster />
               {children}
-          </CSSThemeProvider>
+            </CSSThemeProvider>
           </LocaleProvider>
         </SessionProvider>
       </body>
