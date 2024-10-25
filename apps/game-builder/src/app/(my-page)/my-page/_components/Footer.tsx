@@ -12,8 +12,8 @@ export default function FooterButtons() {
   const handleLogout = async () => {
     await userLogOut();
     deleteCookie("connect.sid");
-    signOut();
     setIsLogoutOpen(false);
+    signOut({ callbackUrl: "/oauth" });
   };
 
   const handleWithdrawal = () => {

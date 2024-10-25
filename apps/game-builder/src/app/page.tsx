@@ -5,9 +5,11 @@ import splashImage from "@/asset/images/splash.png";
 export default function Page() {
   return (
     <MobileWrapper>
-      <main className="h-full flex-1 flex items-center justify-center bg-background-dark">
-        <ImageWithError src={splashImage.src} alt="ChooseTale" priority />
-      </main>
+      <div className="h-full flex-1 bg-background-dark">
+        <div className="relative w-full h-full animate-pulse">
+          <ImageWithError src={splashImage.src} alt="ChooseTale" priority />
+        </div>
+      </div>
     </MobileWrapper>
   );
 }
